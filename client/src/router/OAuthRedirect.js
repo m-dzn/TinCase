@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import qs from "query-string";
-import axios from "axios";
+import { axios } from "api";
 import { COOKIE } from "consts";
 
 function OAuthRedirect() {
