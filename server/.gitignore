@@ -1,7 +1,6 @@
+# Secrets
 /node_modules
 .env
-
-# Secrets
 config/db-config.json
 config/oauth.js
 

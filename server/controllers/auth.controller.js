@@ -4,8 +4,10 @@ const { User } = require("../models");
 const {
     getAccessToken,
     sendAccessToken,
+    addRefreshToken,
     removeAccessToken,
-} = require("../utils/jwtUtils");
+    getRefreshToken,
+} = require("../lib");
 
 const { StatusCodes } = require("http-status-codes");
 const { CLIENT } = require("../config");
@@ -61,6 +63,8 @@ module.exports = {
                     }
 
                     const accessToken = getAccessToken(user);
+                    const refreshToken = getRefreshToken(user.dataValues.id);
+                    addRefreshToken(res, refreshToken);
                     sendAccessToken(res, accessToken);
                 });
             }
@@ -82,11 +86,7 @@ module.exports = {
             "google",
             { session: false },
             (err, user, info) => {
-                sendAccessToken(
-                    res,
-                    info.accessToken,
-                    CLIENT.OAUTH_REDIRECT_URL
-                );
+                sendAccessToken(res, info.accessToken);
             }
         )(req, res, next);
     },
@@ -94,6 +94,7 @@ module.exports = {
     kakao: passport.authenticate("kakao", { session: false }),
 
     kakaoCallback: (req, res, next) => {
+        console.log("[kakaoCallback]");
         passport.authenticate(
             "kakao",
             { session: false },

@@ -1,6 +1,6 @@
 const { Strategy: JWTStrategy, ExtractJwt } = require("passport-jwt");
-const { User } = require("../../models");
-const { JWT } = require("../../config");
+const { User } = require("../../../models");
+const { JWT } = require("../../../config");
 
 module.exports = new JWTStrategy(
     {
@@ -8,7 +8,6 @@ module.exports = new JWTStrategy(
         secretOrKey: JWT.SECRET,
     },
     async (payload, done) => {
-        console.log("jwt 내부", id);
         const { id } = payload;
 
         try {

@@ -1,9 +1,6 @@
 const { Strategy: KakaoStrategy } = require("passport-kakao");
-const { OAUTH } = require("../../config");
-const {
-    checkProfileAvailability,
-    verifySNS,
-} = require("../../utils/passportUtils");
+const { OAUTH } = require("../../../config");
+const { checkProfileAvailability, verifySNS } = require("../../passportUtils");
 
 module.exports = new KakaoStrategy(
     {

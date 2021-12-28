@@ -10,7 +10,13 @@ function OAuthRedirect() {
     const { accessToken } = qs.parse(location.search);
     const redirectUrl = localStorage.getItem(COOKIE.REDIRECT_URL) || "/";
 
-    axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+    console.log(accessToken);
+    if (accessToken) {
+        localStorage.setItem(COOKIE.ACCESS_TOKEN, accessToken);
+        axios.defaults.headers.common[
+            "Authorization"
+        ] = `Bearer ${accessToken}`;
+    }
 
     useEffect(() => {
         localStorage.removeItem(COOKIE.REDIRECT_URL);

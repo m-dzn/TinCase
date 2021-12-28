@@ -1,10 +1,12 @@
-const NODE_ENV = process.env.NODE_ENV || "development";
+const DEV_ENV = "development";
+const NODE_ENV = process.env.NODE_ENV || DEV_ENV;
 const dbConfig = require("./db-config.json")[NODE_ENV];
 
 const getOAuthCallbackURL = (provider) =>
     `${process.env.HOST}/api/auth/${provider}/callback`;
 
 const config = {
+    DEV_ENV,
     NODE_ENV,
 
     HOST: process.env.HOST,
@@ -14,7 +16,8 @@ const config = {
     COOKIE: {
         SECRET: process.env.COOKIE_SECRET,
         KEY: {
-            ACCESS_TOKEN: "access_token",
+            ACCESS_TOKEN: "accessToken",
+            REFRESH_TOKEN: "refreshToken",
         },
     },
 
@@ -38,6 +41,7 @@ const config = {
             CLIENT_ID: process.env.KAKAO_REST_API_KEY,
             CLIENT_SECRET: process.env.KAKAO_CLIENT_SECRET,
             CALLBACK_URL: getOAuthCallbackURL("kakao"),
+            TOKEN_API: "https://kauth.kakao.com/oauth/token",
         },
         NAVER: {
             CLIENT_ID: process.env.NAVER_CLIENT_ID,
@@ -49,7 +53,9 @@ const config = {
     // JWT
     JWT: {
         SECRET: process.env.JWT_SECRET,
-        EXPIRATION: 60 * 60,
+        ACCESS_TOKEN: {
+            EXPIRATION: 60 * 60 * 24,
+        },
     },
 
     // Client
@@ -57,6 +63,8 @@ const config = {
         BASE_URL: process.env.CLIENT_BASE_URL,
         OAUTH_REDIRECT_URL: process.env.CLIENT_OAUTH_REDIRECT_URL,
     },
+
+    ACCESS_ALLOWED_URL: [process.env.CLIENT_BASE_URL],
 };
 
 module.exports = config;

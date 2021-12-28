@@ -1,9 +1,6 @@
 const { Strategy: GoogleStrategy } = require("passport-google-oauth20");
-const { OAUTH } = require("../../config");
-const {
-    checkProfileAvailability,
-    verifySNS,
-} = require("../../utils/passportUtils");
+const { OAUTH } = require("../../../config");
+const { checkProfileAvailability, verifySNS } = require("../../passportUtils");
 
 module.exports = new GoogleStrategy(
     {

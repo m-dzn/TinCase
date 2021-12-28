@@ -1,20 +1,32 @@
+const EMAIL_MAX_LENGTH = 40;
+
 module.exports = {
-    email: {
-        max: 40,
+    user: {
+        email: {
+            max: EMAIL_MAX_LENGTH,
+        },
+        nickname: {
+            max: 15,
+        },
+        password: {
+            max: 255,
+        },
+        avatar: {
+            max: 255,
+        },
+        provider: {
+            max: 10,
+        },
+        snsId: {
+            max: 30,
+        },
     },
-    nickname: {
-        max: 15,
-    },
-    password: {
-        max: 255,
-    },
-    avatar: {
-        max: 255,
-    },
-    provider: {
-        max: 10,
-    },
-    snsId: {
-        max: 30,
+    token: {
+        content: {
+            max: 255,
+        },
+        userId: {
+            max: EMAIL_MAX_LENGTH,
+        },
     },
 };

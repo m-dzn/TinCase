@@ -1,13 +1,9 @@
 const express = require("express");
-const passport = require("passport");
 const router = express.Router();
 const { userController } = require("../controllers");
+const { isLoggedIn } = require("../lib");
 
-router.get(
-    "/me",
-    passport.authenticate("jwt", { session: false }),
-    userController.me
-);
+router.get("/me", isLoggedIn, userController.me);
 router.patch("/:id", userController.update);
 router.delete("/:id", userController.delete);
 
