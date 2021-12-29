@@ -1,7 +1,7 @@
 module.exports = {
     passportConfig: require("./middleware/passport"),
     ...require("./middleware/authMiddleware"),
-    ...require("./jwtUtils"),
-    ...require("./passportUtils"),
-    ...require("./httpUtils"),
+    ...require("./utils/passportUtils"),
+    ...require("./utils/httpUtils"),
+    ...require("./utils/stringUtils"),
 };

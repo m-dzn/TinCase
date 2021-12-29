@@ -1,7 +1,7 @@
 const { StatusCodes } = require("http-status-codes");
 const jwt = require("jsonwebtoken");
-const { JWT, COOKIE, CLIENT } = require("../config");
-const { getUrl } = require("../lib");
+const { JWT, COOKIE, CLIENT } = require("../../config");
+const { getUrl } = require("..");
 
 module.exports = {
     getAccessToken: (user) => {

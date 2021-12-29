@@ -15,10 +15,6 @@ const config = {
     // Cookie
     COOKIE: {
         SECRET: process.env.COOKIE_SECRET,
-        KEY: {
-            ACCESS_TOKEN: "accessToken",
-            REFRESH_TOKEN: "refreshToken",
-        },
     },
 
     // db
@@ -46,15 +42,7 @@ const config = {
         NAVER: {
             CLIENT_ID: process.env.NAVER_CLIENT_ID,
             CLIENT_SECRET: process.env.NAVER_CLIENT_SECRET,
-            CALLBACK_URL: [getOAuthCallbackURL("naver")],
-        },
-    },
-
-    // JWT
-    JWT: {
-        SECRET: process.env.JWT_SECRET,
-        ACCESS_TOKEN: {
-            EXPIRATION: 60 * 60 * 24,
+            CALLBACK_URL: getOAuthCallbackURL("naver"),
         },
     },
 
@@ -62,6 +50,7 @@ const config = {
     CLIENT: {
         BASE_URL: process.env.CLIENT_BASE_URL,
         OAUTH_REDIRECT_URL: process.env.CLIENT_OAUTH_REDIRECT_URL,
+        LOGIN_FAILURE_URL: process.env.LOGIN_FAILURE_URL,
     },
 
     ACCESS_ALLOWED_URL: [process.env.CLIENT_BASE_URL],

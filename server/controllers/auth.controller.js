@@ -1,16 +1,14 @@
 const passport = require("passport");
 const bcrypt = require("bcryptjs");
 const { User } = require("../models");
-const {
-    getAccessToken,
-    sendAccessToken,
-    addRefreshToken,
-    removeAccessToken,
-    getRefreshToken,
-} = require("../lib");
 
 const { StatusCodes } = require("http-status-codes");
 const { CLIENT } = require("../config");
+
+const oauthPassportOptions = {
+    successRedirect: CLIENT.OAUTH_REDIRECT_URL,
+    failureRedirect: CLIENT.LOGIN_FAILURE_URL,
+};
 
 module.exports = {
     register: async (req, res) => {
@@ -44,67 +42,53 @@ module.exports = {
     },
 
     login: (req, res, next) => {
-        passport.authenticate(
-            "local",
-            { session: false },
-            (passportError, user, info) => {
-                if (passportError || !user) {
-                    return res.status(StatusCodes.BAD_REQUEST).json({
-                        message: info.message,
-                    });
-                }
-
-                return req.login(user, { session: false }, (loginError) => {
-                    if (loginError) {
-                        console.error(loginError);
-                        return res
-                            .status(StatusCodes.INTERNAL_SERVER_ERROR)
-                            .json({ message: "로그인에 실패했습니다." });
-                    }
-
-                    const accessToken = getAccessToken(user);
-                    const refreshToken = getRefreshToken(user.dataValues.id);
-                    addRefreshToken(res, refreshToken);
-                    sendAccessToken(res, accessToken);
+        passport.authenticate("local", (passportError, user, info) => {
+            if (passportError || !user) {
+                return res.status(StatusCodes.BAD_REQUEST).json({
+                    message: info.message,
                 });
             }
-        )(req, res, next);
+
+            return req.login(user, (loginError) => {
+                if (loginError) {
+                    console.error(loginError);
+                    return res
+                        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                        .json({ message: "로그인에 실패했습니다." });
+                }
+
+                console.log("로그인 성공");
+                res.json({ message: "로그인 되었습니다." });
+            });
+        })(req, res, next);
     },
 
     logout: (req, res, next) => {
-        removeAccessToken(req, res);
+        req.logout();
+        req.session.destroy();
+        res.json({ message: "로그아웃 되었습니다." });
     },
 
     google: passport.authenticate("google", {
-        session: false,
         scope: ["email", "profile"],
     }),
 
     googleCallback: (req, res, next) => {
         console.log("[googleCallback]");
-        passport.authenticate(
-            "google",
-            { session: false },
-            (err, user, info) => {
-                sendAccessToken(res, info.accessToken);
-            }
-        )(req, res, next);
+        passport.authenticate("google", oauthPassportOptions)(req, res, next);
     },
 
-    kakao: passport.authenticate("kakao", { session: false }),
+    kakao: passport.authenticate("kakao"),
 
     kakaoCallback: (req, res, next) => {
         console.log("[kakaoCallback]");
-        passport.authenticate(
-            "kakao",
-            { session: false },
-            (err, user, info) => {
-                sendAccessToken(
-                    res,
-                    info.accessToken,
-                    CLIENT.OAUTH_REDIRECT_URL
-                );
-            }
-        )(req, res, next);
+        passport.authenticate("kakao", oauthPassportOptions)(req, res, next);
+    },
+
+    naver: passport.authenticate("naver"),
+
+    naverCallback: (req, res, next) => {
+        console.log("naverCallback");
+        passport.authenticate("naver", oauthPassportOptions)(req, res, next);
     },
 };

@@ -4,12 +4,13 @@ const passport = require("passport");
 
 module.exports = {
     me: (req, res, next) => {
+        console.log("/users/me");
         const user = req.user;
         return res.status(StatusCodes.OK).json({
-            id: user.dataValues.id,
-            email: user.dataValues.email,
-            nickname: user.dataValues.nickname,
-            provider: user.dataValues.provider,
+            id: user.id,
+            email: user.email,
+            nickname: user.nickname,
+            provider: user.provider,
         });
     },
 

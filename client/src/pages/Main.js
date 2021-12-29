@@ -1,7 +1,8 @@
 import React from "react";
+import { PageTemplate } from "components";
 
 function Main() {
-    return <div>Main</div>;
+    return <PageTemplate></PageTemplate>;
 }
 
 export default Main;

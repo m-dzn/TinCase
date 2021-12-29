@@ -1,0 +1,8 @@
+@import "styles/tokens/alias-tokens";
+
+.PageTemplate {
+    margin: 80px;
+    height: 100px;
+    background: teal;
+    border: 1px solid $color-white;
+}

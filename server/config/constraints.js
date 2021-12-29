@@ -21,12 +21,4 @@ module.exports = {
             max: 30,
         },
     },
-    token: {
-        content: {
-            max: 255,
-        },
-        userId: {
-            max: EMAIL_MAX_LENGTH,
-        },
-    },
 };

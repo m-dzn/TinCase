@@ -1,5 +1,4 @@
-const { User } = require("../models");
-const { getAccessToken } = require("./jwtUtils");
+const { User } = require("../../models");
 
 module.exports = {
     checkProfileAvailability: (profile, done) => {
@@ -12,7 +11,7 @@ module.exports = {
 
     verifySNS: async (newUserForm, done) => {
         if (!newUserForm?.email) {
-            return done(null, { message: "이메일 정보를 불러올 수 없습니다." });
+            return done(null, { message: "회원 정보를 불러올 수 없습니다." });
         }
 
         try {
@@ -21,11 +20,11 @@ module.exports = {
             });
 
             if (exUser) {
-                done(null, exUser, { accessToken: getAccessToken(exUser) });
+                done(null, exUser);
             } else {
                 const newUser = await User.create(newUserForm);
 
-                done(null, newUser, { accessToken: getAccessToken(newUser) });
+                done(null, newUser);
             }
         } catch (err) {
             console.error(err);

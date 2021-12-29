@@ -1,5 +1,5 @@
-import { axios } from "./index";
-import PATH from "../consts/path";
+import axios from "./index";
+import { PATH } from "consts";
 
 const { API } = PATH;
 

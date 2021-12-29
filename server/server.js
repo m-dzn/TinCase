@@ -1,4 +1,5 @@
 const express = require("express");
+const session = require("express-session");
 const compression = require("compression");
 const cookieParser = require("cookie-parser");
 
@@ -36,6 +37,17 @@ module.exports = class Server {
         const { app } = this;
         app.use(compression());
         app.use(cors({ origin: CLIENT.BASE_URL, credentials: true }));
+        app.use(
+            session({
+                resave: false,
+                saveUninitialized: false,
+                secret: COOKIE.SECRET,
+                cookie: {
+                    httpOnly: true,
+                    secure: false,
+                },
+            })
+        );
 
         // Parser
         app.use(express.json());
