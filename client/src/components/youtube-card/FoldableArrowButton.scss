@@ -1,0 +1,105 @@
+@import "styles/utils";
+
+.foldable-arrow-button {
+    $foldable_arrow_button__color: $color-font;
+
+    @include flex(flex-start, center);
+
+    background: none;
+    border: none;
+    outline: none;
+
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-20vw, -50%);
+    cursor: pointer;
+
+    transition: 1s;
+
+    &::before {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 1px;
+        background: $foldable_arrow_button__color;
+        position: absolute;
+        top: 50%;
+        left: 0px;
+        transform-origin: left center;
+        transform: rotate(-180deg);
+        transition: 0.5s;
+    }
+
+    &::after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 1px;
+        background: $foldable_arrow_button__color;
+        position: absolute;
+        bottom: 50%;
+        left: 0px;
+        transform-origin: left center;
+        transform: rotate(180deg);
+        transition: 0.5s;
+    }
+
+    &:hover {
+        &::before {
+            transform: rotate(-30deg);
+        }
+
+        &::after {
+            transform: rotate(30deg);
+        }
+
+        span {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+    }
+
+    span {
+        font: 11px/1 "arial";
+        color: $foldable_arrow_button__color;
+        opacity: 1;
+        transform: translateX(30%);
+        transition: 0.5s;
+    }
+
+    // Right Arrow
+    &.right {
+        transform: translate(20vw, -50%);
+
+        span {
+            transform: translateX(-30%);
+        }
+
+        &::before {
+            transform-origin: right center;
+            transform: rotate(180deg);
+        }
+
+        &::after {
+            transform-origin: right center;
+            transform: rotate(-180deg);
+        }
+
+        &:hover {
+            &::before {
+                transform: rotate(30deg);
+            }
+
+            &::after {
+                transform: rotate(-30deg);
+            }
+
+            span {
+                transform: translateX(-100%);
+            }
+        }
+    }
+}

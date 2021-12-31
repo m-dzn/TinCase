@@ -1,0 +1,45 @@
+@import "./functions";
+
+/*  Global Tokens */
+// Token : Breakpoint
+$breakpoint-mobile: 320px;
+$breakpoint-tablet: 768px;
+$breakpoint-laptop: 1024px;
+
+// Global Token : Color
+$color-white: #ffffff;
+$color-navy: #435880;
+$color-black: #000000;
+
+$color-gradient-black: linear-gradient(#{$color-black}40, #{$color-black}00);
+
+// Global Token : Size
+$unit: rem(4px);
+
+$rem: unquote(rem);
+$em: unquote(em);
+
+$font-weight-bold: 600;
+
+$font-size-h1: rem(40px);
+$font-size-h2: rem(32px);
+$font-size-h3: rem(28px);
+$font-size-h4: rem(24px);
+$font-size-h5: rem(20px);
+$font-size-h6: rem(16px);
+$font-size-large: $font-size-h5;
+$font-size-normal: $font-size-h6;
+$font-size-small: rem(14px);
+$font-size-xsmall: rem(12px);
+$font-size-rem: 1rem;
+
+// Alias Tokens
+$max-width: rem(1440px);
+
+$color-font: $color-white;
+
+$color-background: linear-gradient($color-navy, #2a3750);
+$color-surface-default: $color-white;
+
+$card-default-ratio: 1 / 1.618;
+$card-default-border-radius-ratio: 0.04;

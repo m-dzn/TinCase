@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { COOKIE } from "consts";
+import { COOKIE } from "constants";
 
 function OAuthRedirect() {
     const location = useLocation();

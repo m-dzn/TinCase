@@ -1,0 +1,29 @@
+@function css-max($value1, $value2) {
+    @return #{"max(" + $value1 + ", " + $value2 + ")"};
+}
+
+@function css-min($value1, $value2) {
+    @return #{"min(" + $value1 + ", " + $value2 + ")"};
+}
+
+@function css-calc-add($value1, $value2) {
+    @return #{"calc(" + $value1 + " + " + $value2 + ")"};
+}
+
+@function css-calc-sub($value1, $value2) {
+    @return #{"calc(" + $value1 + " - " + $value2 + ")"};
+}
+
+@function css-calc-mul($value1, $value2) {
+    @return #{"calc(" + $value1 + " * " + $value2 + ")"};
+}
+
+@function css-calc-div($value1, $value2) {
+    @return #{"calc(" + $value1 + " / " + $value2 + ")"};
+}
+
+// 단위
+@function rem($px) {
+    $rem: ($px / 16px) * 1rem;
+    @return $rem;
+}

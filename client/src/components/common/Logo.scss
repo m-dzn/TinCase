@@ -1,0 +1,5 @@
+@import "styles/utils";
+
+.logo {
+    @include flex(center, center);
+}

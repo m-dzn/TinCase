@@ -1,3 +1,8 @@
-.Header {
-    background: tomato;
+@import "styles/utils";
+
+.header {
+    $header__padding-v: 1.6rem;
+    $Header__padding-h: 1.6rem;
+
+    padding: $header__padding-v $Header__padding-h;
 }

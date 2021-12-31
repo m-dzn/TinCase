@@ -1,0 +1,25 @@
+@import "styles/utils";
+
+.navbar {
+    @include flex(flex-start, stretch);
+
+    $navbar__height: 5.6rem;
+    $navbar__padding-v: 0;
+    $navbar__padding-h: 4.8rem;
+
+    $navbar__menu_item__padding-v: 0.8rem;
+    $navbar__menu_item__padding-h: 2rem;
+
+    height: $navbar__height;
+    padding: $navbar__padding-v $navbar__padding-h;
+
+    & .menu {
+        @include flex(flex-start, stretch);
+        margin-left: auto;
+
+        & li {
+            @include flex(center, center);
+            padding: $navbar__menu_item__padding-v $navbar__menu_item__padding-h;
+        }
+    }
+}

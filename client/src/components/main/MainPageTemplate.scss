@@ -1,0 +1,34 @@
+@import "styles/utils";
+
+.main-page-template {
+    /*      Tokens        */
+    $main-page-template__background: #{$color-black}25;
+
+    $main-page-template__margin-v: 5.6rem;
+    $main-page-template__margin-h: auto;
+
+    $main-page-template__border-width: 0.3rem;
+    $main-page-template__border-color: #{$color-font}99;
+    $main-page-template__border-radius: 3.2rem;
+
+    /*      Styles        */
+    // Color
+    background: $main-page-template__background;
+
+    // Box-model
+    max-width: $max-width;
+    min-height: 56rem;
+
+    margin: $main-page-template__margin-v $main-page-template__margin-h;
+
+    // Border
+    border: $main-page-template__border-width solid
+        $main-page-template__border-color;
+    border-radius: $main-page-template__border-radius;
+
+    overflow: hidden;
+
+    main {
+        padding: rem(24px);
+    }
+}

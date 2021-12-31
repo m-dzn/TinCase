@@ -1,15 +1,2 @@
-@import "reset";
-
-html {
-    font-size: 62.5%;
-}
-
-html,
-body,
-#root {
-    min-height: 100vh;
-}
-
-body {
-    font-size: 160%;
-}
+@import "utils";
+@import "common/all";

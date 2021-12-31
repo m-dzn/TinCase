@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { PATH } from "consts";
+import { PATH } from "constants";
 import { Main, Test } from "pages";
 import { Routes, Route } from "react-router-dom";
 import OAuthRedirect from "./OAuthRedirect";

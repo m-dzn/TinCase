@@ -1,8 +1,65 @@
 import React from "react";
-import { PageTemplate } from "components";
+import { BouncingArrow, MainPageTemplate } from "components";
 
 function Main() {
-    return <PageTemplate></PageTemplate>;
+    return (
+        <MainPageTemplate>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+
+            <div style={{ display: "flex", justifyContent: "center" }}>
+                <BouncingArrow />
+            </div>
+        </MainPageTemplate>
+    );
 }
 
 export default Main;

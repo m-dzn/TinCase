@@ -1,0 +1,29 @@
+@mixin flex($justify-content: flex-start, $align-items: flex-start) {
+    display: flex;
+    justify-content: $justify-content;
+    align-items: $align-items;
+}
+
+@mixin flex-column($justify-content: "", $align-items: "") {
+    @include flex($justify-content, $align-items);
+    flex-direction: column;
+}
+
+// Breakpoint
+@mixin mobile {
+    @media (max-width: #{$breakpoint-mobile}) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (min-width: #{$breakpoint-mobile}) and (max-width: #{$breakpoint-tablet}) {
+        @content;
+    }
+}
+
+@mixin keyframes($animation-name) {
+    @keyframes #{$animation-name} {
+        @content;
+    }
+}

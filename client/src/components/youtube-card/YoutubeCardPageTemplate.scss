@@ -1,0 +1,17 @@
+@import "styles/utils";
+
+.youtube-card-page-template {
+    @include flex-column();
+
+    min-height: 100vh;
+
+    & > header {
+        padding: 2rem 0;
+    }
+
+    & > main {
+        @include flex(center, center);
+        position: relative;
+        height: 100%;
+    }
+}

@@ -1,0 +1,18 @@
+@import "styles/utils";
+
+.bouncing-arrow {
+    $font-size: rem(40px);
+
+    font-size: $font-size;
+
+    animation: 0.7s bouncing infinite alternate;
+
+    @include keyframes(bouncing) {
+        0% {
+            transform: translateY(0);
+        }
+        100% {
+            transform: translateY(60%);
+        }
+    }
+}
