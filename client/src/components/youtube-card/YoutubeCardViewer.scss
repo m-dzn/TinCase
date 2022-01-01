@@ -1,0 +1,52 @@
+@import "styles/utils";
+
+.youtube-card-list {
+    position: relative;
+
+    width: 320px;
+
+    & .card-menu {
+    }
+
+    & li.current {
+        .youtube-card {
+            position: relative;
+            z-index: 10;
+        }
+    }
+
+    & li.card--out {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        animation: card-out 0.6s cubic-bezier(0.8, 0.2, 0.1, 0.8);
+        transform: translateY(rem(-8px)) rotate(5deg) translateX(rem(12px))
+            scale(0.95);
+        z-index: 1;
+        filter: brightness(0.4);
+
+        @include keyframes(card-out) {
+            0% {
+                z-index: 20;
+                transform: translateY(rem(0px)) rotate(-4deg);
+
+                filter: none;
+            }
+            50% {
+                transform: translateX(-50%) rotate(-10deg);
+            }
+            80% {
+                z-index: 1;
+            }
+            100% {
+                transform: translateY(rem(-8px)) rotate(5deg)
+                    translateX(rem(12px)) scale(0.95);
+            }
+        }
+    }
+
+    & li {
+        position: relative;
+    }
+}

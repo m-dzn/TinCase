@@ -1,10 +1,10 @@
 import React from "react";
-import "./YoutubeCardPageTemplate.scss";
+import "./CardDetailPageTemplate.scss";
 import cx from "classnames";
 import { Navbar } from "components";
 
-function YoutubeCardPageTemplate({ children }) {
-    const containerClass = cx("youtube-card-page-template");
+function CardDetailPageTemplate({ children }) {
+    const containerClass = cx("card-detail-page-template");
 
     return (
         <div className={containerClass}>
@@ -17,4 +17,4 @@ function YoutubeCardPageTemplate({ children }) {
     );
 }
 
-export default YoutubeCardPageTemplate;
+export default CardDetailPageTemplate;

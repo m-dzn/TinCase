@@ -3,6 +3,7 @@ import "./Navbar.scss";
 import cx from "classnames";
 import { Link } from "react-router-dom";
 import Logo from "./Logo";
+import navMenuRoutes from "router/navMenuRoutes";
 
 function Navbar() {
     const classnames = cx("navbar");
@@ -11,15 +12,11 @@ function Navbar() {
         <nav className={classnames}>
             <Logo heading="h4" />
             <ul className="menu">
-                <li>
-                    <Link to="/">Main</Link>
-                </li>
-                <li>
-                    <Link to="/test">Test</Link>
-                </li>
-                <li>
-                    <Link to="/test">Client</Link>
-                </li>
+                {navMenuRoutes.map((route) => (
+                    <li key={route.path}>
+                        <Link to={route.path}>{route.label}</Link>
+                    </li>
+                ))}
             </ul>
         </nav>
     );

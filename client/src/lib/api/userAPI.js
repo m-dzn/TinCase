@@ -1,5 +1,5 @@
 import axios from "./index";
-import { PATH } from "lib/consts";
+import { PATH } from "constants";
 
 const { API } = PATH;
 

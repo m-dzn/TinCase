@@ -1,15 +1,8 @@
 import React from "react";
-import { FoldableArrowButton, YoutubeCard } from "components";
+import { YoutubeCardList } from "components";
 
 function YoutubeCardContainer() {
-    return (
-        <>
-            <YoutubeCard />
-
-            <FoldableArrowButton>PREV CARD</FoldableArrowButton>
-            <FoldableArrowButton right>NEXT CARD</FoldableArrowButton>
-        </>
-    );
+    return <YoutubeCardList />;
 }
 
 export default YoutubeCardContainer;

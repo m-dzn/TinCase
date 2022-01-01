@@ -1,0 +1,87 @@
+@import "styles/utils";
+
+.memo-card-list {
+    $memo-card--current__tranform: translateY(0%) scale(1);
+    $memo-card--current__z-index: 10;
+    $memo-card--next__transform: translateY(rem(-4px)) rotate(6deg)
+        translateX(rem(6px)) scale(1);
+    $memo-card--next__z-index: 5;
+    $memo-card--after-next__transform: translateY(rem(-8px)) rotate(12deg)
+        translateX(rem(12px)) scale(0.95);
+    $memo-card--after-next__z-index: 1;
+
+    position: relative;
+
+    width: 320px;
+
+    & li {
+        position: absolute;
+        top: 0;
+        left: 0;
+        filter: brightness(0.65);
+
+        transform: $memo-card--after-next__transform;
+        z-index: $memo-card--after-next__z-index;
+
+        transition: transform 0.6s cubic-bezier(0.8, 0.2, 0.1, 0.8) 0.1s,
+            background 0.4s linear;
+
+        &.current {
+            position: relative;
+            z-index: $memo-card--current__z-index;
+            filter: none;
+            transform: $memo-card--current__tranform;
+        }
+
+        &.next {
+            z-index: $memo-card--next__z-index;
+            transform: $memo-card--next__transform;
+        }
+
+        &.out {
+            z-index: $memo-card--after-next__z-index;
+            animation: memo-card-out 0.6s cubic-bezier(0.8, 0.2, 0.1, 0.8);
+            transform: $memo-card--after-next__transform;
+
+            @include keyframes(memo-card-out) {
+                0% {
+                    z-index: 20;
+                    transform: translateY(rem(0px)) rotate(-4deg);
+
+                    filter: none;
+                }
+                50% {
+                    transform: translateX(-40%) rotate(-10deg) translateY(-40px);
+                }
+                80% {
+                    z-index: 1;
+                }
+                100% {
+                    transform: $memo-card--after-next__transform;
+                }
+            }
+        }
+
+        &.out-next {
+            animation: memo-card-out-next 0.6s cubic-bezier(0.8, 0.2, 0.1, 0.8);
+
+            @include keyframes(memo-card-out-next) {
+                0% {
+                    z-index: 20;
+                    transform: translateY(rem(0px)) rotate(-4deg);
+
+                    filter: none;
+                }
+                50% {
+                    transform: translateX(40%) rotate(-10deg) translateY(-40px);
+                }
+                80% {
+                    z-index: 1;
+                }
+                100% {
+                    transform: $memo-card--after-next__transform;
+                }
+            }
+        }
+    }
+}

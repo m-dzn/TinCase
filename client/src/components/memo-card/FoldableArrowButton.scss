@@ -9,12 +9,9 @@
     border: none;
     outline: none;
 
-    width: 60px;
-    height: 60px;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-20vw, -50%);
     cursor: pointer;
 
     transition: 1s;
@@ -23,13 +20,11 @@
         content: "";
         display: block;
         width: 100%;
-        height: 1px;
+        height: rem(1px);
         background: $foldable_arrow_button__color;
         position: absolute;
         top: 50%;
         left: 0px;
-        transform-origin: left center;
-        transform: rotate(-180deg);
         transition: 0.5s;
     }
 
@@ -37,42 +32,60 @@
         content: "";
         display: block;
         width: 100%;
-        height: 1px;
+        height: rem(1px);
         background: $foldable_arrow_button__color;
         position: absolute;
         bottom: 50%;
         left: 0px;
-        transform-origin: left center;
-        transform: rotate(180deg);
         transition: 0.5s;
     }
 
-    &:hover {
-        &::before {
-            transform: rotate(-30deg);
-        }
-
-        &::after {
-            transform: rotate(30deg);
-        }
-
-        span {
-            opacity: 0;
-            transform: translateX(100%);
-        }
+    &:hover span {
+        opacity: 0;
     }
 
     span {
-        font: 11px/1 "arial";
+        font: $font-size-xsmall "arial";
         color: $foldable_arrow_button__color;
         opacity: 1;
-        transform: translateX(30%);
         transition: 0.5s;
+    }
+
+    &.left {
+        transform: translate(calc(-20vw - 50%), -50%);
+
+        span {
+            transform: translateX(30%);
+        }
+
+        &::before {
+            transform-origin: left center;
+            transform: rotate(-180deg);
+        }
+
+        &::after {
+            transform-origin: left center;
+            transform: rotate(180deg);
+        }
+
+        &:hover {
+            &::before {
+                transform: rotate(-30deg);
+            }
+
+            &::after {
+                transform: rotate(30deg);
+            }
+
+            span {
+                transform: translateX(160%);
+            }
+        }
     }
 
     // Right Arrow
     &.right {
-        transform: translate(20vw, -50%);
+        transform: translate(calc(20vw - 50%), -50%);
 
         span {
             transform: translateX(-30%);
@@ -98,7 +111,7 @@
             }
 
             span {
-                transform: translateX(-100%);
+                transform: translateX(-160%);
             }
         }
     }

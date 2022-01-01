@@ -10,6 +10,7 @@ $breakpoint-laptop: 1024px;
 $color-white: #ffffff;
 $color-navy: #435880;
 $color-black: #000000;
+$color-gray: #767676;
 
 $color-gradient-black: linear-gradient(#{$color-black}40, #{$color-black}00);
 
@@ -23,9 +24,9 @@ $font-weight-bold: 600;
 
 $font-size-h1: rem(40px);
 $font-size-h2: rem(32px);
-$font-size-h3: rem(28px);
-$font-size-h4: rem(24px);
-$font-size-h5: rem(20px);
+$font-size-h3: rem(24px);
+$font-size-h4: rem(20px);
+$font-size-h5: rem(18px);
 $font-size-h6: rem(16px);
 $font-size-large: $font-size-h5;
 $font-size-normal: $font-size-h6;
@@ -33,13 +34,24 @@ $font-size-small: rem(14px);
 $font-size-xsmall: rem(12px);
 $font-size-rem: 1rem;
 
+$line-height-160: 1.6;
+$line-height-150: 1.5;
+$line-height-140: 1.4;
+$line-height-120: 1.2;
+$line-height-100: 1;
+
 // Alias Tokens
 $max-width: rem(1440px);
 
 $color-font: $color-white;
+$color-font-reverse: $color-black;
+$color-font-gray: $color-gray;
 
 $color-background: linear-gradient($color-navy, #2a3750);
-$color-surface-default: $color-white;
+$color-surface: $color-white;
 
+// Comonent Specific Tokens : Shared Tokens
 $card-default-ratio: 1 / 1.618;
 $card-default-border-radius-ratio: 0.04;
+$card-default-border-radius: rem($breakpoint-mobile) *
+    $card-default-border-radius-ratio;

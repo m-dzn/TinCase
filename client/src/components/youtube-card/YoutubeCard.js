@@ -4,8 +4,8 @@ import cx from "classnames";
 import ReactPlayer from "react-player";
 import { BasicCardTemplate } from "components";
 
-function YoutubeCard() {
-    const containerClass = cx("youtube-card");
+function YoutubeCard({ className, card }) {
+    const containerClass = cx("card", "youtube-card", className);
     const url = "https://www.youtube.com/watch?v=ctAmUvoDkXE";
 
     return (
@@ -13,7 +13,7 @@ function YoutubeCard() {
             <div
                 style={{
                     width: "100%",
-                    aspectRatio: "1.619",
+                    aspectRatio: "1.618",
                     background: "black",
                 }}
             >
@@ -21,7 +21,7 @@ function YoutubeCard() {
             </div>
 
             <section className="contents" style={{ color: "black" }}>
-                <h5>Zion.T - '선물을 고르며(A Gif... </h5>
+                <h5>{card?.title} </h5>
             </section>
         </BasicCardTemplate>
     );

@@ -2,7 +2,7 @@
 
 .basic-card-template {
     /*    변수    */
-    $basic-card-template__background: $color-surface-default;
+    $basic-card-template__background: $color-surface;
 
     $basic-card-template__size-unit: 20em;
 
@@ -27,15 +27,13 @@
     min-height: $basic-card-template__min-height;
 
     // 테두리
-    border-radius: $basic-card-template__min-width *
-        $card-default-border-radius-ratio;
+    border-radius: $card-default-border-radius;
 
     // 박스 옵션
     overflow: hidden;
 
     // 폰트
     font-size: $font-size-normal;
-    // font-size: $basic-card-template__font-multiplier + unquote("vw");
 }
 
 /*      미디어 쿼리     */
