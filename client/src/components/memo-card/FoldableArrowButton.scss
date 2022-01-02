@@ -1,7 +1,7 @@
 @import "styles/utils";
 
 .foldable-arrow-button {
-    $foldable_arrow_button__color: $color-font;
+    $foldable_arrow_button__color: $color-font-background;
 
     @include flex(flex-start, center);
 

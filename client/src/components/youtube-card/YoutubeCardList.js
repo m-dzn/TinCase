@@ -1,22 +1,19 @@
 import React from "react";
 import "./YoutubeCardList.scss";
 import cx from "classnames";
-import YoutubeCard from "./YoutubeCard";
 
-const testCard = [
-    {
-        title: "Zion.T - '선물을 고르며(A Gif...",
-    },
-];
-
-function YoutubeCardList({ className }) {
+function YoutubeCardList({ className, videos, ...rest }) {
     const classnames = cx("youtube-card-list", className);
 
     return (
-        <div className={classnames}>
-            <YoutubeCard card={testCard[0]} />
-            <div></div>
-        </div>
+        <article className={classnames} {...rest}>
+            <ul>
+                {videos &&
+                    videos.map((video) => (
+                        <li key={video.id}>{video.title}</li>
+                    ))}
+            </ul>
+        </article>
     );
 }
 

@@ -1,8 +1,8 @@
 import React from "react";
-import { YoutubeCardList } from "components";
+import { YoutubeCardViewer } from "components";
 
 function YoutubeCardContainer() {
-    return <YoutubeCardList />;
+    return <YoutubeCardViewer />;
 }
 
 export default YoutubeCardContainer;

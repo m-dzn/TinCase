@@ -21,3 +21,4 @@ export { default as TodoCard } from "./todo-card/TodoCard";
 /* youtube-card */
 export { default as YoutubeCard } from "./youtube-card/YoutubeCard";
 export { default as YoutubeCardList } from "./youtube-card/YoutubeCardList";
+export { default as YoutubeCardViewer } from "./youtube-card/YoutubeCardViewer";

@@ -17,7 +17,7 @@ const config = {
         SECRET: process.env.COOKIE_SECRET,
     },
 
-    // db
+    // DB
     DB: {
         username: dbConfig.username,
         password: dbConfig.password,

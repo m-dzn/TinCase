@@ -1,9 +1,11 @@
 @import "styles/utils";
 
 .bouncing-arrow {
-    $font-size: rem(40px);
+    $bouncing-arrow__font-color: $color-font-background;
+    $bouncing-arrow__font-size: rem(40px);
 
-    font-size: $font-size;
+    color: $bouncing-arrow__font-color;
+    font-size: $bouncing-arrow__font-size;
 
     animation: 0.7s bouncing infinite alternate;
 

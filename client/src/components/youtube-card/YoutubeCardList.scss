@@ -1,10 +1,19 @@
 @import "styles/utils";
 
 .youtube-card-list {
+    /*  변수  */
+    $youtube-card-list__background: $color-surface;
+    $youtube-card-list__min-width: rem(360px);
+    $youtube-card-list__border-radius: $card-default-border-radius;
+
+    /*  속성  */
     position: relative;
 
-    width: 320px;
+    background: $youtube-card-list__background;
+    min-width: $youtube-card-list__min-width;
+    padding: $youtube-card__padding;
 
-    & .card-menu {
-    }
+    flex-grow: 1;
+
+    border-radius: $youtube-card-list__border-radius;
 }

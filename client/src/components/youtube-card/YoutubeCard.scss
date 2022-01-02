@@ -4,7 +4,7 @@
     box-shadow: 0 rem(6px) rem(8px) rem(4px) #{$color-black}70;
 
     .contents {
-        padding: 2.8em 2.4em;
+        padding: $youtube-card__padding;
 
         h5 {
             font-size: 1 + $em;

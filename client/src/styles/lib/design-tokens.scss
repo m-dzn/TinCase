@@ -43,8 +43,9 @@ $line-height-100: 1;
 // Alias Tokens
 $max-width: rem(1440px);
 
-$color-font: $color-white;
-$color-font-reverse: $color-black;
+$color-font: $color-black;
+$color-font-reverse: $color-white;
+$color-font-background: $color-white;
 $color-font-gray: $color-gray;
 
 $color-background: linear-gradient($color-navy, #2a3750);
@@ -55,3 +56,5 @@ $card-default-ratio: 1 / 1.618;
 $card-default-border-radius-ratio: 0.04;
 $card-default-border-radius: rem($breakpoint-mobile) *
     $card-default-border-radius-ratio;
+
+$youtube-card__padding: rem(28px) rem(24px);
