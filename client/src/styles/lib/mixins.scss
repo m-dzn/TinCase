@@ -4,7 +4,7 @@
     align-items: $align-items;
 }
 
-@mixin flex-column($justify-content: "", $align-items: "") {
+@mixin flex-column($justify-content: flex-start, $align-items: stretch) {
     @include flex($justify-content, $align-items);
     flex-direction: column;
 }
@@ -35,4 +35,19 @@
     &::-webkit-scrollbar {
         display: none;
     }
+}
+
+// ellipsis
+@mixin ellipsis() {
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@mixin ellipsis-multiline($line, $height) {
+    @include ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: $line;
+    -webkit-box-orient: vertical;
+    height: $height;
 }

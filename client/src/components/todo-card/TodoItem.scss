@@ -1,0 +1,10 @@
+@import "styles/utils";
+
+.todo-item {
+    .button-delete {
+        @include flex(center, center);
+        background: transparent;
+        border: none;
+        outline: none;
+    }
+}

@@ -1,0 +1,45 @@
+@import "styles/utils";
+
+.youtube-info-card {
+    $youtube-info-card__padding-y: rem(8px);
+    $channel-info__padding-y: rem(16px);
+
+    .video-title {
+        padding: $youtube-info-card__padding-y 0;
+        @include ellipsis;
+    }
+
+    .video-info {
+        @include flex();
+
+        & .published-at::before {
+            content: "·";
+            margin: rem(4px);
+        }
+    }
+
+    .sub-info {
+        color: $color-font-gray;
+        font-size: $font-size-xsmall;
+    }
+
+    .channel-info {
+        @include flex(flex-start, stretch);
+        padding: $channel-info__padding-y 0;
+
+        & .channel-thumbnail {
+            width: rem(40px);
+            border-radius: 50%;
+        }
+
+        & .channel-label {
+            @include flex-column();
+            margin-left: rem(12px);
+            padding: rem(2px) 0;
+
+            & .channel-title {
+                flex-grow: 1;
+            }
+        }
+    }
+}

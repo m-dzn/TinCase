@@ -2,19 +2,15 @@ import React from "react";
 import { BasicCardTemplate } from "components";
 import "./TodoCard.scss";
 import cx from "classnames";
+import TodoItem from "./TodoItem";
 
-const todo = {
-    id: 1,
-    text: "",
-};
-
-function TodoCard() {
+function TodoCard({ todos }) {
     const classnames = cx("card", "todo-card");
     return (
         <BasicCardTemplate className={classnames}>
             <h5>Todo 제목</h5>
-            <label></label>
-            <input type="checkbox" />
+            {todos &&
+                todos.map((todo) => <TodoItem key={todo.id} todo={todo} />)}
         </BasicCardTemplate>
     );
 }

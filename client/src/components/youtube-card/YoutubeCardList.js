@@ -7,6 +7,7 @@ function YoutubeCardList({ className, videos, ...rest }) {
 
     return (
         <article className={classnames} {...rest}>
+            <h6>Video List</h6>
             <ul>
                 {videos &&
                     videos.map((video) => (

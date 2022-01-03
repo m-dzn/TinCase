@@ -7,7 +7,7 @@ const cors = require("cors");
 const router = require("./routes");
 const { passportConfig } = require("./lib");
 
-const { COOKIE, CLIENT } = require("./config");
+const { COOKIE, CLIENT, API_VERSION } = require("./config");
 const { StatusCodes } = require("http-status-codes");
 
 // Config
@@ -58,7 +58,7 @@ module.exports = class Server {
         passportConfig(app); // 설정 실행
 
         // API Routing
-        app.use("/api", router);
+        app.use(API_VERSION, router);
 
         app.use((req, res, next) => {
             res.status(StatusCodes.NOT_FOUND).json({

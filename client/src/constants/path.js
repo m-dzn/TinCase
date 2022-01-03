@@ -1,6 +1,6 @@
 const getApi = (path) => {
     return (subPath) => {
-        return `/api${path}${subPath}`;
+        return `/v1${path}${subPath}`;
     };
 };
 const getAuthApi = (path) => getApi("/auth")(path);
@@ -22,6 +22,11 @@ const PATH = {
         USERS: {
             ME: getUserApi("/me"),
         },
+    },
+    YOUTUBE: {
+        VIDEOS: "/videos",
+        SEARCH: "/search",
+        CHANNELS: "/channels",
     },
 };
 

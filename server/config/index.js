@@ -2,8 +2,10 @@ const DEV_ENV = "development";
 const NODE_ENV = process.env.NODE_ENV || DEV_ENV;
 const dbConfig = require("./db-config.json")[NODE_ENV];
 
+const API_VERSION = "/v1";
+
 const getOAuthCallbackURL = (provider) =>
-    `${process.env.HOST}/api/auth/${provider}/callback`;
+    `${process.env.HOST}${API_VERSION}/auth/${provider}/callback`;
 
 const config = {
     DEV_ENV,
@@ -11,6 +13,7 @@ const config = {
 
     HOST: process.env.HOST,
     PORT: process.env.PORT || 5000,
+    API_VERSION,
 
     // Cookie
     COOKIE: {

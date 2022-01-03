@@ -2,7 +2,7 @@ import axios from "axios";
 
 axios.defaults = {
     ...axios.defaults,
-    baseURL: process.env.API_HOST,
+    baseURL: process.env.REACT_APP_API_HOST,
     withCredentials: true,
 };
 

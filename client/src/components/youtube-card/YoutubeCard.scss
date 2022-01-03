@@ -1,13 +1,24 @@
 @import "styles/utils";
 
 .youtube-card {
+    $youtube-card__height: rem(48px);
+    $youtube-card__ellipsis-lines: 2;
+    $youtube-card__padding-bottom: rem(24px);
+    $youtube-card__title-margin-bottom: rem(16px);
+
     box-shadow: 0 rem(6px) rem(8px) rem(4px) #{$color-black}70;
 
     .contents {
-        padding: $youtube-card__padding;
+        padding: $youtube-card__padding-bottom $youtube-card__padding;
 
         h5 {
             font-size: 1 + $em;
+            margin-bottom: $youtube-card__title-margin-bottom;
+
+            @include ellipsis-multiline(
+                $youtube-card__ellipsis-lines,
+                $youtube-card__height
+            );
         }
     }
 }

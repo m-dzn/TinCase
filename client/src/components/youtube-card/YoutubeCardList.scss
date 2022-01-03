@@ -4,7 +4,7 @@
     /*  변수  */
     $youtube-card-list__background: $color-surface;
     $youtube-card-list__min-width: rem(360px);
-    $youtube-card-list__border-radius: $card-default-border-radius;
+    $youtube-card-list__border-radius: rem(4px);
 
     /*  속성  */
     position: relative;
@@ -16,4 +16,8 @@
     flex-grow: 1;
 
     border-radius: $youtube-card-list__border-radius;
+
+    ul li {
+        padding: rem(12px) 0;
+    }
 }

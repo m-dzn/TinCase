@@ -2,7 +2,7 @@ import React from "react";
 import "./MemoCard.scss";
 import cx from "classnames";
 import { BasicCardTemplate } from "components";
-import { formatDate } from "lib";
+import { formatDateUS } from "lib";
 
 function MemoCard({ className, card }) {
     const containerClass = cx("card", "memo-card", className);
@@ -12,10 +12,10 @@ function MemoCard({ className, card }) {
             className={containerClass}
             style={{ background: card.themeColor }}
         >
-            <section className="contents" style={{ color: "black" }}>
+            <section className="contents">
                 <h5>{card?.title} </h5>
                 <div className="date">
-                    <time>{formatDate()}</time>
+                    <time>{formatDateUS()}</time>
                 </div>
                 <div className="text">
                     <p>{card?.content}</p>
