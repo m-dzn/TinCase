@@ -1,5 +1,8 @@
 // 환경 변수 불러오기
-require("dotenv").config({ path: "./config/.env" });
+const dotenv = require("dotenv");
+dotenv.config({ path: "./config/.env" });
+
+// 서버 앱 불러오기
 const Server = require("./server");
 const { PORT } = require("./config");
 

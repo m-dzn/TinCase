@@ -1,6 +1,7 @@
 const DEV_ENV = "development";
 const NODE_ENV = process.env.NODE_ENV || DEV_ENV;
 const dbConfig = require("./db-config.json")[NODE_ENV];
+const constraints = require("./constraints");
 
 const API_VERSION = "/v1";
 
@@ -57,6 +58,8 @@ const config = {
     },
 
     ACCESS_ALLOWED_URL: [process.env.CLIENT_BASE_URL],
+
+    constraints,
 };
 
 module.exports = config;

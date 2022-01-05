@@ -21,4 +21,24 @@ module.exports = {
             max: 30,
         },
     },
+
+    card: {
+        title: {
+            max: 50,
+        },
+        type: {
+            max: 20,
+        },
+    },
+
+    todo: {
+        item: {
+            text: {
+                max: 100,
+            },
+            color: {
+                max: 10,
+            },
+        },
+    },
 };

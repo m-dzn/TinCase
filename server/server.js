@@ -5,10 +5,9 @@ const cookieParser = require("cookie-parser");
 
 const cors = require("cors");
 const router = require("./routes");
-const { passportConfig } = require("./lib");
+const { passportConfig, getErrorInfo } = require("./lib");
 
 const { COOKIE, CLIENT, API_VERSION } = require("./config");
-const { StatusCodes } = require("http-status-codes");
 
 // Config
 
@@ -18,6 +17,7 @@ module.exports = class Server {
         this.db = require("./models");
         this.initializeDB();
         this.setMiddleware();
+        this.setRouting();
     }
 
     initializeDB() {
@@ -49,20 +49,27 @@ module.exports = class Server {
             })
         );
 
+        // passport
+        passportConfig(app); // 설정 실행
+
         // Parser
         app.use(express.json());
         app.use(express.urlencoded({ extended: false }));
         app.use(cookieParser(COOKIE.SECRET));
+    }
 
-        // passport
-        passportConfig(app); // 설정 실행
+    setRouting() {
+        const { app } = this;
 
         // API Routing
         app.use(API_VERSION, router);
 
-        app.use((req, res, next) => {
-            res.status(StatusCodes.NOT_FOUND).json({
-                message: "페이지를 찾을 수 없습니다.",
+        // Error Handler
+        app.use((err, req, res, next) => {
+            const { status, message } = getErrorInfo(err);
+
+            res.status(status).json({
+                message,
             });
         });
     }

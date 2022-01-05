@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const constraints = require("../config/constraints");
+const { constraints } = require("../config");
 
 module.exports = class User extends Sequelize.Model {
     static init(sequelize) {
@@ -8,7 +8,7 @@ module.exports = class User extends Sequelize.Model {
                 email: {
                     type: Sequelize.STRING(constraints.user.email.max),
                     allowNull: false,
-                    unique: true,
+                    unique: "email",
                 },
                 nickname: {
                     type: Sequelize.STRING(constraints.user.nickname.max),
@@ -34,6 +34,7 @@ module.exports = class User extends Sequelize.Model {
                 modelName: "User",
                 tableName: "user",
                 paranoid: true,
+                underscored: true,
                 charset: "utf8",
                 collate: "utf8_general_ci",
             }

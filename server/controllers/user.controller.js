@@ -1,6 +1,5 @@
 const { User } = require("../models");
 const { StatusCodes } = require("http-status-codes");
-const passport = require("passport");
 
 module.exports = {
     me: (req, res, next) => {
