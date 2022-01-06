@@ -4,11 +4,11 @@ const { StatusCodes } = require("http-status-codes");
 
 module.exports = {
     create: handleAsyncException(async (req, res) => {
-        const { name, isPublic } = req.body;
+        const { title, isPublic } = req.body;
         const { id: userId } = req.user;
 
         await Deck.create({
-            name,
+            title,
             isPublic,
             userId,
         });

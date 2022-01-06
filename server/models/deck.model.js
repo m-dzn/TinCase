@@ -5,8 +5,8 @@ module.exports = class Deck extends Sequelize.Model {
     static init(sequelize) {
         return super.init(
             {
-                name: {
-                    type: Sequelize.STRING(constraints.deck.name.max),
+                title: {
+                    type: Sequelize.STRING(constraints.deck.title.max),
                     allowNull: false,
                 },
                 isPublic: {

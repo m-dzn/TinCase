@@ -8,7 +8,7 @@ const API_VERSION = "/v1";
 const getOAuthCallbackURL = (provider) =>
     `${process.env.HOST}${API_VERSION}/auth/${provider}/callback`;
 
-const config = {
+const CONFIG = {
     DEV_ENV,
     NODE_ENV,
 
@@ -60,6 +60,15 @@ const config = {
     ACCESS_ALLOWED_URL: [process.env.CLIENT_BASE_URL],
 
     constraints,
+
+    // Card
+    CARD: {
+        TYPE: {
+            TODO: "TODO",
+            VIDEO_LINK: "VIDEO_LINK",
+            MEMO: "MEMO",
+        },
+    },
 };
 
-module.exports = config;
+module.exports = CONFIG;

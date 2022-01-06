@@ -35,7 +35,7 @@ module.exports = class Todo extends Sequelize.Model {
 
     static associate(models) {
         Todo.belongsTo(models.Card, {
-            foreignKey: "card_id",
+            foreignKey: "cardId",
             targetKey: "id",
             onDelete: "cascade",
         });

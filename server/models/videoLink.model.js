@@ -1,21 +1,21 @@
 const Sequelize = require("sequelize");
 const { constraints } = require("../config");
 
-module.exports = class VideoCard extends Sequelize.Model {
+module.exports = class VideoLink extends Sequelize.Model {
     static init(sequelize) {
         return super.init(
             {
                 url: {
-                    type: Sequelize.STRING(constraints.videoCard.url.max),
+                    type: Sequelize.STRING(constraints.videoLink.url.max),
                 },
                 provider: {
-                    type: Sequelize.STRING(constraints.videoCard.provider.max),
+                    type: Sequelize.STRING(constraints.videoLink.provider.max),
                 },
             },
             {
                 sequelize,
-                modelName: "videoCard",
-                tableName: "video_card",
+                modelName: "videoLink",
+                tableName: "video_link",
                 underscored: true,
                 charset: "utf8",
                 collate: "utf8_general_ci",
@@ -24,6 +24,10 @@ module.exports = class VideoCard extends Sequelize.Model {
     }
 
     static associate(models) {
-        VideoCard.belongsTo(models.Card);
+        VideoLink.belongsTo(models.Card, {
+            foreignKey: "cardId",
+            targetKey: "id",
+            onDelete: "cascade",
+        });
     }
 };

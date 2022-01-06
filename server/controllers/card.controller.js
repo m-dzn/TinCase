@@ -4,10 +4,10 @@ const { Card } = require("../models");
 
 module.exports = {
     create: handleAsyncException(async (req, res, next) => {
-        const { name, type, isPublic } = req.body;
+        const { title, type, isPublic } = req.body;
 
         await Card.create({
-            name,
+            title,
             type,
             isPublic,
         });
@@ -18,8 +18,6 @@ module.exports = {
     read: handleAsyncException(async (req, res, next) => {
         const { id } = req.params;
         const card = await Card.findOne({ where: { id } });
-
-        await Card.addTinCase();
 
         if (!card) {
             next(
@@ -36,11 +34,11 @@ module.exports = {
     update: handleAsyncException(async (req, res) => {
         const { id } = req.params;
 
-        const { name, isPublic } = req.body;
+        const { title, isPublic } = req.body;
 
         await Card.update(
             {
-                name,
+                title,
                 isPublic,
             },
             { where: { id } }

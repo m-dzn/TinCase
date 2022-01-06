@@ -23,13 +23,14 @@ module.exports = {
     },
 
     deck: {
-        name: {
+        title: {
             max: 50,
         },
     },
 
+    // 카드
     card: {
-        name: {
+        title: {
             max: 50,
         },
         type: {
@@ -46,12 +47,21 @@ module.exports = {
         },
     },
 
-    videoCard: {
+    videoLink: {
         url: {
             max: 2084,
         },
         provider: {
             max: 50,
+        },
+    },
+
+    memo: {
+        content: {
+            max: 1000,
+        },
+        color: {
+            max: 7,
         },
     },
 };

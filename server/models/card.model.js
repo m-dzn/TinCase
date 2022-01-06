@@ -5,8 +5,8 @@ module.exports = class Card extends Sequelize.Model {
     static init(sequelize) {
         return super.init(
             {
-                name: {
-                    type: Sequelize.STRING(constraints.card.name.max),
+                title: {
+                    type: Sequelize.STRING(constraints.card.title.max),
                     allowNull: false,
                     validate: {
                         notNull: {
@@ -37,7 +37,7 @@ module.exports = class Card extends Sequelize.Model {
 
     static associate(models) {
         Card.belongsTo(models.User, {
-            foreignKey: "user_id",
+            foreignKey: "userId",
             targetKey: "id",
             onDelete: "cascade",
         });
@@ -46,14 +46,21 @@ module.exports = class Card extends Sequelize.Model {
             through: models.DeckCard,
         });
 
+        // 카드 상속 관계 매핑
         Card.hasMany(models.Todo, {
-            foreignKey: "card_id",
+            foreignKey: "cardId",
             sourceKey: "id",
             onDelete: "cascade",
         });
 
-        Card.hasOne(models.VideoCard, {
-            foreignKey: "card_id",
+        Card.hasOne(models.VideoLink, {
+            foreignKey: "cardId",
+            sourceKey: "id",
+            onDelete: "cascade",
+        });
+
+        Card.hasOne(models.Memo, {
+            foreignKey: "cardId",
             sourceKey: "id",
             onDelete: "cascade",
         });

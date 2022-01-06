@@ -6,7 +6,8 @@ const Deck = require("./deck.model");
 const Card = require("./card.model");
 const DeckCard = require("./deckCard.model");
 const Todo = require("./todo.model");
-const VideoCard = require("./video-card.model");
+const VideoLink = require("./videoLink.model");
+const Memo = require("./memo.model");
 
 const db = {
     User,
@@ -14,7 +15,8 @@ const db = {
     Card,
     DeckCard,
     Todo,
-    VideoCard,
+    VideoLink,
+    Memo,
 };
 
 const sequelize = new Sequelize(DB.database, DB.username, DB.password, DB);

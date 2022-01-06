@@ -43,7 +43,7 @@ module.exports = class User extends Sequelize.Model {
 
     static associate(models) {
         User.hasMany(models.Card, {
-            foreignKey: "user_id",
+            foreignKey: "userId",
             sourceKey: "id",
             onDelete: "cascade",
         });
