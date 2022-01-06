@@ -1,37 +1,38 @@
 const Sequelize = require("sequelize");
 const { constraints } = require("../config");
 
-module.exports = class TodoItem extends Sequelize.Model {
+module.exports = class Deck extends Sequelize.Model {
     static init(sequelize) {
         return super.init(
             {
-                text: {
-                    type: Sequelize.STRING(constraints.todo.item.text.max),
+                name: {
+                    type: Sequelize.STRING(constraints.deck.name.max),
                     allowNull: false,
                 },
-                done: {
+                isPublic: {
                     type: Sequelize.BOOLEAN,
                     allowNull: false,
                     defaultValue: false,
                 },
-                color: {
-                    type: Sequelize.STRING(constraints.todo.item.color.max),
-                },
-                cardId: {
+                userId: {
                     type: Sequelize.INTEGER,
                     allowNull: false,
                 },
             },
             {
                 sequelize,
-                modelName: "TodoItem",
-                tableName: "todo_item",
+                modelName: "deck",
+                tableName: "deck",
                 underscored: true,
-                charset: "utf8",
-                collate: "utf8_general_ci",
+                charset: "utf8mb4",
+                collate: "utf8mb4_general_ci",
             }
         );
     }
 
-    static associate(db) {}
+    static associate(models) {
+        Deck.belongsToMany(models.Card, {
+            through: models.DeckCard,
+        });
+    }
 };

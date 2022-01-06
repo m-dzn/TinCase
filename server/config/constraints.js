@@ -22,8 +22,14 @@ module.exports = {
         },
     },
 
+    deck: {
+        name: {
+            max: 50,
+        },
+    },
+
     card: {
-        title: {
+        name: {
             max: 50,
         },
         type: {
@@ -32,13 +38,20 @@ module.exports = {
     },
 
     todo: {
-        item: {
-            text: {
-                max: 100,
-            },
-            color: {
-                max: 10,
-            },
+        text: {
+            max: 100,
+        },
+        color: {
+            max: 10,
+        },
+    },
+
+    videoCard: {
+        url: {
+            max: 2084,
+        },
+        provider: {
+            max: 50,
         },
     },
 };

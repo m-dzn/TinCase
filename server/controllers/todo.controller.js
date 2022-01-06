@@ -1,11 +1,11 @@
 const { StatusCodes } = require("http-status-codes");
-const { handleAsyncException } = require("../lib");
-const { TodoItem } = require("../models");
+const { handleAsyncException, CustomError } = require("../lib");
+const { Todo, Card } = require("../models");
 
 module.exports = {
     create: handleAsyncException(async (req, res) => {
         const { text, done, color, cardId } = req.body;
-        await TodoItem.create({
+        await Todo.create({
             text,
             done,
             color,
@@ -21,10 +21,13 @@ module.exports = {
     read: handleAsyncException(async (req, res) => {
         const { id } = req.params;
 
-        const todoItem = await TodoItem.findOne({ where: { id } });
+        const todoItem = await Todo.findOne({ where: { id } });
 
         if (!todoItem) {
-            throw new Error("Todo Item을 찾을 수 없습니다.");
+            throw new CustomError(
+                "Todo Item을 찾을 수 없습니다.",
+                StatusCodes.NOT_FOUND
+            );
         }
 
         res.json(todoItem);
@@ -35,7 +38,7 @@ module.exports = {
 
         const { text, done, color } = req.body;
 
-        await TodoItem.update(
+        await Todo.update(
             {
                 text,
                 done,
@@ -50,12 +53,30 @@ module.exports = {
         // "Todo 카드 업데이트 중 오류가 발생했습니다."
     }),
 
-    delete: handleAsyncException(async (req, res) => {
+    remove: handleAsyncException(async (req, res) => {
         const { id } = req.params;
 
-        await TodoItem.destroy({ where: { id } });
+        await Todo.destroy({ where: { id } });
 
         res.json({ message: "Todo 카드를 삭제했습니다." });
         // "Todo 아이템 업데이트 중 오류가 발생했습니다."
+    }),
+
+    readByCardId: handleAsyncException(async (req, res) => {
+        const { cardId } = req.params;
+
+        const card = await Card.findOne(
+            { include: Todo },
+            { where: { id: cardId } }
+        );
+
+        if (card !== 1) {
+            throw new CustomError(
+                "Todo 카드를 불러올 수 없습니다.",
+                StatusCodes.NOT_FOUND
+            );
+        }
+
+        res.json(card);
     }),
 };

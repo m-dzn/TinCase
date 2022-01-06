@@ -4,6 +4,7 @@ const { User } = require("../models");
 
 const { StatusCodes } = require("http-status-codes");
 const { CLIENT } = require("../config");
+const { CustomError, handleAsyncException } = require("../lib");
 
 const oauthPassportOptions = {
     successRedirect: CLIENT.OAUTH_REDIRECT_URL,
@@ -11,57 +12,51 @@ const oauthPassportOptions = {
 };
 
 module.exports = {
-    register: async (req, res) => {
+    register: handleAsyncException(async (req, res) => {
         const { email, nickname, password } = req.body;
-
-        try {
-            const exUser = await User.findOne({ where: { email } });
-            if (exUser) {
-                return res.status(StatusCodes.CONFLICT).json({
-                    message: "이미 가입된 이메일입니다.",
-                });
-            }
-
-            const hash = await bcrypt.hash(password, 12);
-
-            await User.create({
-                email,
-                nickname,
-                password: hash,
-            });
-
-            return res
-                .status(StatusCodes.CREATED)
-                .json({ message: "회원 가입되었습니다." });
-        } catch (err) {
-            console.error(err);
-            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-                message: "회원 가입이 정상적으로 이루어지지 않았습니다.",
-            });
+        const exUser = await User.findOne({ where: { email } });
+        if (exUser) {
+            next(
+                new CustomError(
+                    "이미 가입된 이메일입니다.",
+                    StatusCodes.CONFLICT
+                )
+            );
         }
-    },
 
-    login: (req, res, next) => {
+        const hash = await bcrypt.hash(password, 12);
+
+        await User.create({
+            email,
+            nickname,
+            password: hash,
+        });
+
+        res.status(StatusCodes.CREATED).json({
+            message: "회원 가입되었습니다.",
+        });
+    }, "회원 가입이 정상적으로 이루어지지 않았습니다."),
+
+    login: handleAsyncException(async (req, res, next) => {
         passport.authenticate("local", (passportError, user, info) => {
             if (passportError || !user) {
-                return res.status(StatusCodes.BAD_REQUEST).json({
-                    message: info.message,
-                });
+                next(new CustomError(info.message, StatusCodes.BAD_REQUEST));
             }
 
             return req.login(user, (loginError) => {
                 if (loginError) {
-                    console.error(loginError);
-                    return res
-                        .status(StatusCodes.INTERNAL_SERVER_ERROR)
-                        .json({ message: "로그인에 실패했습니다." });
+                    next(
+                        new CustomError(
+                            "로그인에 실패했습니다.",
+                            StatusCodes.INTERNAL_SERVER_ERROR
+                        )
+                    );
                 }
 
-                console.log("로그인 성공");
                 res.json({ message: "로그인 되었습니다." });
             });
         })(req, res, next);
-    },
+    }),
 
     logout: (req, res, next) => {
         req.logout();

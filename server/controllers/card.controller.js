@@ -1,13 +1,13 @@
 const { StatusCodes } = require("http-status-codes");
 const { handleAsyncException, CustomError } = require("../lib");
-const { Card, TodoItem } = require("../models");
+const { Card } = require("../models");
 
 module.exports = {
     create: handleAsyncException(async (req, res, next) => {
-        const { title, type, isPublic } = req.body;
+        const { name, type, isPublic } = req.body;
 
         await Card.create({
-            title,
+            name,
             type,
             isPublic,
         });
@@ -19,33 +19,28 @@ module.exports = {
         const { id } = req.params;
         const card = await Card.findOne({ where: { id } });
 
+        await Card.addTinCase();
+
         if (!card) {
-            const error = new Error("카드를 찾을 수 없습니다.");
-            error.status = StatusCodes.NOT_FOUND;
-            next(error);
+            next(
+                new CustomError(
+                    "카드를 찾을 수 없습니다.",
+                    StatusCodes.NOT_FOUND
+                )
+            );
         }
 
-        const response = {
-            ...card.dataValues,
-        };
-
-        if (card.type === "todo") {
-            response.todos = await TodoItem.findAll({
-                where: { cardId: card.id },
-            });
-        }
-
-        res.json(response);
+        res.json(card);
     }, "카드를 찾는 중 오류가 발생했습니다."),
 
     update: handleAsyncException(async (req, res) => {
         const { id } = req.params;
 
-        const { title, isPublic } = req.body;
+        const { name, isPublic } = req.body;
 
         await Card.update(
             {
-                title,
+                name,
                 isPublic,
             },
             { where: { id } }
@@ -54,10 +49,16 @@ module.exports = {
         res.json({ message: "카드를 수정했습니다." });
     }, "카드 내용을 업데이트할 수 없습니다."),
 
-    delete: handleAsyncException(async (req, res) => {
+    remove: handleAsyncException(async (req, res) => {
         const { id } = req.params;
         await Card.destroy({ where: { id } });
 
         res.json({ message: "카드를 삭제했습니다." });
     }, "카드를 삭제할 수 없습니다."),
+
+    list: handleAsyncException(async (req, res, next) => {
+        const cards = await Card.findAll({ order: [["createdAt", "DESC"]] });
+
+        res.json(cards);
+    }),
 };

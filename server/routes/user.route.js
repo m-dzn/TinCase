@@ -5,6 +5,6 @@ const { isLoggedIn } = require("../lib");
 
 router.get("/me", isLoggedIn, userController.me);
 router.patch("/:id", userController.update);
-router.delete("/:id", userController.delete);
+router.delete("/:id", userController.unregister);
 
 module.exports = router;

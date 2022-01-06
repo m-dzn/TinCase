@@ -5,8 +5,8 @@ module.exports = class Card extends Sequelize.Model {
     static init(sequelize) {
         return super.init(
             {
-                title: {
-                    type: Sequelize.STRING(constraints.card.title.max),
+                name: {
+                    type: Sequelize.STRING(constraints.card.name.max),
                     allowNull: false,
                     validate: {
                         notNull: {
@@ -26,7 +26,7 @@ module.exports = class Card extends Sequelize.Model {
             },
             {
                 sequelize,
-                modelName: "Card",
+                modelName: "card",
                 tableName: "card",
                 underscored: true,
                 charset: "utf8mb4",
@@ -35,10 +35,26 @@ module.exports = class Card extends Sequelize.Model {
         );
     }
 
-    static associate(db) {
-        db.Card.hasMany(db.TodoItem, {
-            as: "",
+    static associate(models) {
+        Card.belongsTo(models.User, {
+            foreignKey: "user_id",
+            targetKey: "id",
+            onDelete: "cascade",
+        });
+
+        Card.belongsToMany(models.Deck, {
+            through: models.DeckCard,
+        });
+
+        Card.hasMany(models.Todo, {
             foreignKey: "card_id",
+            sourceKey: "id",
+            onDelete: "cascade",
+        });
+
+        Card.hasOne(models.VideoCard, {
+            foreignKey: "card_id",
+            sourceKey: "id",
             onDelete: "cascade",
         });
     }

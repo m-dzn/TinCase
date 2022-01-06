@@ -1,10 +1,12 @@
 const express = require("express");
-const { cardController } = require("../controllers");
 const router = express.Router();
+const { cardController } = require("../controllers");
 
 router.post("/", cardController.create);
 router.get("/:id", cardController.read);
 router.put("/:id", cardController.update);
-router.delete("/:id", cardController.delete);
+router.delete("/:id", cardController.remove);
+
+router.get("/", cardController.list);
 
 module.exports = router;

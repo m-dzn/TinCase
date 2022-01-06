@@ -2,13 +2,19 @@ const { Sequelize } = require("sequelize");
 const { DB } = require("../config");
 
 const User = require("./user.model");
+const Deck = require("./deck.model");
 const Card = require("./card.model");
-const TodoItem = require("./todo-item.model");
+const DeckCard = require("./deckCard.model");
+const Todo = require("./todo.model");
+const VideoCard = require("./video-card.model");
 
 const db = {
     User,
+    Deck,
     Card,
-    TodoItem,
+    DeckCard,
+    Todo,
+    VideoCard,
 };
 
 const sequelize = new Sequelize(DB.database, DB.username, DB.password, DB);

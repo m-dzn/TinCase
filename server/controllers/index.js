@@ -1,6 +1,8 @@
 module.exports = {
     authController: require("./auth.controller"),
     userController: require("./user.controller"),
+    deckController: require("./deck.controller"),
     cardController: require("./card.controller"),
-    todoItemController: require("./todo-item.controller"),
+    todoController: require("./todo.controller"),
+    videoCardController: require("./video-card.controller"),
 };

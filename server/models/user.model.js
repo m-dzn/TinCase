@@ -31,7 +31,7 @@ module.exports = class User extends Sequelize.Model {
             },
             {
                 sequelize,
-                modelName: "User",
+                modelName: "user",
                 tableName: "user",
                 paranoid: true,
                 underscored: true,
@@ -41,5 +41,11 @@ module.exports = class User extends Sequelize.Model {
         );
     }
 
-    static associate(db) {}
+    static associate(models) {
+        User.hasMany(models.Card, {
+            foreignKey: "user_id",
+            sourceKey: "id",
+            onDelete: "cascade",
+        });
+    }
 };
