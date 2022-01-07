@@ -1,10 +1,8 @@
 const DEV_ENV = "development";
 const NODE_ENV = process.env.NODE_ENV || DEV_ENV;
-const dbConfig = require("./db-config.json")[NODE_ENV];
 const constraints = require("./constraints");
 
 const API_VERSION = "/v1";
-
 const getOAuthCallbackURL = (provider) =>
     `${process.env.HOST}${API_VERSION}/auth/${provider}/callback`;
 
@@ -23,11 +21,11 @@ const CONFIG = {
 
     // DB
     DB: {
-        username: dbConfig.username,
-        password: dbConfig.password,
-        host: dbConfig.host,
-        dialect: dbConfig.dialect,
-        database: dbConfig.database,
+        username: process.env.DB_USERNAME,
+        password: process.env.DB_PASSWORD,
+        host: "127.0.0.1",
+        dialect: "mysql",
+        database: "tincase",
     },
 
     // OAuth2.0

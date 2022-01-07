@@ -1,10 +1,11 @@
-const getApi = (path) => {
+const getAPI = (path) => {
     return (subPath) => {
-        return `/v1${path}${subPath}`;
+        return `/v1${path || ""}${subPath || ""}`;
     };
 };
-const getAuthApi = (path) => getApi("/auth")(path);
-const getUserApi = (path) => getApi("/users")(path);
+const getAuthAPI = (path) => getAPI("/auth")(path);
+const getUserAPI = (path) => getAPI("/users")(path);
+const getCardAPI = (path) => getAPI("/cards")(path);
 
 const PATH = {
     CLIENT: {
@@ -12,15 +13,18 @@ const PATH = {
     },
     API: {
         AUTH: {
-            REGISTER: getAuthApi("/register"),
-            LOGIN: getAuthApi("/login"),
-            LOGOUT: getAuthApi("/logout"),
-            GOOGLE: getAuthApi("/google"),
-            KAKAO: getAuthApi("/kakao"),
-            NAVER: getAuthApi("/naver"),
+            REGISTER: getAuthAPI("/register"),
+            LOGIN: getAuthAPI("/login"),
+            LOGOUT: getAuthAPI("/logout"),
+            GOOGLE: getAuthAPI("/google"),
+            KAKAO: getAuthAPI("/kakao"),
+            NAVER: getAuthAPI("/naver"),
         },
         USERS: {
-            ME: getUserApi("/me"),
+            ME: getUserAPI("/me"),
+        },
+        CARDS: {
+            CRUD: getCardAPI(),
         },
     },
     YOUTUBE: {

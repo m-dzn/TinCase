@@ -1,10 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const { deckController } = require("../controllers");
+const { isLoggedIn } = require("../lib");
 
-router.post("/", deckController.create);
+router.post("/", isLoggedIn, deckController.create);
+router.get("/:id", deckController.read);
+router.patch("/:id", isLoggedIn, deckController.update);
+router.delete("/:id", isLoggedIn, deckController.remove);
 
-router.post("/:deckId/cards/:cardId", deckController.addCard);
-router.delete("/:deckId/cards/:cardId", deckController.removeCard);
+router.post("/:deckId/cards/:cardId", isLoggedIn, deckController.addCard);
+router.delete("/:deckId/cards/:cardId", isLoggedIn, deckController.removeCard);
 
 module.exports = router;

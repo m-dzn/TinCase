@@ -1,6 +1,7 @@
 const { User } = require("../models");
 const { StatusCodes } = require("http-status-codes");
 const { handleAsyncException, CustomError } = require("../lib");
+const { userService } = require("../services");
 
 module.exports = {
     me: (req, res, next) => {
@@ -20,18 +21,9 @@ module.exports = {
     },
 
     unregister: handleAsyncException(async (req, res, next) => {
-        const { id } = req.params;
+        const { id } = req.user;
 
-        const result = await User.destroy({ where: { id } });
-
-        if (result !== 1) {
-            next(
-                new CustomError(
-                    "회원 정보를 찾을 수 없습니다.",
-                    StatusCodes.NOT_FOUND
-                )
-            );
-        }
+        await userService.unregister(id);
 
         res.json({
             message: "회원 탈퇴되었습니다.",

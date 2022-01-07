@@ -1,31 +1,57 @@
 const { StatusCodes } = require("http-status-codes");
+const { CARD } = require("../config");
 const { handleAsyncException, CustomError } = require("../lib");
-const { Card } = require("../models");
+const {
+    cardService,
+    memoCardService,
+    videoLinkCardService,
+} = require("../services");
+const todoService = require("../services/todo.service");
 
 module.exports = {
-    create: handleAsyncException(async (req, res, next) => {
-        const { title, type, isPublic } = req.body;
+    create: handleAsyncException(async (req, res) => {
+        const { type } = req.body;
 
-        await Card.create({
-            title,
-            type,
-            isPublic,
-        });
+        switch (type) {
+            case CARD.TYPE.MEMO:
+                await memoCardService.create(req.body);
+                break;
+            case CARD.TYPE.TODO:
+                await todoService.createTodoCard(req.body);
+                break;
+            case CARD.TYPE.VIDEO_LINK:
+                await videoLinkCardService.create(req.body);
+                break;
+            default:
+                throw new CustomError(
+                    "찾을 수 없는 유형의 카드입니다.",
+                    StatusCodes.BAD_REQUEST
+                );
+        }
 
         res.status(StatusCodes.CREATED).json("카드가 생성되었습니다.");
     }, "카드 생성 중 오류가 발생했습니다."),
 
-    read: handleAsyncException(async (req, res, next) => {
+    read: handleAsyncException(async (req, res) => {
         const { id } = req.params;
-        const card = await Card.findOne({ where: { id } });
 
-        if (!card) {
-            next(
-                new CustomError(
-                    "카드를 찾을 수 없습니다.",
-                    StatusCodes.NOT_FOUND
-                )
-            );
+        const card = await cardService.getCard(id);
+
+        switch (card.type) {
+            case CARD.TYPE.MEMO:
+                card.memo = await memoCardService.getByCardId(id);
+                break;
+            case CARD.TYPE.TODO:
+                card.todos = await todoService.getByCardId(id);
+                break;
+            case CARD.TYPE.VIDEO_LINK:
+                card.videoLink = await videoLinkCardService.getByCardId(id);
+                break;
+            default:
+                throw new CustomError(
+                    "찾을 수 없는 유형의 카드입니다.",
+                    StatusCodes.BAD_REQUEST
+                );
         }
 
         res.json(card);
@@ -33,30 +59,42 @@ module.exports = {
 
     update: handleAsyncException(async (req, res) => {
         const { id } = req.params;
+        const { type } = req.body;
 
-        const { title, isPublic } = req.body;
+        const card = await cardService.getCard(id);
 
-        await Card.update(
-            {
-                title,
-                isPublic,
-            },
-            { where: { id } }
-        );
+        if (type !== card.type) {
+            throw new CustomError(
+                "카드 유형이 일치하지 않습니다.",
+                StatusCodes.BAD_REQUEST
+            );
+        }
+
+        switch (card.type) {
+            case CARD.TYPE.MEMO:
+                await memoCardService.updateByCardId(id, req.body);
+                break;
+            case CARD.TYPE.TODO:
+                await cardService.updateCard(id, req.body);
+                break;
+            case CARD.TYPE.VIDEO_LINK:
+                await videoLinkCardService.updateByCardId(id, req.body);
+                break;
+            default:
+                throw new CustomError(
+                    "찾을 수 없는 유형의 카드입니다.",
+                    StatusCodes.BAD_REQUEST
+                );
+        }
 
         res.json({ message: "카드를 수정했습니다." });
     }, "카드 내용을 업데이트할 수 없습니다."),
 
     remove: handleAsyncException(async (req, res) => {
         const { id } = req.params;
-        await Card.destroy({ where: { id } });
+
+        await cardService.deleteCard(id);
 
         res.json({ message: "카드를 삭제했습니다." });
     }, "카드를 삭제할 수 없습니다."),
-
-    list: handleAsyncException(async (req, res, next) => {
-        const cards = await Card.findAll({ order: [["createdAt", "DESC"]] });
-
-        res.json(cards);
-    }),
 };

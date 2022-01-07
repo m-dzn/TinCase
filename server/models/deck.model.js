@@ -32,7 +32,7 @@ module.exports = class Deck extends Sequelize.Model {
 
     static associate(models) {
         Deck.belongsToMany(models.Card, {
-            through: models.DeckCard,
+            through: models.CardInDeck,
         });
     }
 };

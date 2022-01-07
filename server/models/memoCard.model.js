@@ -1,22 +1,22 @@
 const Sequelize = require("sequelize");
 const { constraints } = require("../config");
 
-module.exports = class Memo extends Sequelize.Model {
+module.exports = class MemoCard extends Sequelize.Model {
     static init(sequelize) {
         return super.init(
             {
                 content: {
-                    type: Sequelize.STRING(constraints.memo.content.max),
+                    type: Sequelize.STRING(constraints.memoCard.content.max),
                     allowNull: false,
                 },
                 color: {
-                    type: Sequelize.STRING(constraints.memo.color.max),
+                    type: Sequelize.STRING(constraints.memoCard.color.max),
                 },
             },
             {
                 sequelize,
-                modelName: "memo",
-                tableName: "memo",
+                modelName: "memoCard",
+                tableName: "memo_card",
                 underscored: true,
                 charset: "utf8mb4",
                 collate: "utf8mb4_general_ci",
@@ -25,7 +25,7 @@ module.exports = class Memo extends Sequelize.Model {
     }
 
     static associate(models) {
-        Memo.belongsTo(models.Card, {
+        MemoCard.belongsTo(models.Card, {
             foreignKey: "cardId",
             targetKey: "id",
             onDelete: "cascade",

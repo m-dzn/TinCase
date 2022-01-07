@@ -1,12 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const { cardController } = require("../controllers");
+const { isLoggedIn } = require("../lib");
 
-router.post("/", cardController.create);
+router.post("/", isLoggedIn, cardController.create);
 router.get("/:id", cardController.read);
-router.put("/:id", cardController.update);
-router.delete("/:id", cardController.remove);
-
-router.get("/", cardController.list);
+router.patch("/:id", isLoggedIn, cardController.update);
+router.delete("/:id", isLoggedIn, cardController.remove);
 
 module.exports = router;

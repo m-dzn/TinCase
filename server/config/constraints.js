@@ -1,9 +1,7 @@
-const EMAIL_MAX_LENGTH = 40;
-
 module.exports = {
     user: {
         email: {
-            max: EMAIL_MAX_LENGTH,
+            max: 40,
         },
         nickname: {
             max: 15,
@@ -47,7 +45,7 @@ module.exports = {
         },
     },
 
-    videoLink: {
+    videoLinkCard: {
         url: {
             max: 2084,
         },
@@ -56,7 +54,7 @@ module.exports = {
         },
     },
 
-    memo: {
+    memoCard: {
         content: {
             max: 1000,
         },

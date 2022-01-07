@@ -6,6 +6,7 @@ config/oauth.js
 
 # Server
 temp
+/coverage
 
 # VSCode
 .vscode

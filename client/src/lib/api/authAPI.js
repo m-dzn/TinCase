@@ -1,4 +1,4 @@
-import axios from "./index";
+import axios from "./";
 import { PATH } from "constants";
 import { apiUtils } from "lib";
 

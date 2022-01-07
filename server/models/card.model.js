@@ -43,7 +43,7 @@ module.exports = class Card extends Sequelize.Model {
         });
 
         Card.belongsToMany(models.Deck, {
-            through: models.DeckCard,
+            through: models.CardInDeck,
         });
 
         // 카드 상속 관계 매핑
@@ -53,13 +53,13 @@ module.exports = class Card extends Sequelize.Model {
             onDelete: "cascade",
         });
 
-        Card.hasOne(models.VideoLink, {
+        Card.hasOne(models.VideoLinkCard, {
             foreignKey: "cardId",
             sourceKey: "id",
             onDelete: "cascade",
         });
 
-        Card.hasOne(models.Memo, {
+        Card.hasOne(models.MemoCard, {
             foreignKey: "cardId",
             sourceKey: "id",
             onDelete: "cascade",
