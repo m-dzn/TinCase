@@ -1,0 +1,10 @@
+@import "styles/utils";
+
+.simple-arrow-button {
+    @include init-button();
+
+    $simple-arrow-button__font-color: $color-font-background;
+
+    background: transparent;
+    color: $simple-arrow-button__font-color;
+}

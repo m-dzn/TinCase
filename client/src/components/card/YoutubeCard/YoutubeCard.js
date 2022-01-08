@@ -4,13 +4,14 @@ import cx from "classnames";
 import ReactPlayer from "react-player";
 import { BasicCardTemplate } from "components";
 import YoutubeInfoCard from "./YoutubeInfoCard";
+import { useYoutubeInfo } from "lib";
 
-function YoutubeCard({ className, video, youtubeInfo }) {
+function YoutubeCard({ className, card }) {
     const containerClass = cx("card", "youtube-card", className);
 
-    if (!youtubeInfo) return <BasicCardTemplate className={containerClass} />;
+    const { videoInfo, channelInfo } = useYoutubeInfo(card.url);
 
-    const { title: youtubeTitle, channelTitle, channelThumbnail } = youtubeInfo;
+    if (!card) return <BasicCardTemplate className={containerClass} />;
 
     return (
         <BasicCardTemplate className={containerClass}>
@@ -21,14 +22,22 @@ function YoutubeCard({ className, video, youtubeInfo }) {
                     background: "black",
                 }}
             >
-                <ReactPlayer url={video?.url} width="100%" height="100%" />
+                <ReactPlayer
+                    url={card.url}
+                    width="100%"
+                    height="100%"
+                    controls
+                />
             </div>
 
             <section className="contents" style={{ color: "black" }}>
                 <div>
-                    <h5>{video?.title} </h5>
+                    <h5>{card.title} </h5>
                 </div>
-                <YoutubeInfoCard youtubeInfo={youtubeInfo} />
+                <YoutubeInfoCard
+                    videoInfo={videoInfo}
+                    channelInfo={channelInfo}
+                />
             </section>
         </BasicCardTemplate>
     );

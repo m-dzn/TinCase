@@ -4,23 +4,24 @@
     $youtube-info-card__padding-y: rem(8px);
     $channel-info__padding-y: rem(16px);
 
-    .video-title {
-        padding: $youtube-info-card__padding-y 0;
-        @include ellipsis;
+    .sub-info {
+        @include flex();
+
+        color: $color-font-gray;
+        font-size: $font-size-xsmall;
     }
 
     .video-info {
-        @include flex();
+        @include flex-column();
 
+        .video-title {
+            padding: $youtube-info-card__padding-y 0;
+            @include ellipsis;
+        }
         & .published-at::before {
             content: "·";
             margin: rem(4px);
         }
-    }
-
-    .sub-info {
-        color: $color-font-gray;
-        font-size: $font-size-xsmall;
     }
 
     .channel-info {

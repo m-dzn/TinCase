@@ -1,10 +1,14 @@
 // api
 export * as authAPI from "./api/authAPI";
 export * as userAPI from "./api/userAPI";
+export * as cardAPI from "./api/cardAPI";
+export * as deckAPI from "./api/deckAPI";
 export * as youtubeAPI from "./api/youtubeAPI";
 
 // hooks
 export * from "./hooks/styleHooks";
+export { default as useCard } from "./hooks/useCard";
+export { default as useDeck } from "./hooks/useDeck";
 export { default as useInput } from "./hooks/useInput";
 export { default as useMemoCard } from "./hooks/useMemoCard";
 export { default as useYoutubeInfo } from "./hooks/useYoutubeInfo";

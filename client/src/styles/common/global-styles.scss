@@ -58,3 +58,43 @@ h6 {
     font-size: $font-size-h6;
     line-height: $line-height-150;
 }
+
+/*      Font        */
+.xl {
+    font-size: $font-size-xlarge;
+}
+
+.lg {
+    font-size: $font-size-large;
+}
+
+.md {
+    font-size: $font-size-normal;
+}
+
+.sm {
+    font-size: $font-size-small;
+}
+
+.xs {
+    font-size: $font-size-xsmall;
+}
+
+/*      Button      */
+.button {
+    &.xl {
+        font-size: $button-size-xl;
+    }
+    &.lg {
+        font-size: $button-size-lg;
+    }
+    &.md {
+        font-size: $button-size-md;
+    }
+    &.sm {
+        font-size: $button-size-sm;
+    }
+    &.xs {
+        font-size: $button-size-xs;
+    }
+}

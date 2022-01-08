@@ -35,7 +35,13 @@ module.exports = {
             );
         }
 
-        return memoCard.toJSON();
+        return {
+            memoId: memoCard.id,
+            content: memoCard.content,
+            color: memoCard.color,
+            createdAt: memoCard.createdAt,
+            updatedAt: memoCard.updatedAt,
+        };
     },
 
     updateByCardId: async (cardId, memoCardDTO) => {

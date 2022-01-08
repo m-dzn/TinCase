@@ -2,13 +2,13 @@ import React, { Suspense } from "react";
 import { PATH } from "constants";
 import { Routes, Route } from "react-router-dom";
 import OAuthRedirect from "./OAuthRedirect";
-import navMenuRoutes from "./navMenuRoutes";
+import routes from "./routes";
 
 function RootRouter() {
     return (
         <Suspense fallback={<div>Loading...</div>}>
             <Routes>
-                {navMenuRoutes.map((route) => (
+                {routes.map((route) => (
                     <Route
                         key={route.path}
                         path={route.path}
@@ -25,3 +25,5 @@ function RootRouter() {
 }
 
 export default RootRouter;
+
+export { default as routes } from "./routes";

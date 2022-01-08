@@ -1,0 +1,13 @@
+@import "styles/utils";
+
+.card-list {
+    $card-list__box-shadow: $box-shadow-card;
+
+    background: $color-surface;
+    box-shadow: $card-list__box-shadow;
+
+    .card-item {
+        padding: rem(16px) rem(24px);
+        cursor: pointer;
+    }
+}

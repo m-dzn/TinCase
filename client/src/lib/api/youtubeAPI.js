@@ -25,7 +25,5 @@ export const getYoutubeChannelInfo = async (channelId) => {
         },
     });
 
-    console.log(response.data);
-
     return response.data.items[0];
 };

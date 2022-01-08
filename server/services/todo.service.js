@@ -72,6 +72,8 @@ module.exports = {
             );
         }
 
-        return todos;
+        return {
+            todos,
+        };
     },
 };

@@ -1,0 +1,13 @@
+@import "styles/utils";
+
+.deck-viewer {
+    @include flex();
+
+    .card-pane {
+        @include flex(center, center);
+
+        & > * + * {
+            margin-left: rem(16px);
+        }
+    }
+}

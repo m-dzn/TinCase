@@ -1,4 +1,4 @@
 export { default as Main } from "./Main";
-export { default as MemoPage } from "./MemoPage";
-export { default as TodoPage } from "./TodoPage";
-export { default as VideoPage } from "./VideoPage";
+export { default as TestPage } from "./TestPage";
+export { default as SignIn } from "./SignIn";
+export { default as SignUp } from "./SignUp";

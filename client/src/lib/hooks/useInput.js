@@ -1,4 +1,4 @@
-const { useState } = require("react");
+import { useState } from "react";
 
 function useInput(element, validator) {
     const [value, setValue] = useState(element);

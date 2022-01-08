@@ -6,6 +6,7 @@ const getAPI = (path) => {
 const getAuthAPI = (path) => getAPI("/auth")(path);
 const getUserAPI = (path) => getAPI("/users")(path);
 const getCardAPI = (path) => getAPI("/cards")(path);
+const getDeckAPI = (path) => getAPI("/decks")(path);
 
 const PATH = {
     CLIENT: {
@@ -25,6 +26,9 @@ const PATH = {
         },
         CARDS: {
             CRUD: getCardAPI(),
+        },
+        DECKS: {
+            CRUD: getDeckAPI(),
         },
     },
     YOUTUBE: {

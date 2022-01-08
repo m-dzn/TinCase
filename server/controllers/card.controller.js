@@ -37,15 +37,17 @@ module.exports = {
 
         const card = await cardService.getCard(id);
 
+        let data;
+
         switch (card.type) {
             case CARD.TYPE.MEMO:
-                card.memo = await memoCardService.getByCardId(id);
+                data = await memoCardService.getByCardId(id);
                 break;
             case CARD.TYPE.TODO:
-                card.todos = await todoService.getByCardId(id);
+                data = await todoService.getByCardId(id);
                 break;
             case CARD.TYPE.VIDEO_LINK:
-                card.videoLink = await videoLinkCardService.getByCardId(id);
+                data = await videoLinkCardService.getByCardId(id);
                 break;
             default:
                 throw new CustomError(
@@ -54,7 +56,14 @@ module.exports = {
                 );
         }
 
-        res.json(card);
+        res.json({
+            id: card.id,
+            title: card.title,
+            type: card.type,
+            isPublic: card.isPublic,
+            userId: card.userId,
+            ...data,
+        });
     }, "카드를 찾는 중 오류가 발생했습니다."),
 
     update: handleAsyncException(async (req, res) => {

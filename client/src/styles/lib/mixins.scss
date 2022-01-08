@@ -28,6 +28,14 @@
     }
 }
 
+// Initializing
+@mixin init-button {
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
 // Scroll
 @mixin hide-scrollbar {
     -ms-overflow-style: none;
@@ -49,5 +57,5 @@
     display: -webkit-box;
     -webkit-line-clamp: $line;
     -webkit-box-orient: vertical;
-    height: $height;
+    max-height: $height;
 }

@@ -10,7 +10,7 @@ function MemoCard({ className, card }) {
     return (
         <BasicCardTemplate
             className={containerClass}
-            style={{ background: card.themeColor }}
+            style={{ background: card.color }}
         >
             <section className="contents">
                 <h5>{card?.title} </h5>

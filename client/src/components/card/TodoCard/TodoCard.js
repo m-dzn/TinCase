@@ -4,13 +4,15 @@ import "./TodoCard.scss";
 import cx from "classnames";
 import TodoItem from "./TodoItem";
 
-function TodoCard({ todos }) {
+function TodoCard({ card }) {
     const classnames = cx("card", "todo-card");
     return (
         <BasicCardTemplate className={classnames}>
             <h5>Todo 제목</h5>
-            {todos &&
-                todos.map((todo) => <TodoItem key={todo.id} todo={todo} />)}
+            {card.todos &&
+                card.todos.map((todo) => (
+                    <TodoItem key={todo.id} todo={todo} />
+                ))}
         </BasicCardTemplate>
     );
 }

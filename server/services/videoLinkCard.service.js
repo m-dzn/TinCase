@@ -33,7 +33,13 @@ module.exports = {
             );
         }
 
-        return videoLinkCard.toJSON();
+        return {
+            videoLinkId: videoLinkCard.id,
+            url: videoLinkCard.url,
+            provider: videoLinkCard.provider,
+            createdAt: videoLinkCard.createdAt,
+            updatedAt: videoLinkCard.updatedAt,
+        };
     },
 
     updateByCardId: async (cardId, videoLinkCardDTO) => {

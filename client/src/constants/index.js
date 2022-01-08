@@ -6,3 +6,11 @@ export const KEY = {
         API_KEY: process.env.REACT_APP_YOUTUBE_API_KEY,
     },
 };
+
+export const CARD = {
+    TYPE: {
+        MEMO: "MEMO",
+        TODO: "TODO",
+        VIDEO_LINK: "VIDEO_LINK",
+    },
+};

@@ -15,7 +15,7 @@ function TodoItem({ todo }) {
                 onChange={() => setDone((state) => !state)}
             />
             <label>{todo.text}</label>
-            <button class="button-delete">
+            <button className="button-delete">
                 <FaRegTimesCircle color="red" />
             </button>
         </div>
