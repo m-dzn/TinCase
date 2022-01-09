@@ -3,6 +3,7 @@ import { PATH } from "constants";
 import { Routes, Route } from "react-router-dom";
 import OAuthRedirect from "./OAuthRedirect";
 import routes from "./routes";
+import LoginFailureRedirect from "./LoginFailureRedirect";
 
 function RootRouter() {
     return (
@@ -18,6 +19,10 @@ function RootRouter() {
                 <Route
                     path={PATH.CLIENT.OAUTH_REDIRECT}
                     element={<OAuthRedirect />}
+                />
+                <Route
+                    path={PATH.CLIENT.LOGIN_FAILURE_REDIRECT}
+                    element={<LoginFailureRedirect />}
                 />
             </Routes>
         </Suspense>

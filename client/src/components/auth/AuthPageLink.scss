@@ -1,0 +1,11 @@
+@import "styles/utils";
+
+.auth-page-link {
+    text-align: right;
+    .description {
+        margin-right: rem(12px);
+    }
+    a {
+        font-weight: $font-weight-bold;
+    }
+}

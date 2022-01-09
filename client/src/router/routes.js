@@ -1,36 +1,39 @@
-import { Main, SignIn, SignUp, TestPage } from "pages";
+import { PATH } from "constants";
+import { Main, LoginPage, JoinPage, TestPage } from "pages";
+
+const { CLIENT } = PATH;
 
 const routes = [
     {
-        path: "/",
+        path: CLIENT.HOME,
         label: "Home",
         element: <Main />,
         nav: true,
     },
 
     {
-        path: "/deck/:deckId",
+        path: CLIENT.DECK,
         element: <TestPage />,
         nav: false,
     },
 
     {
-        path: "/deck/:deckId/card/:cardId",
+        path: CLIENT.CARD_IN_DECK,
         element: <TestPage />,
         nav: false,
     },
 
     {
-        path: "/signin",
-        label: "Sign In",
-        element: <SignIn />,
+        path: CLIENT.LOGIN,
+        label: "Login",
+        element: <LoginPage />,
         nav: true,
     },
 
     {
-        path: "/signup",
-        label: "Sign Up",
-        element: <SignUp />,
+        path: CLIENT.JOIN,
+        label: "Join",
+        element: <JoinPage />,
         nav: true,
     },
 ];

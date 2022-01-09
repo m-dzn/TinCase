@@ -1,10 +1,72 @@
 @import "styles/utils";
 
 .todo-item {
+    $todo-item__size: rem(18px);
+    $todo-item__border: rem(1px) solid gray;
+
+    $todo-item__check-box__background: #1b4a4e;
+    $todo-item__check-box__size: rem(20px);
+    $todo-item__check-box__margin-right: rem(8px);
+    $todo-item__check-box__font-size: rem(20px);
+    $todo-item__check-box__font-color: $color-white;
+
+    @include flex(flex-start, center);
+
+    position: relative;
+    height: rem(40px);
+
+    .check-box {
+        @include init-button;
+        @include flex(center, center);
+        @include transition(all, 0.15s, ease-in);
+
+        width: $todo-item__check-box__size;
+        height: $todo-item__check-box__size;
+        margin-right: $todo-item__check-box__margin-right;
+
+        border: $todo-item__border;
+        border-radius: 50%;
+
+        color: $todo-item__check-box__font-color;
+        font-size: $todo-item__check-box__font-size;
+    }
+
+    &.done {
+        .check-box {
+            background: $todo-item__check-box__background;
+        }
+
+        label {
+            position: relative;
+            color: gray;
+
+            &:before {
+                content: "";
+                background: #999;
+
+                display: block;
+                position: absolute;
+                top: 50%;
+                left: -0.2rem;
+                height: rem(1px);
+                width: 0%;
+
+                animation: stroke 0.2s ease-out 0s forwards;
+            }
+
+            @keyframes stroke {
+                to {
+                    width: calc(100% + 0.4rem);
+                }
+            }
+        }
+    }
+
     .button-delete {
         @include flex(center, center);
         background: transparent;
         border: none;
         outline: none;
+        margin-left: auto;
     }
 }

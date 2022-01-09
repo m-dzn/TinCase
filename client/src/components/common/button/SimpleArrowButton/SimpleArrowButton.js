@@ -4,7 +4,7 @@ import cx from "classnames";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 function SimpleArrowButton({ className, right, size, ...rest }) {
-    const classnames = cx("simple-arrow-button", "button", className, size);
+    const classnames = cx(className, "button", "simple-arrow-button", size);
     return (
         <button className={classnames} {...rest}>
             {right ? <FaAngleRight /> : <FaAngleLeft />}

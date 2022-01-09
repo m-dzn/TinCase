@@ -1,0 +1,49 @@
+@import "styles/utils";
+
+.social-login-form {
+    @include flex-column();
+
+    $social-login-form__height: rem(44px);
+    $social-login-form__border-radius: rem(6px);
+    $social-login-form__button-gap: rem(16px);
+
+    $social-login-form__font-size: $font-size-lg;
+
+    $social-login-form__logo-size: rem(32px);
+    $social-login-form__logo__margin-left: rem(16px);
+
+    & > a + a {
+        margin-top: $social-login-form__button-gap;
+    }
+
+    & a {
+        @include flex(center, center);
+
+        position: relative;
+
+        font-size: $social-login-form__font-size;
+        height: $social-login-form__height;
+        border-radius: $social-login-form__border-radius;
+
+        & .social-logo {
+            position: absolute;
+            left: $social-login-form__logo__margin-left;
+            height: $social-login-form__logo-size;
+        }
+
+        & .text {
+            flex-grow: 1;
+            text-align: center;
+        }
+    }
+
+    & .kakao-login {
+        background: #fee500;
+        color: rgba(0, 0, 0, 0.85);
+    }
+
+    & .naver-login {
+        background: #03c75a;
+        color: $color-white;
+    }
+}

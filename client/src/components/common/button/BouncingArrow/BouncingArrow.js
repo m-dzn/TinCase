@@ -3,11 +3,11 @@ import "./BouncingArrow.scss";
 import cx from "classnames";
 import { FaChevronDown } from "react-icons/fa";
 
-function BouncingArrow() {
-    const classnames = cx("bouncing-arrow");
+function BouncingArrow({ className, ...rest }) {
+    const classnames = cx(className, "button", "bouncing-arrow");
 
     return (
-        <div>
+        <div {...rest}>
             <FaChevronDown className={classnames} />
         </div>
     );

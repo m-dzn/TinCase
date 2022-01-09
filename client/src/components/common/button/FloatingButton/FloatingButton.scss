@@ -1,0 +1,17 @@
+@import "styles/utils";
+
+.floating-button {
+    $floating-button__size: rem(56px);
+
+    @include flex(center, center);
+
+    background: $color-primary;
+    color: $color-font-primary;
+
+    width: $floating-button__size;
+    height: $floating-button__size;
+
+    border-radius: 50%;
+
+    font-size: $floating-button__size / 2;
+}

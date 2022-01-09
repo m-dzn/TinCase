@@ -4,15 +4,29 @@
     box-sizing: border-box;
 }
 
+html {
+    min-height: 100vh;
+}
+
+body,
+#root {
+    min-height: inherit;
+}
+
 body {
     color: $color-font;
-    font-size: $font-size-normal;
+    font-size: $font-size-md;
     background: $color-background;
 }
 
 a {
+    @include transition(color, 0.1s);
     color: $color-font;
     text-decoration: none;
+
+    &:hover {
+        color: $color-highlight;
+    }
 }
 
 ul {
@@ -61,27 +75,29 @@ h6 {
 
 /*      Font        */
 .xl {
-    font-size: $font-size-xlarge;
+    font-size: $font-size-xl;
 }
 
 .lg {
-    font-size: $font-size-large;
+    font-size: $font-size-lg;
 }
 
 .md {
-    font-size: $font-size-normal;
+    font-size: $font-size-md;
 }
 
 .sm {
-    font-size: $font-size-small;
+    font-size: $font-size-sm;
 }
 
 .xs {
-    font-size: $font-size-xsmall;
+    font-size: $font-size-xs;
 }
 
 /*      Button      */
 .button {
+    @include init-button;
+
     &.xl {
         font-size: $button-size-xl;
     }

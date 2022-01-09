@@ -1,0 +1,9 @@
+@import "styles/utils";
+
+.join-form {
+    background: $color-surface;
+
+    & .form-group {
+        @include flex-column();
+    }
+}

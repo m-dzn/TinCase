@@ -9,7 +9,7 @@ export * as youtubeAPI from "./api/youtubeAPI";
 export * from "./hooks/styleHooks";
 export { default as useCard } from "./hooks/useCard";
 export { default as useDeck } from "./hooks/useDeck";
-export { default as useInput } from "./hooks/useInput";
+export { default as useForm } from "./hooks/useForm";
 export { default as useMemoCard } from "./hooks/useMemoCard";
 export { default as useYoutubeInfo } from "./hooks/useYoutubeInfo";
 
@@ -18,3 +18,4 @@ export * as cookieUtils from "./utils/cookieUtils";
 export * as apiUtils from "./utils/apiUtils";
 export * from "./utils/formatUtils";
 export * as scrollUtils from "./utils/scrollUtils";
+export * from "./utils/validationUtils";

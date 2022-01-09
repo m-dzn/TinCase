@@ -14,3 +14,12 @@ export const CARD = {
         VIDEO_LINK: "VIDEO_LINK",
     },
 };
+
+export const FORM = {
+    JOIN: {
+        EMAIL: "email",
+        NICKNAME: "nickname",
+        PASSWORD: "password",
+        CONFIRM_PASSWORD: "confirmPassword",
+    },
+};

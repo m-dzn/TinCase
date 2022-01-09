@@ -1,9 +1,0 @@
-@import "styles/utils";
-
-.youtube-card-viewer {
-    @include flex();
-
-    & > * + * {
-        margin-left: $unit * 10;
-    }
-}

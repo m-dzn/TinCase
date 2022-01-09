@@ -1,3 +1,5 @@
+@import "./design-tokens.scss";
+
 @mixin flex($justify-content: flex-start, $align-items: stretch) {
     display: flex;
     justify-content: $justify-content;
@@ -34,6 +36,8 @@
     border: none;
     outline: none;
     cursor: pointer;
+    padding: 0;
+    margin: 0;
 }
 
 // Scroll
@@ -58,4 +62,14 @@
     -webkit-line-clamp: $line;
     -webkit-box-orient: vertical;
     max-height: $height;
+}
+
+// Transition
+@mixin transition(
+    $property: all,
+    $duration: $transition-default-duration,
+    $timing-function: $transition-default-timing-function,
+    $delay: 0s
+) {
+    transition: $property $duration $timing-function $delay;
 }

@@ -31,11 +31,11 @@ $font-size-h3: rem(24px);
 $font-size-h4: rem(20px);
 $font-size-h5: rem(18px);
 $font-size-h6: rem(16px);
-$font-size-xlarge: $font-size-h4;
-$font-size-large: $font-size-h5;
-$font-size-normal: $font-size-h6;
-$font-size-small: rem(14px);
-$font-size-xsmall: rem(13px);
+$font-size-xl: $font-size-h4;
+$font-size-lg: $font-size-h5;
+$font-size-md: $font-size-h6;
+$font-size-sm: rem(14px);
+$font-size-xs: rem(13px);
 $font-size-rem: 1rem;
 
 $line-height-160: 1.6;
@@ -50,16 +50,23 @@ $button-size-md: rem(40px);
 $button-size-sm: rem(24px);
 $button-size-xs: rem(16px);
 
-// Alias Tokens
+// Global Token : Transition
+$transition-default-duration: 0.4s;
+$transition-default-timing-function: ease-in-out;
+
+/* Alias Tokens */
 $max-width: rem(1440px);
 
+$color-primary: #7c99ac;
+$color-highlight: #ff6363;
+$color-background: linear-gradient($color-navy, #2a3750);
+$color-surface: $color-white;
+
 $color-font: $color-black;
+$color-font-primary: $color-white;
 $color-font-reverse: $color-white;
 $color-font-background: $color-white;
 $color-font-gray: $color-gray;
-
-$color-background: linear-gradient($color-navy, #2a3750);
-$color-surface: $color-white;
 
 // Comonent Specific Tokens : Shared Tokens
 $card-default-ratio: 1 / 1.618;

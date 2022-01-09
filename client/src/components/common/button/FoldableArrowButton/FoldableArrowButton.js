@@ -2,8 +2,12 @@ import React from "react";
 import "./FoldableArrowButton.scss";
 import cx from "classnames";
 
-function FoldableArrowButton({ right, children, ...rest }) {
-    const classnames = cx("foldable-arrow-button", right ? "right" : "left");
+function FoldableArrowButton({ className, right, children, ...rest }) {
+    const classnames = cx(
+        className,
+        "foldable-arrow-button",
+        right ? "right" : "left"
+    );
 
     return (
         <button className={classnames} {...rest}>

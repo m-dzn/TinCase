@@ -1,0 +1,14 @@
+@import "styles/utils";
+
+.auth-input {
+    input {
+        width: 100%;
+
+        height: rem(32px);
+        margin-top: rem(8px);
+    }
+
+    .validation-message {
+        height: rem(20px);
+    }
+}

@@ -31,4 +31,10 @@
     main {
         padding: rem(24px);
     }
+
+    .floating-button {
+        position: fixed;
+        bottom: rem(64px);
+        right: rem(64px);
+    }
 }

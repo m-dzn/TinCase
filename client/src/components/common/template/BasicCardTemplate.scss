@@ -9,8 +9,8 @@
     $basic-card-template__font-multiplier: 5;
 
     // 기본 폰트 사이즈 - 최소 화면 너비(32rem)에서 폰트 배수(0.5vw)
-    $basic-card-template__min-font-size: $font-size-normal;
-    $basic-card-template__max-font-size: $font-size-large;
+    $basic-card-template__min-font-size: $font-size-md;
+    $basic-card-template__max-font-size: $font-size-lg;
 
     $basic-card-template__box-shadow: $box-shadow-card;
 
@@ -29,5 +29,5 @@
     box-shadow: $basic-card-template__box-shadow;
 
     // 폰트
-    font-size: $font-size-normal;
+    font-size: $font-size-md;
 }

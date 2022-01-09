@@ -1,4 +1,5 @@
 const { StatusCodes } = require("http-status-codes");
+const { CLIENT } = require("../../config");
 
 module.exports = {
     isLoggedIn: (req, res, next) => {
@@ -15,7 +16,7 @@ module.exports = {
         if (!req.isAuthenticated()) {
             next();
         } else {
-            res.status(StatusCodes.FORBIDDEN).json({
+            res.status(StatusCodes.BAD_REQUEST).json({
                 message: "이미 로그인되어 있습니다.",
             });
         }

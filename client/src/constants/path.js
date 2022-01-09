@@ -11,6 +11,12 @@ const getDeckAPI = (path) => getAPI("/decks")(path);
 const PATH = {
     CLIENT: {
         OAUTH_REDIRECT: "/oauth/redirect",
+        LOGIN_FAILURE_REDIRECT: "/login-failure",
+        HOME: "/",
+        LOGIN: "/login",
+        JOIN: "/join",
+        DECK: "/deck/:deckId",
+        CARD_IN_DECK: "/deck/:deckId/card/:cardId",
     },
     API: {
         AUTH: {

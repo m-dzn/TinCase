@@ -52,7 +52,7 @@ const CONFIG = {
     CLIENT: {
         BASE_URL: process.env.CLIENT_BASE_URL,
         OAUTH_REDIRECT_URL: process.env.CLIENT_OAUTH_REDIRECT_URL,
-        LOGIN_FAILURE_URL: process.env.LOGIN_FAILURE_URL,
+        LOGIN_FAILURE_URL: process.env.CLIENT_LOGIN_FAILURE_URL,
     },
 
     ACCESS_ALLOWED_URL: [process.env.CLIENT_BASE_URL],

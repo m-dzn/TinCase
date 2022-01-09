@@ -6,7 +6,10 @@ const { API } = PATH;
 
 export const register = (joinForm) => {
     return apiUtils.handleJsonError(async () => {
-        const response = await axios.post(API.AUTH.REGISTER, joinForm);
+        const response = await axios.post(
+            "http://localhost:5000/v1/auth/register",
+            joinForm
+        );
         return response.data;
     });
 };
