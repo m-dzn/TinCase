@@ -19,3 +19,6 @@ export * as apiUtils from "./utils/apiUtils";
 export * from "./utils/formatUtils";
 export * as scrollUtils from "./utils/scrollUtils";
 export * from "./utils/validationUtils";
+
+// recoil
+export * from "./recoil/userAtom";

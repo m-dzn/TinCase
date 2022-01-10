@@ -12,7 +12,8 @@
     $navbar__menu_item__padding-h: 2rem;
 
     &,
-    a {
+    a,
+    button {
         color: $navbar__font-color;
     }
 
@@ -26,6 +27,12 @@
         & li {
             @include flex(center, center);
             padding: $navbar__menu_item__padding-v $navbar__menu_item__padding-h;
+
+            button {
+                @include init-button();
+                color: inherit;
+                font-size: inherit;
+            }
         }
     }
 }

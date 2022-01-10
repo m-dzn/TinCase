@@ -1,60 +1,11 @@
 import React from "react";
 import { BouncingArrow, MainPageTemplate } from "components";
-import { ScrollToTop } from "containers";
+import { DeckListContainer, ScrollToTop } from "containers";
 
 function Main() {
     return (
         <MainPageTemplate>
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
+            <DeckListContainer />
 
             <ScrollToTop />
             <div style={{ display: "flex", justifyContent: "center" }}>

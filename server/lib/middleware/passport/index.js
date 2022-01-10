@@ -20,14 +20,6 @@ module.exports = (app) => {
         done(null, user);
     });
 
-    // passport.deserializeUser(async (id, done) => {
-    //     const exUser = await User.findOne({ where: { id } })
-    //         .then((user) => done(null, user))
-    //         .catch((err) => done(err));
-
-    //     done(null, exUser);
-    // });
-
     passport.use("local", localStrategy);
     passport.use("google", googleStrategy);
     passport.use("kakao", kakaoStrategy);

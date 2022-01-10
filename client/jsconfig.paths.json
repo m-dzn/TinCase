@@ -8,6 +8,7 @@
             "containers/*": ["src/containers/*"],
             "lib/*": ["src/lib/*"],
             "pages/*": ["src/pages/*"],
+            "recoil/*": ["src/recoil/*"],
             "router/*": ["src/router/*"],
             "styles/*": ["src/styles/*"]
         }

@@ -1,14 +1,14 @@
 import React from "react";
 import "./Header.scss";
 import cx from "classnames";
-import Navbar from "./Navbar";
+import { NavbarContainer } from "containers";
 
 function Header({ className }) {
     const classnames = cx("header", className);
 
     return (
         <div className={classnames}>
-            <Navbar />
+            <NavbarContainer />
         </div>
     );
 }

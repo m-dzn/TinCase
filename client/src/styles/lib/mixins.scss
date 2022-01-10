@@ -1,5 +1,6 @@
 @import "./design-tokens.scss";
 
+// display
 @mixin flex($justify-content: flex-start, $align-items: stretch) {
     display: flex;
     justify-content: $justify-content;
@@ -9,6 +10,14 @@
 @mixin flex-column($justify-content: flex-start, $align-items: stretch) {
     @include flex($justify-content, $align-items);
     flex-direction: column;
+}
+
+@mixin grid() {
+    display: grid;
+}
+
+@mixin inline-grid() {
+    display: grid;
 }
 
 // Breakpoint

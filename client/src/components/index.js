@@ -17,6 +17,7 @@ export { default as FloatingButton } from "./common/button/FloatingButton";
 export { default as LoginForm } from "./auth/LoginForm";
 export { default as JoinForm } from "./auth/JoinForm";
 export { default as OAuthForm } from "./auth/OAuthForm";
+
 /*  card  */
 export { default as MemoCard } from "./card/MemoCard";
 export { default as TodoCard } from "./card/TodoCard";
@@ -25,6 +26,7 @@ export { default as CardViewer } from "./card/CardViewer";
 
 /*  deck  */
 export { default as DeckViewer } from "./deck/DeckViewer";
+export { default as DeckCard } from "./deck/DeckCard";
 
 /*  main  */
 export { default as MainPageTemplate } from "./main/MainPageTemplate";

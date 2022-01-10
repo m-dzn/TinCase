@@ -15,6 +15,7 @@ const PATH = {
         HOME: "/",
         LOGIN: "/login",
         JOIN: "/join",
+        MY_PAGE: "/me",
         DECK: "/deck/:deckId",
         CARD_IN_DECK: "/deck/:deckId/card/:cardId",
     },
