@@ -1,8 +1,8 @@
 @import "styles/utils";
 
 .header {
-    $header__padding-v: 1.6rem;
-    $Header__padding-h: 1.6rem;
+    $header__padding-x: $main-padding-x;
+    $header__padding-y: $spacing-8;
 
-    padding: $header__padding-v $Header__padding-h;
+    padding: $header__padding-y $header__padding-x;
 }

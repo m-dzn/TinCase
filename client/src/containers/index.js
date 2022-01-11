@@ -1,6 +1,7 @@
 // card
 export { default as DeckContainer } from "./card/DeckContainer";
 export { default as CardContainer } from "./card/CardContainer";
+export { default as TodoCardContainer } from "./card/TodoCardContainer";
 
 // auth
 export { default as LoginContainer } from "./auth/LoginContainer";

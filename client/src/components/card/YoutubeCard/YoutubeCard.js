@@ -27,12 +27,14 @@ function YoutubeCard({ className, card }) {
                     width="100%"
                     height="100%"
                     controls
+                    light
+                    playing
                 />
             </div>
 
             <section className="contents" style={{ color: "black" }}>
                 <div>
-                    <h5>{card.title} </h5>
+                    <h5 className="youtube-card-title">{card.title} </h5>
                 </div>
                 <YoutubeInfoCard
                     videoInfo={videoInfo}

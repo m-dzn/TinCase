@@ -1,13 +1,27 @@
 @import "styles/utils";
 
 .deck-viewer {
+    $deck-viewer__pane-gap: rem(80px);
+    $deck-viewer__arrow-button__gap: $spacing-6;
+
     @include flex();
+    flex-grow: 1;
 
     .card-pane {
-        @include flex(center, center);
+        @include flex(flex-end, center);
+        flex: 1;
 
         & > * + * {
-            margin-left: rem(16px);
+            margin-left: $deck-viewer__arrow-button__gap;
         }
+    }
+
+    .card-list-pane {
+        @include flex(flex-start);
+        flex: 1;
+    }
+
+    & > div + div {
+        margin-left: $deck-viewer__pane-gap;
     }
 }

@@ -2,6 +2,7 @@
 
 .foldable-arrow-button {
     $foldable_arrow_button__color: $color-font-background;
+    $foldable_arrow_button__border-width: $border-width-1;
 
     @include flex(flex-start, center);
 
@@ -20,7 +21,7 @@
         content: "";
         display: block;
         width: 100%;
-        height: rem(1px);
+        height: $foldable_arrow_button__border-width;
         background: $foldable_arrow_button__color;
         position: absolute;
         top: 50%;
@@ -32,7 +33,7 @@
         content: "";
         display: block;
         width: 100%;
-        height: rem(1px);
+        height: $foldable_arrow_button__border-width;
         background: $foldable_arrow_button__color;
         position: absolute;
         bottom: 50%;

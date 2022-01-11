@@ -1,8 +1,11 @@
 @import "styles/utils";
 
 .youtube-info-card {
-    $youtube-info-card__padding-y: rem(8px);
-    $channel-info__padding-y: rem(16px);
+    $video-info__padding-y: $spacing-4;
+    $video-info__title__margin-bottom: $spacing-2;
+    $channel-info__padding-y: $spacing-2;
+
+    border-top: $border-width-1 solid $color-light-gray;
 
     .sub-info {
         @include flex();
@@ -13,11 +16,14 @@
 
     .video-info {
         @include flex-column();
+        padding: $video-info__padding-y 0;
 
         .video-title {
-            padding: $youtube-info-card__padding-y 0;
             @include ellipsis;
+            margin-bottom: $video-info__title__margin-bottom;
+            font-weight: $font-weight-bold;
         }
+
         & .published-at::before {
             content: "·";
             margin: rem(4px);
@@ -40,6 +46,8 @@
 
             & .channel-title {
                 flex-grow: 1;
+                font-size: $font-size-sm;
+                font-weight: $font-weight-bold;
             }
         }
     }

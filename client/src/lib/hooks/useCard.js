@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
-import { cardAPI } from "lib";
+import { useEffect } from "react";
+import { cardAPI, currentCardState } from "lib";
+import { useRecoilState } from "recoil";
 
 function useCard(cardId) {
-    const [card, setCard] = useState();
+    const [card, setCard] = useRecoilState(currentCardState);
 
     useEffect(() => {
         async function fetchCardData(id) {
@@ -14,7 +15,7 @@ function useCard(cardId) {
         if (cardId) {
             fetchCardData(cardId);
         }
-    }, [cardId]);
+    }, [cardId, setCard]);
 
     return {
         card,

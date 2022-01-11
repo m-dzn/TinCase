@@ -1,12 +1,16 @@
 @import "styles/utils";
 
 .card-detail-page-template {
+    $card-detail-page-template__padding-x: rem(48px);
+    $card-detail-page-template__padding-y: rem(32px);
+
     @include flex-column();
 
     min-height: 100vh;
 
     & > header {
-        padding: rem(32px) 0;
+        padding: $card-detail-page-template__padding-y
+            $card-detail-page-template__padding-x;
     }
 
     & > main {

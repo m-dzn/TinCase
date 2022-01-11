@@ -15,15 +15,26 @@ function DeckViewer({
     ...rest
 }) {
     const classnames = cx("deck-viewer", className);
+    const isMoreThanOne = cards.length > 1;
 
     return (
         <div className={classnames} {...rest}>
             <div className="card-pane">
-                <SimpleArrowButton onClick={onClickPrevCard} size="md" />
+                {isMoreThanOne && (
+                    <SimpleArrowButton onClick={onClickPrevCard} size="md" />
+                )}
                 <CardContainer cardId={currentCardId} />
-                <SimpleArrowButton right onClick={onClickNextCard} size="md" />
+                {isMoreThanOne && (
+                    <SimpleArrowButton
+                        right
+                        onClick={onClickNextCard}
+                        size="md"
+                    />
+                )}
             </div>
-            <CardList cards={cards} onClickCardItem={onClickCardItem} />
+            <div className="card-list-pane">
+                <CardList cards={cards} onClickCardItem={onClickCardItem} />
+            </div>
         </div>
     );
 }

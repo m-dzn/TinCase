@@ -3,6 +3,7 @@ const router = express.Router();
 const { deckController } = require("../controllers");
 const { isLoggedIn } = require("../lib");
 
+router.get("/", deckController.list);
 router.post("/", isLoggedIn, deckController.create);
 router.get("/:id", deckController.read);
 router.patch("/:id", isLoggedIn, deckController.update);

@@ -37,7 +37,7 @@ const routes = [
 
     {
         nav: false,
-        path: CLIENT.DECK,
+        path: `${CLIENT.DECK}`,
         element: <TestPage />,
     },
 

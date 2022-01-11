@@ -1,35 +1,44 @@
-import { deckAPI } from "lib";
-import { useState, useEffect, useCallback } from "react";
+import { PATH } from "constants";
+import { cardIndexState, cardsState, deckAPI } from "lib";
+import { useEffect, useCallback } from "react";
+import { useRecoilState } from "recoil";
 
 function useDeck(deckId, cardId = 0) {
-    const [cards, setCards] = useState([]);
-    const [currentCard, setCurrentCard] = useState({});
-    const [cardIndex, setCardIndex] = useState(0);
+    const [cards, setCards] = useRecoilState(cardsState);
+    const [cardIndex, setCardIndex] = useRecoilState(cardIndexState);
 
     // 현재 카드 변경
+    const getDeckCardUrl = useCallback((deckId, cardId) => {
+        return PATH.CLIENT.CARD_IN_DECK.replace(":deckId", deckId).replace(
+            ":cardId",
+            cardId
+        );
+    }, []);
+
+    const navigateToDeckCard = useCallback(
+        (index) => {
+            const url = getDeckCardUrl(deckId, cards[index].id);
+            window.history.replaceState("", "", url);
+            setCardIndex(index);
+        },
+        [cards, deckId, setCardIndex, getDeckCardUrl]
+    );
+
     const onClickPrevCard = useCallback(() => {
-        if (cardIndex > 0) {
-            setCardIndex((index) => index - 1);
-        } else {
-            setCardIndex(cards.length - 1);
-        }
-    }, [cards, cardIndex]);
+        const prevCardIndex = cardIndex > 0 ? cardIndex - 1 : cards.length - 1;
+        navigateToDeckCard(prevCardIndex);
+    }, [cards, cardIndex, navigateToDeckCard]);
 
     const onClickNextCard = useCallback(() => {
-        if (cardIndex < cards.length - 1) {
-            setCardIndex((index) => index + 1);
-        } else {
-            setCardIndex(0);
-        }
-    }, [cards, cardIndex]);
+        const nextCardIndex = cardIndex < cards.length - 1 ? cardIndex + 1 : 0;
+        navigateToDeckCard(nextCardIndex);
+    }, [cards, cardIndex, navigateToDeckCard]);
 
     const onClickCardItem = useCallback(
         (index) => {
-            if (0 <= index && index < cards.length) {
-                setCardIndex(index);
-            }
+            navigateToDeckCard(index);
         },
-        [cards]
+        [navigateToDeckCard]
     );
 
     // deckId 변경 시 API로 덱 정보 가져오기
@@ -51,18 +60,16 @@ function useDeck(deckId, cardId = 0) {
         if (deckId) {
             fetchCards();
         }
-    }, [deckId, cardId]);
 
-    // 카드 목록 및 현재 카드 인덱스 변경 시 currentCard 갱신
-    useEffect(() => {
-        if (cards.length > 0) {
-            setCurrentCard(cards[cardIndex]);
-        }
-    }, [cards, cardIndex]);
+        return () => {
+            setCards([]);
+            setCardIndex(0);
+        };
+    }, [deckId, cardId, setCards, setCardIndex]);
 
     return {
         cards,
-        currentCard,
+        currentCard: cards[cardIndex],
         onClickPrevCard,
         onClickNextCard,
         onClickCardItem,

@@ -35,7 +35,7 @@ module.exports = {
     read: handleAsyncException(async (req, res) => {
         const { id } = req.params;
 
-        const card = await cardService.getCard(id);
+        const card = await cardService.getCard(id, req.user?.id);
 
         let data;
 

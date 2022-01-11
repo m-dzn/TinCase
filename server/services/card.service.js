@@ -1,4 +1,5 @@
 const { StatusCodes } = require("http-status-codes");
+const { CustomError } = require("../lib");
 const { Card } = require("../models");
 
 module.exports = {
@@ -12,10 +13,17 @@ module.exports = {
         });
     },
 
-    getCard: async (id) => {
+    getCard: async (id, userId) => {
         const card = await Card.findOne({ where: { id } });
 
         if (!card) {
+            throw new CustomError(
+                "카드를 찾을 수 없습니다.",
+                StatusCodes.NOT_FOUND
+            );
+        }
+
+        if (card.userId !== userId && !card.isPublic) {
             throw new CustomError(
                 "카드를 찾을 수 없습니다.",
                 StatusCodes.NOT_FOUND

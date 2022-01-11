@@ -1,13 +1,30 @@
 @import "styles/utils";
 
 .card-list {
+    $card-list__width: rem(480px);
     $card-list__box-shadow: $box-shadow-card;
+
+    $card-item__gap: $unit * 3;
+    $card-item__padding-x: $spacing-6;
+    $card-item__padding-y: $spacing-4;
 
     background: $color-surface;
     box-shadow: $card-list__box-shadow;
 
-    .card-item {
-        padding: rem(16px) rem(24px);
-        cursor: pointer;
+    width: $card-list__width;
+    border-radius: rem(8px);
+
+    header {
+        padding: $card-item__padding-y $card-item__padding-x;
+        box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
+        margin-bottom: $card-item__gap;
+    }
+
+    ul {
+        padding: 0 rem(16px);
+
+        li + li {
+            margin-top: $card-item__gap;
+        }
     }
 }

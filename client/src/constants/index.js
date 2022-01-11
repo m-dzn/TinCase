@@ -15,6 +15,14 @@ export const CARD = {
     },
 };
 
+export const TODO = {
+    FILTER: {
+        ALL: "ALL",
+        TODO: "TODO",
+        DONE: "DONE",
+    },
+};
+
 export const FORM = {
     JOIN: {
         EMAIL: "email",

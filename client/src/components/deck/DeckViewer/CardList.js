@@ -1,24 +1,26 @@
 import React from "react";
 import "./CardList.scss";
 import cx from "classnames";
+import CardListItem from "./CardListItem";
 
 function CardList({ className, cards, onClickCardItem }) {
     const classnames = cx("card-list", className);
     return (
-        <div className={classnames}>
+        <article className={classnames}>
+            <header>
+                <h5 className="list-title">덱 카드 목록</h5>
+            </header>
             <ul>
                 {cards &&
                     cards.map((card, index) => (
-                        <li
+                        <CardListItem
                             key={card.id}
-                            className="card-item"
+                            card={card}
                             onClick={() => onClickCardItem(index)}
-                        >
-                            {card.title}
-                        </li>
+                        />
                     ))}
             </ul>
-        </div>
+        </article>
     );
 }
 

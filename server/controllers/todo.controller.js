@@ -4,9 +4,12 @@ const { todoService } = require("../services");
 
 module.exports = {
     create: handleAsyncException(async (req, res) => {
-        await todoService.create(req.body);
+        const todo = await todoService.create(req.body);
 
-        res.status(StatusCodes.CREATED).json("Todo 아이템이 생성되었습니다.");
+        res.status(StatusCodes.CREATED).json({
+            todo,
+            message: "Todo 아이템이 생성되었습니다.",
+        });
     }, "Todo 아이템 생성 중 오류가 발생했습니다."),
 
     read: handleAsyncException(async (req, res) => {

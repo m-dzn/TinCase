@@ -3,8 +3,8 @@
 .youtube-card {
     $youtube-card__height: rem(48px);
     $youtube-card__ellipsis-lines: 2;
-    $youtube-card__padding-bottom: rem(24px);
-    $youtube-card__title-margin-bottom: rem(16px);
+    $youtube-card__padding-bottom: $spacing-6;
+    $youtube-card__title-margin-bottom: $spacing-4;
 
     box-shadow: 0 rem(6px) rem(8px) rem(4px) #{$color-black}70;
 

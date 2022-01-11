@@ -3,6 +3,12 @@ const { handleAsyncException } = require("../lib");
 const { deckService } = require("../services");
 
 module.exports = {
+    list: handleAsyncException(async (req, res) => {
+        const decks = await deckService.list();
+
+        res.json(decks);
+    }, "덱 목록 조회 중 오류가 발생했습니다."),
+
     create: handleAsyncException(async (req, res) => {
         await deckService.create(req.user.id, {
             ...req.body,

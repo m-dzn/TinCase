@@ -4,12 +4,12 @@
     /*      Tokens        */
     $main-page-template__background: #{$color-black}25;
 
-    $main-page-template__margin-v: 5.6rem;
-    $main-page-template__margin-h: auto;
+    $main-page-template__margin-y: rem(56px);
+    $main-page-template__margin-x: auto;
 
-    $main-page-template__border-width: 0.3rem;
+    $main-page-template__border-width: rem(4px);
     $main-page-template__border-color: #{$color-font-background}99;
-    $main-page-template__border-radius: 3.2rem;
+    $main-page-template__border-radius: rem(32px);
 
     /*      Styles        */
     // Color
@@ -19,7 +19,7 @@
     max-width: $max-width;
     min-height: 56rem;
 
-    margin: $main-page-template__margin-v $main-page-template__margin-h;
+    margin: $main-page-template__margin-y $main-page-template__margin-x;
 
     // Border
     border: $main-page-template__border-width solid
@@ -29,7 +29,7 @@
     overflow: hidden;
 
     main {
-        padding: rem(24px);
+        padding: $main-padding-y $main-padding-x;
     }
 
     .floating-button {

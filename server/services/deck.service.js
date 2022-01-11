@@ -1,8 +1,18 @@
 const { StatusCodes } = require("http-status-codes");
-const { Deck, CardInDeck, Card } = require("../models");
+const { Deck, CardInDeck, Card, User } = require("../models");
 const { CustomError } = require("../lib");
 
 module.exports = {
+    list: async () => {
+        return Deck.findAll({
+            where: { isPublic: true },
+            include: [
+                { model: User, attributes: ["id", "nickname", "avatar"] },
+            ],
+            order: [["createdAt", "DESC"]],
+        });
+    },
+
     create: async (userId, deckDTO) => {
         const { title, isPublic } = deckDTO;
 
@@ -14,7 +24,10 @@ module.exports = {
     },
 
     getDeck: async (id) => {
-        const deck = await Deck.findOne({ where: { id }, include: Card });
+        const deck = await Deck.findOne({
+            where: { id },
+            include: { model: Card, where: { isPublic: true } },
+        });
 
         if (!deck) {
             throw new CustomError(

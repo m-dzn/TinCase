@@ -4,12 +4,12 @@
     @include flex();
 
     $navbar__font-color: $color-font-background;
-    $navbar__height: 5.6rem;
+    $navbar__height: rem(56px);
     $navbar__padding-v: 0;
-    $navbar__padding-h: 4.8rem;
+    $navbar__padding-h: 0;
 
-    $navbar__menu_item__padding-v: 0.8rem;
-    $navbar__menu_item__padding-h: 2rem;
+    $navbar__menu_item__padding-x: $spacing-5;
+    $navbar__menu_item__padding-y: $spacing-2;
 
     &,
     a,
@@ -26,7 +26,7 @@
 
         & li {
             @include flex(center, center);
-            padding: $navbar__menu_item__padding-v $navbar__menu_item__padding-h;
+            padding: $navbar__menu_item__padding-y $navbar__menu_item__padding-x;
 
             button {
                 @include init-button();

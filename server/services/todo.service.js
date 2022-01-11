@@ -6,12 +6,14 @@ module.exports = {
     create: async (todoDTO) => {
         const { text, done, color, cardId } = todoDTO;
 
-        await Todo.create({
+        const todo = await Todo.create({
             text,
             done,
             color,
             cardId,
         });
+
+        return todo;
     },
 
     createTodoCard: async (todoCardDTO) => {

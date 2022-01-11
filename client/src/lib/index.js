@@ -3,6 +3,7 @@ export * as authAPI from "./api/authAPI";
 export * as userAPI from "./api/userAPI";
 export * as cardAPI from "./api/cardAPI";
 export * as deckAPI from "./api/deckAPI";
+export * as todoAPI from "./api/todoAPI";
 export * as youtubeAPI from "./api/youtubeAPI";
 
 // hooks
@@ -21,4 +22,7 @@ export * as scrollUtils from "./utils/scrollUtils";
 export * from "./utils/validationUtils";
 
 // recoil
+export * from "./recoil/cardAtom";
+export * from "./recoil/deckAtom";
+export * from "./recoil/todoCardAtom";
 export * from "./recoil/userAtom";

@@ -13,7 +13,7 @@ function DeckContainer({ deckId, cardId }) {
 
     return (
         <DeckViewer
-            currentCardId={currentCard.id}
+            currentCardId={currentCard?.id}
             cards={cards}
             onClickPrevCard={onClickPrevCard}
             onClickNextCard={onClickNextCard}

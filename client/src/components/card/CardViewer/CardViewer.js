@@ -1,6 +1,7 @@
 import React from "react";
-import { BasicCardTemplate, MemoCard, TodoCard, YoutubeCard } from "components";
+import { BasicCardTemplate, MemoCard, YoutubeCard } from "components";
 import { CARD } from "constants";
+import { TodoCardContainer } from "containers";
 
 function CardViewer({ card }) {
     if (!card) return <BasicCardTemplate />;
@@ -14,7 +15,7 @@ function CardViewer({ card }) {
             CardComponent = MemoCard;
             break;
         case CARD.TYPE.TODO:
-            CardComponent = TodoCard;
+            CardComponent = TodoCardContainer;
             break;
         case CARD.TYPE.VIDEO_LINK:
             CardComponent = YoutubeCard;
