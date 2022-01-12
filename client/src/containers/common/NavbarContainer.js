@@ -7,11 +7,13 @@ function NavbarContainer() {
     const [me, setMe] = useRecoilState(currentUserState);
 
     const handleClickLogoutBtn = async () => {
-        await authAPI.logout();
-        setMe(null);
+        if (window.confirm("정말 로그아웃하시겠습니까?")) {
+            await authAPI.logout();
+            setMe(null);
+        }
     };
 
     return <Navbar user={me} onClickLogoutBtn={handleClickLogoutBtn} />;
 }
 
-export default NavbarContainer;
+export default React.memo(NavbarContainer);

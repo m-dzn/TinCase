@@ -13,4 +13,4 @@ function Logo({ heading: Heading = "h3", className }) {
     );
 }
 
-export default Logo;
+export default React.memo(Logo);

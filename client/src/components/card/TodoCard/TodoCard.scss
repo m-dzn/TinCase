@@ -8,13 +8,16 @@
 
     $todo-card__add-button__size: rem(18px);
 
+    @include flex-column;
+
     & > header,
     .todo-list {
         padding: $todo-card__padding-y $todo-card__padding-x;
     }
 
     & > header {
-        @include flex-column();
+        @include flex-column;
+        flex-shrink: 0;
         height: rem(120px);
         padding-bottom: 0;
         border-bottom: 1px solid $color-light-gray;
@@ -68,5 +71,13 @@
                 }
             }
         }
+    }
+
+    .todo-list {
+        height: 100%;
+        padding-bottom: 0;
+        margin-bottom: $todo-card__padding-y;
+        overflow: hidden;
+        overflow-y: auto;
     }
 }

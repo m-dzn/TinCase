@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import OAuthRedirect from "./OAuthRedirect";
 import routes from "./routes";
 import LoginFailureRedirect from "./LoginFailureRedirect";
+import PrivateRoute from "./PrivateRoute";
 
 function RootRouter() {
     return (
@@ -13,7 +14,13 @@ function RootRouter() {
                     <Route
                         key={route.path}
                         path={route.path}
-                        element={route.element}
+                        element={
+                            route.private ? (
+                                <PrivateRoute>{route.element}</PrivateRoute>
+                            ) : (
+                                route.element
+                            )
+                        }
                     />
                 ))}
                 <Route

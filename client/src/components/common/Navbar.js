@@ -33,4 +33,4 @@ function Navbar({ user, onClickLogoutBtn }) {
     );
 }
 
-export default Navbar;
+export default React.memo(Navbar);

@@ -4,7 +4,7 @@
     $todo-item__size: rem(18px);
     $todo-item__border: rem(1px) solid gray;
 
-    $todo-item__check-box__background: #1b4a4e;
+    $todo-item__check-box__background: $color-success;
     $todo-item__check-box__size: rem(20px);
     $todo-item__check-box__font-size: rem(20px);
     $todo-item__check-box__font-color: $color-white;

@@ -12,4 +12,4 @@ function AuthPageLink({ className, href, label, children, ...rest }) {
     );
 }
 
-export default AuthPageLink;
+export default React.memo(AuthPageLink);

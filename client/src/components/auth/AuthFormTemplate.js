@@ -14,4 +14,4 @@ function AuthFormTemplate({ className, title, children, ...rest }) {
     );
 }
 
-export default AuthFormTemplate;
+export default React.memo(AuthFormTemplate);

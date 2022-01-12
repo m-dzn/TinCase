@@ -24,15 +24,36 @@ export const validationRules = {
         message: `최소 ${limit}글자 이상이어야 합니다.`,
     }),
 
+    maxLength: (limit) => ({
+        regexp: new RegExp(`^(.){0,${limit}}$`),
+        match: true,
+        message: `최대 ${limit}글자까지 허용됩니다.`,
+    }),
+
     email: {
         regexp: /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/i,
         match: true,
         message: "이메일 형식에 맞게 입력해주세요.",
     },
 
-    match: (value) => ({
-        regexp: new RegExp(`^${value}$`),
-        match: true,
-        message: "비밀번호가 일치히지 않습니다.",
-    }),
+    match: (sourceName, targetName) => (form) => {
+        const sourceField = form[sourceName];
+        const targetField = form[targetName];
+
+        if (sourceField?.valid && targetField?.valid) {
+            const isMatched = new RegExp(`^${sourceField.value}$`).test(
+                targetField.value
+            );
+
+            if (!isMatched) {
+                return {
+                    name: targetName,
+                    message: "비밀번호가 일치하지 않습니다.",
+                    valid: false,
+                };
+            }
+        }
+
+        return { valid: true };
+    },
 };

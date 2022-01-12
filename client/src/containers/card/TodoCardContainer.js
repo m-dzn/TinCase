@@ -30,6 +30,13 @@ function TodoCardContainer({ card }) {
         setText(value);
     };
 
+    const handleClickDone = async (id, done) => {
+        await todoAPI.updateTodo({
+            id,
+            done,
+        });
+    };
+
     const handleClickDelete = async (todoId) => {
         if (window.confirm("정말 삭제하시겠습니까?")) {
             await todoAPI.deleteTodo(todoId);
@@ -49,12 +56,14 @@ function TodoCardContainer({ card }) {
 
     return (
         <TodoCard
+            isOwner={false}
             card={card}
             filter={filter}
             text={text}
             todos={filteredTodos}
             onClickAdd={handleClickAdd}
             onChangeNewTodo={handleChangeNewTodo}
+            onClickDone={handleClickDone}
             onClickDelete={handleClickDelete}
             onClickFilter={handleClickFilter}
         />

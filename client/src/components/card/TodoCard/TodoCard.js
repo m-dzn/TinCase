@@ -7,12 +7,14 @@ import { FaPlus } from "react-icons/fa";
 import { TODO } from "constants";
 
 function TodoCard({
+    isOwner,
     card,
     filter,
     text,
     todos,
     onClickAdd,
     onChangeNewTodo,
+    onClickDone,
     onClickDelete,
     onClickFilter,
 }) {
@@ -54,25 +56,29 @@ function TodoCard({
                         완료
                     </button>
                 </div>
-                <div className="todo-editor">
-                    <input
-                        type="text"
-                        placeholder="할 일 추가"
-                        value={text}
-                        onChange={onChangeNewTodo}
-                        onKeyUp={handleKeyUp}
-                    />
-                    <button className="button" onClick={onClickAdd}>
-                        <FaPlus />
-                    </button>
-                </div>
+                {isOwner && (
+                    <div className="todo-editor">
+                        <input
+                            type="text"
+                            placeholder="할 일 추가"
+                            value={text}
+                            onChange={onChangeNewTodo}
+                            onKeyUp={handleKeyUp}
+                        />
+                        <button className="button" onClick={onClickAdd}>
+                            <FaPlus />
+                        </button>
+                    </div>
+                )}
             </header>
             <div className="todo-list">
                 {todos &&
                     todos.map((todo) => (
                         <TodoItem
+                            isOwner={isOwner}
                             key={todo.id}
                             todo={todo}
+                            onClickDone={onClickDone}
                             onClickDelete={onClickDelete}
                         />
                     ))}

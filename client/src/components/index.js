@@ -2,6 +2,7 @@
 export { default as Header } from "./common/Header";
 export { default as Logo } from "./common/Logo";
 export { default as Navbar } from "./common/Navbar";
+export { default as LoadingComponent } from "./common/LoadingComponent";
 // templates
 export { default as BasicCardTemplate } from "./common/template/BasicCardTemplate";
 export { default as CardDetailPageTemplate } from "./common/template/CardDetailPageTemplate";
@@ -30,3 +31,4 @@ export { default as DeckCard } from "./deck/DeckCard";
 
 /*  main  */
 export { default as MainPageTemplate } from "./main/MainPageTemplate";
+export { default as DeckList } from "./main/DeckList";

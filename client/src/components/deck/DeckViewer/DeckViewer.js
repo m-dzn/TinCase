@@ -7,6 +7,7 @@ import "./DeckViewer.scss";
 
 function DeckViewer({
     currentCardId,
+    deck,
     cards,
     onClickPrevCard,
     onClickNextCard,
@@ -33,7 +34,11 @@ function DeckViewer({
                 )}
             </div>
             <div className="card-list-pane">
-                <CardList cards={cards} onClickCardItem={onClickCardItem} />
+                <CardList
+                    deck={deck}
+                    cards={cards}
+                    onClickCardItem={onClickCardItem}
+                />
             </div>
         </div>
     );

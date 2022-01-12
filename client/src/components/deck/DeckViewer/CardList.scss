@@ -4,9 +4,14 @@
     $card-list__width: rem(480px);
     $card-list__box-shadow: $box-shadow-card;
 
+    $card-list__like-button__color: $color-red;
+    $card-item__like-button__font-size: $font-size-lg;
+
     $card-item__gap: $unit * 3;
     $card-item__padding-x: $spacing-6;
     $card-item__padding-y: $spacing-4;
+
+    @include flex-column();
 
     background: $color-surface;
     box-shadow: $card-list__box-shadow;
@@ -15,16 +20,45 @@
     border-radius: rem(8px);
 
     header {
+        @include flex(flex-start, center);
+
         padding: $card-item__padding-y $card-item__padding-x;
         box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
         margin-bottom: $card-item__gap;
+
+        .like-button {
+            @include flex(center, center);
+            font-size: $card-item__like-button__font-size;
+            color: $card-list__like-button__color;
+            margin-left: auto;
+        }
     }
 
-    ul {
+    .list-body {
+        flex: 1;
         padding: 0 rem(16px);
+        ul {
+            li + li {
+                margin-top: $card-item__gap;
+            }
+        }
+    }
+    footer {
+        .add-card {
+            @include init-button;
+            @include flex(center, center);
+            background: rgba($color-primary, 0.4);
 
-        li + li {
-            margin-top: $card-item__gap;
+            width: 100%;
+            height: rem(44px);
+
+            svg {
+                margin-right: rem(8px);
+            }
+
+            &:hover {
+                filter: brightness(0.8);
+            }
         }
     }
 }

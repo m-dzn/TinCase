@@ -21,4 +21,4 @@ function OAuthForm({ className, ...rest }) {
     );
 }
 
-export default OAuthForm;
+export default React.memo(OAuthForm);

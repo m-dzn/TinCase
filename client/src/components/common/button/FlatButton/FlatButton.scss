@@ -12,4 +12,8 @@
 
     font-size: $font-size-md;
     font-weight: $font-weight-bold;
+
+    &:disabled {
+        background: $color-light-gray;
+    }
 }

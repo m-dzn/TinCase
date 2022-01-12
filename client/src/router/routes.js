@@ -33,6 +33,7 @@ const routes = [
         label: "MyPage",
         element: <MyPage />,
         isLoggedIn: true,
+        private: true,
     },
 
     {

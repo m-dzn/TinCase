@@ -4,6 +4,7 @@ import { DeckViewer } from "components";
 
 function DeckContainer({ deckId, cardId }) {
     const {
+        deck,
         cards,
         currentCard,
         onClickPrevCard,
@@ -14,6 +15,7 @@ function DeckContainer({ deckId, cardId }) {
     return (
         <DeckViewer
             currentCardId={currentCard?.id}
+            deck={deck}
             cards={cards}
             onClickPrevCard={onClickPrevCard}
             onClickNextCard={onClickNextCard}

@@ -1,14 +1,25 @@
 @import "styles/utils";
 
 .auth-input {
+    $auth-input__height: rem(32px);
+    $auth-input__margin-top: rem(8px);
+    $auth-input__validation-message__height: rem(20px);
+
+    $auth-input__invalid-message__color: $color-failure;
+    $auth-input__invalid-message__font-size: $font-size-sm;
+    $auth-input__invalid-message__margin-y: rem(8px);
+
     input {
         width: 100%;
-
-        height: rem(32px);
-        margin-top: rem(8px);
+        height: $auth-input__height;
+        margin-top: $auth-input__margin-top;
     }
 
     .validation-message {
-        height: rem(20px);
+        color: $auth-input__invalid-message__color;
+        height: $auth-input__validation-message__height;
+        margin: $auth-input__invalid-message__margin-y 0;
+
+        font-size: $auth-input__invalid-message__font-size;
     }
 }

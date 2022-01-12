@@ -19,6 +19,14 @@ import {
 function CardListItem({ className, card, ...rest }) {
     const classnames = cx(className, "card-list-item");
 
+    if (card.type === "NEW") {
+        return (
+            <li className={`${classnames} new`} {...rest}>
+                <div className="text">새 카드 생성</div>
+            </li>
+        );
+    }
+
     const getTypeIcon = (type) => {
         switch (type) {
             case CARD.TYPE.MEMO:

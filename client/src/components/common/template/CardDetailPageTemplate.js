@@ -1,7 +1,7 @@
 import React from "react";
 import "./CardDetailPageTemplate.scss";
 import cx from "classnames";
-import { Navbar } from "components";
+import { NavbarContainer } from "containers";
 
 function CardDetailPageTemplate({ children }) {
     const containerClass = cx("card-detail-page-template");
@@ -9,7 +9,7 @@ function CardDetailPageTemplate({ children }) {
     return (
         <div className={containerClass}>
             <header>
-                <Navbar />
+                <NavbarContainer />
             </header>
             <main>{children}</main>
             <footer>푸터</footer>

@@ -28,7 +28,9 @@ function LoginForm({ className, form, isValid, onChange, onSubmit }) {
         <AuthFormTemplate title="로그인">
             <form className={classnames} onSubmit={onSubmit}>
                 <div className="form-group">{inputs}</div>
-                <FlatButton onClick={onSubmit}>로그인</FlatButton>
+                <FlatButton onClick={onSubmit} disabled={!isValid}>
+                    로그인
+                </FlatButton>
             </form>
             <AuthPageLink href={PATH.CLIENT.JOIN} label="아이디가 없으신가요?">
                 회원가입

@@ -11,4 +11,4 @@ function FlatButton({ className, children, ...rest }) {
     );
 }
 
-export default FlatButton;
+export default React.memo(FlatButton);

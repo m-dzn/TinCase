@@ -5,4 +5,4 @@ function OAuthContainer() {
     return <OAuthForm />;
 }
 
-export default OAuthContainer;
+export default React.memo(OAuthContainer);

@@ -1,9 +1,10 @@
 import { PATH } from "constants";
-import { cardIndexState, cardsState, deckAPI } from "lib";
+import { deckState, cardIndexState, cardsState, deckAPI } from "lib";
 import { useEffect, useCallback } from "react";
 import { useRecoilState } from "recoil";
 
 function useDeck(deckId, cardId = 0) {
+    const [deck, setDeck] = useRecoilState(deckState);
     const [cards, setCards] = useRecoilState(cardsState);
     const [cardIndex, setCardIndex] = useRecoilState(cardIndexState);
 
@@ -44,11 +45,12 @@ function useDeck(deckId, cardId = 0) {
     // deckId 변경 시 API로 덱 정보 가져오기
     useEffect(() => {
         async function fetchCards() {
-            const deck = await deckAPI.getDeck(deckId);
+            const { cards, ...deck } = await deckAPI.getDeck(deckId);
 
-            setCards(deck.cards);
+            setDeck(deck);
+            setCards(cards);
             if (cardId) {
-                const targetCardIndex = deck.cards.findIndex((card) => {
+                const targetCardIndex = cards.findIndex((card) => {
                     return card.id == cardId;
                 });
                 setCardIndex(Math.max(targetCardIndex, 0));
@@ -65,9 +67,10 @@ function useDeck(deckId, cardId = 0) {
             setCards([]);
             setCardIndex(0);
         };
-    }, [deckId, cardId, setCards, setCardIndex]);
+    }, [deckId, cardId, setDeck, setCards, setCardIndex]);
 
     return {
+        deck,
         cards,
         currentCard: cards[cardIndex],
         onClickPrevCard,

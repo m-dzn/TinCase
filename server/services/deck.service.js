@@ -1,5 +1,5 @@
 const { StatusCodes } = require("http-status-codes");
-const { Deck, CardInDeck, Card, User } = require("../models");
+const { Deck, CardInDeck, Card, User, Sequelize } = require("../models");
 const { CustomError } = require("../lib");
 
 module.exports = {
@@ -8,6 +8,10 @@ module.exports = {
             where: { isPublic: true },
             include: [
                 { model: User, attributes: ["id", "nickname", "avatar"] },
+                {
+                    model: Card,
+                    where: { isPublic: true },
+                },
             ],
             order: [["createdAt", "DESC"]],
         });

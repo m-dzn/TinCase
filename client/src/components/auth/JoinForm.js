@@ -28,7 +28,9 @@ function JoinForm({ className, form, isValid, onChange, onSubmit }) {
         <AuthFormTemplate title="회원가입">
             <form className={classnames} onSubmit={onSubmit}>
                 <div className="form-group">{inputs}</div>
-                <FlatButton onClick={onSubmit}>회원가입</FlatButton>
+                <FlatButton onClick={onSubmit} disabled={!isValid}>
+                    회원가입
+                </FlatButton>
             </form>
             <AuthPageLink
                 href={PATH.CLIENT.LOGIN}
@@ -41,4 +43,4 @@ function JoinForm({ className, form, isValid, onChange, onSubmit }) {
     );
 }
 
-export default JoinForm;
+export default React.memo(JoinForm);
