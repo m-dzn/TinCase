@@ -73,18 +73,36 @@ module.exports = {
     },
 
     addCardToDeck: async (deckId, cardId) => {
-        await CardInDeck.create({ deckId, cardId }).catch((err) => {
-            if (err.name === "SequelizeUniqueConstraintError") {
-                throw new CustomError(
-                    "덱에 이미 존재하는 카드입니다.",
-                    StatusCodes.BAD_REQUEST
-                );
+        const result = await CardInDeck.create({ deckId, cardId }).catch(
+            (err) => {
+                if (err.name === "SequelizeUniqueConstraintError") {
+                    throw new CustomError(
+                        "덱에 이미 존재하는 카드입니다.",
+                        StatusCodes.BAD_REQUEST
+                    );
+                }
             }
-        });
+        );
+
+        if (!result) {
+            throw new CustomError(
+                "덱에 카드를 추가할 수 없습니다.",
+                StatusCodes.NOT_FOUND
+            );
+        }
+
+        console.log(result);
     },
 
     removeCardInDeck: async (deckId, cardId) => {
-        await CardInDeck.destroy({ where: { deckId, cardId } });
+        const result = await CardInDeck.destroy({ where: { deckId, cardId } });
+
+        if (!result) {
+            throw new CustomError(
+                "덱에서 카드를 제거하는 데 실패했습니다.",
+                StatusCodes.NOT_FOUND
+            );
+        }
     },
 
     like: async (deckId, userId) => {
