@@ -5,6 +5,7 @@ const User = require("./user.model");
 const Deck = require("./deck.model");
 const Card = require("./card.model");
 const CardInDeck = require("./cardInDeck");
+const FavoriteDeck = require("./favoriteDeck.model");
 const Todo = require("./todo.model");
 const VideoLinkCard = require("./videoLinkCard.model");
 const MemoCard = require("./memoCard.model");
@@ -14,6 +15,7 @@ const db = {
     Deck,
     Card,
     CardInDeck,
+    FavoriteDeck,
     Todo,
     VideoLinkCard,
     MemoCard,

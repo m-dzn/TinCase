@@ -12,4 +12,7 @@ router.delete("/:id", isLoggedIn, deckController.remove);
 router.post("/:deckId/cards/:cardId", isLoggedIn, deckController.addCard);
 router.delete("/:deckId/cards/:cardId", isLoggedIn, deckController.removeCard);
 
+router.post("/:deckId/like", isLoggedIn, deckController.like);
+router.post("/:deckId/dislike", isLoggedIn, deckController.dislike);
+
 module.exports = router;

@@ -1,21 +1,32 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import "./CardList.scss";
 import cx from "classnames";
 import CardListItem from "./CardListItem";
 import { FaHeart, FaPlus, FaRegHeart } from "react-icons/fa";
 
-function CardList({ className, deck, cards, onClickCardItem }) {
+function CardList({ className, deck, cards, onClickCardItem, onToggleLiked }) {
     const classnames = cx("card-list", className);
+    const [liked, setLiked] = useState(deck.liked);
+
+    const handleToggleLiked = useCallback(
+        (isLiked) => {
+            onToggleLiked(isLiked);
+            setLiked(!isLiked);
+        },
+        [onToggleLiked]
+    );
+
     return (
         <article className={classnames}>
             <header>
                 <h5 className="list-title">덱 카드 목록</h5>
                 <button
                     className={cx("button", "like-button", {
-                        liked: deck?.liked,
+                        liked,
                     })}
+                    onClick={() => handleToggleLiked(liked)}
                 >
-                    {deck?.liked ? <FaHeart /> : <FaRegHeart />}
+                    {liked ? <FaHeart /> : <FaRegHeart />}
                 </button>
             </header>
             <div className="list-body">
@@ -39,4 +50,4 @@ function CardList({ className, deck, cards, onClickCardItem }) {
     );
 }
 
-export default CardList;
+export default React.memo(CardList);

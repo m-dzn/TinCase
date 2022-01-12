@@ -51,4 +51,4 @@ function CardListItem({ className, card, ...rest }) {
     );
 }
 
-export default CardListItem;
+export default React.memo(CardListItem);

@@ -6,7 +6,6 @@ module.exports = {
             url.searchParams.set(key, queryObj[key]);
         }
 
-        console.log("getUrl", url);
         return url;
     },
 };

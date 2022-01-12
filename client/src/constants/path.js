@@ -37,6 +37,8 @@ const PATH = {
         },
         DECKS: {
             CRUD: getDeckAPI(),
+            LIKE: getDeckAPI("/:deckId/like"),
+            DISLIKE: getDeckAPI("/:deckId/dislike"),
         },
         TODOS: {
             CRUD: getTodoAPI(),

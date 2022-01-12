@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 
-module.exports = class favoriteDeck extends Sequelize.Model {
+module.exports = class FavoriteDeck extends Sequelize.Model {
     static init(sequelize) {
         return super.init(
             {},

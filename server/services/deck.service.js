@@ -1,5 +1,5 @@
 const { StatusCodes } = require("http-status-codes");
-const { Deck, CardInDeck, Card, User, Sequelize } = require("../models");
+const { Deck, CardInDeck, Card, User, FavoriteDeck } = require("../models");
 const { CustomError } = require("../lib");
 
 module.exports = {
@@ -27,10 +27,10 @@ module.exports = {
         });
     },
 
-    getDeck: async (id) => {
+    getDeck: async (id, userId) => {
         const deck = await Deck.findOne({
             where: { id },
-            include: { model: Card, where: { isPublic: true } },
+            include: [{ model: Card, where: { isPublic: true } }],
         });
 
         if (!deck) {
@@ -40,7 +40,20 @@ module.exports = {
             );
         }
 
-        return deck.toJSON();
+        const response = deck.toJSON();
+
+        if (userId) {
+            const liked = await FavoriteDeck.findOne({
+                where: {
+                    deckId: id,
+                    userId,
+                },
+            });
+
+            response.liked = !!liked;
+        }
+
+        return response;
     },
 
     update: async (id, deckDTO) => {
@@ -72,5 +85,13 @@ module.exports = {
 
     removeCardInDeck: async (deckId, cardId) => {
         await CardInDeck.destroy({ where: { deckId, cardId } });
+    },
+
+    like: async (deckId, userId) => {
+        await FavoriteDeck.create({ deckId, userId });
+    },
+
+    dislike: async (deckId, userId) => {
+        await FavoriteDeck.destroy({ where: { deckId, userId } });
     },
 };

@@ -12,6 +12,7 @@ function DeckViewer({
     onClickPrevCard,
     onClickNextCard,
     onClickCardItem,
+    onToggleLiked,
     className,
     ...rest
 }) {
@@ -38,6 +39,7 @@ function DeckViewer({
                     deck={deck}
                     cards={cards}
                     onClickCardItem={onClickCardItem}
+                    onToggleLiked={onToggleLiked}
                 />
             </div>
         </div>

@@ -47,9 +47,14 @@ module.exports = class User extends Sequelize.Model {
             sourceKey: "id",
             onDelete: "cascade",
         });
+
         User.hasMany(models.Deck, {
             foreignKey: "userId",
             sourceKey: "id",
+        });
+
+        User.belongsToMany(models.Deck, {
+            through: models.FavoriteDeck,
         });
     }
 };

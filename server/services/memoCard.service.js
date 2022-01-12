@@ -26,8 +26,6 @@ module.exports = {
             where: { cardId },
         });
 
-        console.log(memoCard);
-
         if (!memoCard) {
             throw new CustomError(
                 "메모 카드를 찾을 수 없습니다.",

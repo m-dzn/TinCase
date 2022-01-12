@@ -13,3 +13,15 @@ export const getDeck = async (deckId) => {
 
     return response.data;
 };
+
+export const likeDeck = async (deckId) => {
+    const url = API.DECKS.LIKE.replace(":deckId", deckId);
+    const response = await axios.post(url);
+    return response.data;
+};
+
+export const dislikeDeck = async (deckId) => {
+    const url = API.DECKS.DISLIKE.replace(":deckId", deckId);
+    const response = await axios.post(url);
+    return response.data;
+};

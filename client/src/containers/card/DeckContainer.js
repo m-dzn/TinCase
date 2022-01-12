@@ -1,5 +1,5 @@
-import React from "react";
-import { useDeck } from "lib";
+import React, { useCallback } from "react";
+import { deckAPI, useDeck } from "lib";
 import { DeckViewer } from "components";
 
 function DeckContainer({ deckId, cardId }) {
@@ -12,6 +12,19 @@ function DeckContainer({ deckId, cardId }) {
         onClickCardItem,
     } = useDeck(deckId, cardId);
 
+    const handleClickLiked = useCallback(
+        async (like) => {
+            if (like) {
+                await deckAPI.dislikeDeck(deckId);
+            } else {
+                await deckAPI.likeDeck(deckId);
+            }
+        },
+        [deckId]
+    );
+
+    if (!deck) return <div>로딩 중</div>;
+
     return (
         <DeckViewer
             currentCardId={currentCard?.id}
@@ -20,6 +33,7 @@ function DeckContainer({ deckId, cardId }) {
             onClickPrevCard={onClickPrevCard}
             onClickNextCard={onClickNextCard}
             onClickCardItem={onClickCardItem}
+            onToggleLiked={handleClickLiked}
         />
     );
 }

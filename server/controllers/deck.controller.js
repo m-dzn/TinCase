@@ -14,13 +14,16 @@ module.exports = {
             ...req.body,
         });
 
-        res.status(StatusCodes.CREATED).json("덱이 생성되었습니다.");
+        res.status(StatusCodes.CREATED).json({
+            message: "덱이 생성되었습니다.",
+        });
     }, "덱 생성 중 오류가 발생했습니다."),
 
     read: handleAsyncException(async (req, res) => {
         const { id } = req.params;
+        const userId = req.user?.id;
 
-        const deck = await deckService.getDeck(id);
+        const deck = await deckService.getDeck(id, userId);
 
         res.json(deck);
     }),
@@ -46,7 +49,7 @@ module.exports = {
 
         await deckService.addCardToDeck(deckId, cardId);
 
-        res.json("덱에 카드를 추가했습니다.");
+        res.json({ message: "덱에 카드를 추가했습니다." });
     }, "덱에 카드를 추가할 수 없습니다."),
 
     removeCard: handleAsyncException(async (req, res) => {
@@ -54,6 +57,24 @@ module.exports = {
 
         await deckService.removeCardInDeck(deckId, cardId);
 
-        res.json("덱에서 카드를 제거했습니다.");
+        res.json({ message: "덱에서 카드를 제거했습니다." });
     }, "덱에서 카드를 제거할 수 없습니다."),
+
+    like: handleAsyncException(async (req, res) => {
+        const { deckId } = req.params;
+        const { id: userId } = req.user;
+
+        await deckService.like(deckId, userId);
+
+        res.json({ message: "덱을 좋아요 목록에 추가했습니다." });
+    }, "덱을 좋아요 목록에 추가할 수 없습니다."),
+
+    dislike: handleAsyncException(async (req, res) => {
+        const { deckId } = req.params;
+        const { id: userId } = req.user;
+
+        await deckService.dislike(deckId, userId);
+
+        res.json({ message: "덱을 좋아요 목록에서 제거했습니다." });
+    }, "덱을 좋아요 목록에서 제거할 수 없습니다."),
 };
