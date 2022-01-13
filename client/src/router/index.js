@@ -8,31 +8,29 @@ import PrivateRoute from "./PrivateRoute";
 
 function RootRouter() {
     return (
-        <Suspense fallback={<div>Loading...</div>}>
-            <Routes>
-                {routes.map((route) => (
-                    <Route
-                        key={route.path}
-                        path={route.path}
-                        element={
-                            route.private ? (
-                                <PrivateRoute>{route.element}</PrivateRoute>
-                            ) : (
-                                route.element
-                            )
-                        }
-                    />
-                ))}
+        <Routes>
+            {routes.map((route) => (
                 <Route
-                    path={PATH.CLIENT.OAUTH_REDIRECT}
-                    element={<OAuthRedirect />}
+                    key={route.path}
+                    path={route.path}
+                    element={
+                        route.private ? (
+                            <PrivateRoute>{route.element}</PrivateRoute>
+                        ) : (
+                            route.element
+                        )
+                    }
                 />
-                <Route
-                    path={PATH.CLIENT.LOGIN_FAILURE_REDIRECT}
-                    element={<LoginFailureRedirect />}
-                />
-            </Routes>
-        </Suspense>
+            ))}
+            <Route
+                path={PATH.CLIENT.OAUTH_REDIRECT}
+                element={<OAuthRedirect />}
+            />
+            <Route
+                path={PATH.CLIENT.LOGIN_FAILURE_REDIRECT}
+                element={<LoginFailureRedirect />}
+            />
+        </Routes>
     );
 }
 

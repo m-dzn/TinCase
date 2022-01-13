@@ -1,20 +1,23 @@
 const { StatusCodes } = require("http-status-codes");
 const { Deck, CardInDeck, Card, User, FavoriteDeck } = require("../models");
-const { CustomError } = require("../lib");
+const { CustomError, getPagingData } = require("../lib");
 
 module.exports = {
-    list: async () => {
-        return Deck.findAll({
+    list: async (pageSize = 10, page = 1) => {
+        const deckList = await Deck.findAndCountAll({
             where: { isPublic: true },
             include: [
                 { model: User, attributes: ["id", "nickname", "avatar"] },
-                {
-                    model: Card,
-                    where: { isPublic: true },
-                },
             ],
-            order: [["createdAt", "DESC"]],
+            order: [
+                ["createdAt", "DESC"],
+                ["id", "DESC"],
+            ],
+            limit: pageSize,
+            offset: (page - 1) * pageSize,
         });
+
+        return getPagingData(deckList, pageSize, page);
     },
 
     create: async (userId, deckDTO) => {

@@ -17,9 +17,12 @@ export * from "./utils/validationUtils";
 export * from "./hooks/styleHooks";
 export { default as useCard } from "./hooks/useCard";
 export { default as useDeck } from "./hooks/useDeck";
+export { default as useDeckList } from "./hooks/useDeckList";
 export { default as useForm } from "./hooks/useForm";
 export { default as useMemoCard } from "./hooks/useMemoCard";
+export { default as useScrollObserver } from "./hooks/useScrollObserver";
 export { default as useYoutubeInfo } from "./hooks/useYoutubeInfo";
+
 // recoil
 export * from "./recoil/cardAtom";
 export * from "./recoil/deckAtom";

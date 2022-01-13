@@ -1,16 +1,16 @@
 @import "styles/utils";
 
 .deck-list {
-    $deck-list__padding-y: $spacing-6;
+    $deck-list__padding: $spacing-6 0 rem(80px) 0;
 
     $deck-list__item__width: $deck-card__width;
     $deck-list__grid-row-gap: rem(80px);
     $deck-list__grid-column-gap: $spacing-8;
 
-    @include grid($deck-list__item__width);
+    @include grid($deck-list__item__width, 4);
+
     justify-content: space-around;
-    // justify-items: center;
     gap: $deck-list__grid-row-gap $deck-list__grid-column-gap;
 
-    padding: $deck-list__padding-y 0;
+    padding: $deck-list__padding;
 }

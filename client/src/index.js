@@ -4,14 +4,15 @@ import "styles/main.scss";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import { RecoilRoot } from "recoil";
+import { LoadingComponent } from "components";
 
 ReactDOM.render(
-    <React.Suspense fallback={<div>로딩 중</div>}>
-        <RecoilRoot>
-            <BrowserRouter>
+    <RecoilRoot>
+        <BrowserRouter>
+            <React.Suspense fallback={<LoadingComponent />}>
                 <App />
-            </BrowserRouter>
-        </RecoilRoot>
-    </React.Suspense>,
+            </React.Suspense>
+        </BrowserRouter>
+    </RecoilRoot>,
     document.getElementById("root")
 );

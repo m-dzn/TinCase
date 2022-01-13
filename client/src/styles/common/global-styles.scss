@@ -19,6 +19,10 @@ body {
     background: $color-background;
 }
 
+#root {
+    min-width: $breakpoint-laptop;
+}
+
 a {
     @include transition(color, 0.1s);
     color: $color-font;

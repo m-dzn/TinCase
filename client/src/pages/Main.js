@@ -1,5 +1,5 @@
 import React from "react";
-import { BouncingArrow, MainPageTemplate } from "components";
+import { MainPageTemplate } from "components";
 import { DeckListContainer, ScrollToTop } from "containers";
 
 function Main() {
@@ -8,9 +8,6 @@ function Main() {
             <DeckListContainer />
 
             <ScrollToTop />
-            <div style={{ display: "flex", justifyContent: "center" }}>
-                <BouncingArrow />
-            </div>
         </MainPageTemplate>
     );
 }

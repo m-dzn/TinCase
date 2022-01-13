@@ -6,6 +6,7 @@
 
     $main-page-template__margin-y: rem(56px);
     $main-page-template__margin-x: auto;
+    $main-page-template__padding-bottom: rem(40px);
 
     $main-page-template__border-width: rem(4px);
     $main-page-template__border-color: #{$color-font-background}99;
@@ -17,9 +18,10 @@
 
     // Box-model
     max-width: $max-width;
-    min-height: 56rem;
+    min-height: rem(560px);
 
     margin: $main-page-template__margin-y $main-page-template__margin-x;
+    padding-bottom: $main-page-template__padding-bottom;
 
     // Border
     border: $main-page-template__border-width solid

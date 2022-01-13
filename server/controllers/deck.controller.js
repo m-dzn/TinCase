@@ -4,7 +4,13 @@ const { deckService } = require("../services");
 
 module.exports = {
     list: handleAsyncException(async (req, res) => {
-        const decks = await deckService.list();
+        const { pageSize, page } = req.query;
+        const decks = await deckService.list(
+            parseInt(pageSize),
+            parseInt(page)
+        );
+
+        console.log(decks);
 
         res.json(decks);
     }, "덱 목록 조회 중 오류가 발생했습니다."),

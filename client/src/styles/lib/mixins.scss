@@ -12,12 +12,12 @@
     flex-direction: column;
 }
 
-@mixin grid($width: 1fr) {
+@mixin grid($width: 1fr, $columns: 4) {
     display: grid;
     grid-row-gap: rem(24px);
     grid-column-gap: rem(24px);
     grid-auto-rows: 4fr;
-    grid-template-columns: repeat(auto-fit, $width);
+    grid-template-columns: repeat($columns, $width);
 }
 
 // Breakpoint
@@ -29,6 +29,12 @@
 
 @mixin tablet {
     @media (min-width: #{$breakpoint-mobile}) and (max-width: #{$breakpoint-tablet}) {
+        @content;
+    }
+}
+
+@mixin desktop-wide {
+    @media (min-width: #{$breakpoint-desktop-wide}) {
         @content;
     }
 }

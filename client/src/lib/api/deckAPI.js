@@ -3,8 +3,13 @@ import { PATH } from "constants";
 
 const { API } = PATH;
 
-export const getDeckList = async () => {
-    const response = await axios.get(`${API.DECKS.CRUD}`);
+export const getDeckList = async (pageSize, page) => {
+    const response = await axios.get(`${API.DECKS.CRUD}`, {
+        params: {
+            pageSize,
+            page,
+        },
+    });
     return response.data;
 };
 
