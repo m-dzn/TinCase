@@ -6,6 +6,7 @@
 
     $card-list__like-button__color: $color-red;
     $card-item__like-button__font-size: $font-size-lg;
+    $card-item__trash-button__font-size: $font-size-md;
 
     $card-item__gap: $unit * 3;
     $card-item__padding-x: $spacing-6;
@@ -26,11 +27,19 @@
         box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
         margin-bottom: $card-item__gap;
 
-        .like-button {
-            @include flex(center, center);
-            font-size: $card-item__like-button__font-size;
-            color: $card-list__like-button__color;
+        .button-group {
             margin-left: auto;
+
+            .like-button {
+                @include flex(center, center);
+                font-size: $card-item__like-button__font-size;
+                color: $card-list__like-button__color;
+            }
+
+            .delete-button {
+                font-size: $card-item__trash-button__font-size;
+                color: $color-red;
+            }
         }
     }
 

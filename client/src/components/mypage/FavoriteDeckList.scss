@@ -1,0 +1,12 @@
+@import "styles/utils";
+
+.favorite-deck-list {
+    flex-grow: 1;
+
+    background: $color-surface;
+    box-shadow: $box-shadow-card;
+
+    padding: $spacing-6;
+
+    border-radius: rem(16px);
+}

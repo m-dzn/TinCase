@@ -19,6 +19,7 @@ export { default as useCard } from "./hooks/useCard";
 export { default as useDeck } from "./hooks/useDeck";
 export { default as useDeckList } from "./hooks/useDeckList";
 export { default as useForm } from "./hooks/useForm";
+export { default as useLoginNavigate } from "./hooks/useLoginNavigate";
 export { default as useMemoCard } from "./hooks/useMemoCard";
 export { default as useScrollObserver } from "./hooks/useScrollObserver";
 export { default as useYoutubeInfo } from "./hooks/useYoutubeInfo";

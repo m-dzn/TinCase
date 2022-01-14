@@ -67,6 +67,10 @@ const CONFIG = {
             MEMO: "MEMO",
         },
     },
+
+    PAGING: {
+        DEFAULT_PAGE_SIZE: 4,
+    },
 };
 
 module.exports = CONFIG;

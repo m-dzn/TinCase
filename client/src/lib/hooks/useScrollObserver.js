@@ -7,7 +7,6 @@ function useScrollObserver(ref, options) {
 
     const updateEntry = (entries) => {
         const [entry] = entries;
-        console.log(entry);
 
         setEntry(entry);
     };

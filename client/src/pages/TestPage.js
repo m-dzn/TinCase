@@ -1,14 +1,14 @@
 import React from "react";
-import { CardDetailPageTemplate } from "components";
+import { MainPageTemplate } from "components";
 import { DeckContainer } from "containers";
 import { useParams } from "react-router-dom";
 
 function TestPage() {
     const { deckId, cardId } = useParams();
     return (
-        <CardDetailPageTemplate>
+        <MainPageTemplate>
             <DeckContainer deckId={deckId} cardId={cardId} />
-        </CardDetailPageTemplate>
+        </MainPageTemplate>
     );
 }
 

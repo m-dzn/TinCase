@@ -20,7 +20,7 @@ module.exports = {
         console.log("update 로직");
     },
 
-    unregister: handleAsyncException(async (req, res, next) => {
+    unregister: handleAsyncException(async (req, res) => {
         const { id } = req.user;
 
         await userService.unregister(id);

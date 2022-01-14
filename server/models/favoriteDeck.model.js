@@ -15,5 +15,13 @@ module.exports = class FavoriteDeck extends Sequelize.Model {
         );
     }
 
-    static associtate(models) {}
+    static associtate(models) {
+        FavoriteDeck.belongsTo(models.Deck, {
+            foreignKey: "deckId",
+        });
+
+        FavoriteDeck.belongsTo(models.User, {
+            foreignKey: "userId",
+        });
+    }
 };

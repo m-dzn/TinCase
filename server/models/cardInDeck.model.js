@@ -1,5 +1,4 @@
 const Sequelize = require("sequelize");
-const { constraints } = require("../config");
 
 module.exports = class CardInDeck extends Sequelize.Model {
     static init(sequelize) {

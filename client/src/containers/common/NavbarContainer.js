@@ -1,16 +1,17 @@
 import { Navbar } from "components";
-import { authAPI, currentUserState } from "lib";
+import { authAPI, currentUserState, useLoginNavigate } from "lib";
 import React from "react";
 import { useRecoilState } from "recoil";
 
 function NavbarContainer() {
     const [me, setMe] = useRecoilState(currentUserState);
+    const { askLogout } = useLoginNavigate();
 
     const handleClickLogoutBtn = async () => {
-        if (window.confirm("정말 로그아웃하시겠습니까?")) {
+        askLogout(async () => {
             await authAPI.logout();
             setMe(null);
-        }
+        });
     };
 
     return <Navbar user={me} onClickLogoutBtn={handleClickLogoutBtn} />;

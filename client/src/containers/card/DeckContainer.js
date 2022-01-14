@@ -1,6 +1,7 @@
 import React, { useCallback } from "react";
-import { deckAPI, useDeck } from "lib";
+import { currentUserState, deckAPI, useDeck, useLoginNavigate } from "lib";
 import { DeckViewer } from "components";
+import { useRecoilValue } from "recoil";
 
 function DeckContainer({ deckId, cardId }) {
     const {
@@ -11,17 +12,10 @@ function DeckContainer({ deckId, cardId }) {
         onClickNextCard,
         onClickCardItem,
     } = useDeck(deckId, cardId);
+    const me = useRecoilValue(currentUserState);
+    const { checkLoggedIn } = useLoginNavigate();
 
-    const handleClickLiked = useCallback(
-        async (like) => {
-            if (like) {
-                await deckAPI.dislikeDeck(deckId);
-            } else {
-                await deckAPI.likeDeck(deckId);
-            }
-        },
-        [deckId]
-    );
+    const isOwned = me && deck && me.id === deck.userId;
 
     if (!deck) return <div>로딩 중</div>;
 
@@ -30,10 +24,11 @@ function DeckContainer({ deckId, cardId }) {
             currentCardId={currentCard?.id}
             deck={deck}
             cards={cards}
+            currentUser={me}
+            isOwned={isOwned}
             onClickPrevCard={onClickPrevCard}
             onClickNextCard={onClickNextCard}
             onClickCardItem={onClickCardItem}
-            onToggleLiked={handleClickLiked}
         />
     );
 }

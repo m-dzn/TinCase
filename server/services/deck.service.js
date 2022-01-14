@@ -1,14 +1,33 @@
 const { StatusCodes } = require("http-status-codes");
-const { Deck, CardInDeck, Card, User, FavoriteDeck } = require("../models");
+const {
+    Deck,
+    CardInDeck,
+    Card,
+    User,
+    FavoriteDeck,
+    sequelize,
+} = require("../models");
 const { CustomError, getPagingData } = require("../lib");
+const { PAGING } = require("../config");
+const { QueryTypes } = require("sequelize");
+const { Op } = require("sequelize");
 
 module.exports = {
-    list: async (pageSize = 10, page = 1) => {
+    list: async (pageSize = PAGING.DEFAULT_PAGE_SIZE, page = 1) => {
         const deckList = await Deck.findAndCountAll({
-            where: { isPublic: true },
-            include: [
-                { model: User, attributes: ["id", "nickname", "avatar"] },
+            raw: true,
+            attributes: [
+                "id",
+                "title",
+                "isPublic",
+                "userId",
+                "createdAt",
+                "updatedAt",
+                [sequelize.literal("`user`.`nickname`"), "nickname"],
+                [sequelize.literal("`user`.`avatar`"), "avatar"],
             ],
+            where: { isPublic: true },
+            include: [{ model: User, attributes: [] }],
             order: [
                 ["createdAt", "DESC"],
                 ["id", "DESC"],
@@ -114,5 +133,46 @@ module.exports = {
 
     dislike: async (deckId, userId) => {
         await FavoriteDeck.destroy({ where: { deckId, userId } });
+    },
+
+    favDeckList: async (
+        userId,
+        pageSize = PAGING.DEFAULT_PAGE_SIZE,
+        page = 1
+    ) => {
+        const deckList = await Deck.findAndCountAll({
+            raw: true,
+            attributes: [
+                "id",
+                "title",
+                "isPublic",
+                "userId",
+                [sequelize.literal("`user`.`nickname`"), "nickname"],
+                [sequelize.literal("`user`.`avatar`"), "avatar"],
+                [
+                    sequelize.literal("`favoriteDecks`.`created_at`"),
+                    "createdAt",
+                ],
+                [
+                    sequelize.literal("`favoriteDecks`.`updated_at`"),
+                    "updatedAt",
+                ],
+            ],
+            include: [
+                {
+                    model: User,
+                    attributes: [],
+                },
+                {
+                    model: FavoriteDeck,
+                    where: {
+                        userId,
+                    },
+                    attributes: [],
+                },
+            ],
+        });
+
+        return getPagingData(deckList, pageSize, page);
     },
 };

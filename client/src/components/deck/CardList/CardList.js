@@ -2,11 +2,22 @@ import React, { useCallback, useState } from "react";
 import "./CardList.scss";
 import cx from "classnames";
 import CardListItem from "./CardListItem";
-import { FaHeart, FaPlus, FaRegHeart } from "react-icons/fa";
+import { FaHeart, FaPlus, FaRegHeart, FaTrashAlt } from "react-icons/fa";
 
-function CardList({ className, deck, cards, onClickCardItem, onToggleLiked }) {
+function CardList({
+    className,
+    deck,
+    cards,
+    isOwned,
+    onToggleLiked,
+    onClickCardItem,
+    onClickDeleteDeck,
+}) {
     const classnames = cx("card-list", className);
     const [liked, setLiked] = useState(deck.liked);
+    const likeButtonClassnames = cx("button", "like-button", {
+        liked,
+    });
 
     const handleToggleLiked = useCallback(
         (isLiked) => {
@@ -20,14 +31,23 @@ function CardList({ className, deck, cards, onClickCardItem, onToggleLiked }) {
         <article className={classnames}>
             <header>
                 <h5 className="list-title">덱 카드 목록</h5>
-                <button
-                    className={cx("button", "like-button", {
-                        liked,
-                    })}
-                    onClick={() => handleToggleLiked(liked)}
-                >
-                    {liked ? <FaHeart /> : <FaRegHeart />}
-                </button>
+                <div className="button-group">
+                    {!isOwned ? (
+                        <button
+                            className={likeButtonClassnames}
+                            onClick={() => handleToggleLiked(liked)}
+                        >
+                            {liked ? <FaHeart /> : <FaRegHeart />}
+                        </button>
+                    ) : (
+                        <button
+                            className="button delete-button"
+                            onClick={onClickDeleteDeck}
+                        >
+                            <FaTrashAlt />
+                        </button>
+                    )}
+                </div>
             </header>
             <div className="list-body">
                 <ul>

@@ -28,7 +28,11 @@ export { default as CardViewer } from "./card/CardViewer";
 /*  deck  */
 export { default as DeckViewer } from "./deck/DeckViewer";
 export { default as DeckCard } from "./deck/DeckCard";
+export { default as CardList } from "./deck/CardList";
 
 /*  main  */
 export { default as MainPageTemplate } from "./main/MainPageTemplate";
 export { default as DeckList } from "./main/DeckList";
+
+/* mypage */
+export { default as FavoriteDeckList } from "./mypage/FavoriteDeckList";

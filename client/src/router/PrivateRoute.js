@@ -1,15 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { currentUserState } from "lib";
+import { useRecoilState } from "recoil";
+import { currentUserState, useLoginNavigate, userAPI } from "lib";
 import { PATH } from "constants";
+import { LoadingComponent } from "components";
 
 function PrivateRoute({ children }) {
-    const me = useRecoilValue(currentUserState);
+    const [me, setMe] = useRecoilState(currentUserState);
+    const [loading, setLoading] = useState(true);
+    const { checkLoggedIn } = useLoginNavigate();
 
-    if (!me) {
-        alert("로그인이 필요한 서비스입니다.");
-    }
+    useEffect(() => {
+        (async () => {
+            setLoading(true);
+            try {
+                const data = await userAPI.me();
+                setMe(data);
+            } catch (err) {
+                checkLoggedIn(false, {
+                    replace: true,
+                });
+            } finally {
+                setLoading(false);
+            }
+        })();
+    }, [setMe]);
+
+    if (loading) return <LoadingComponent />;
 
     return me ? children : <Navigate to={PATH.CLIENT.LOGIN} />;
 }

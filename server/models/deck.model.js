@@ -43,5 +43,9 @@ module.exports = class Deck extends Sequelize.Model {
         Deck.belongsToMany(models.User, {
             through: models.FavoriteDeck,
         });
+
+        Deck.hasMany(models.FavoriteDeck, {
+            foreignKey: "deckId",
+        });
     }
 };

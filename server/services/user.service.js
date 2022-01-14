@@ -1,6 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
 const bcrypt = require("bcryptjs");
-const { User } = require("../models");
+const { User, Deck } = require("../models");
 const { CustomError } = require("../lib");
 
 module.exports = {

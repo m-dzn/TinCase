@@ -75,11 +75,12 @@ $transition-default-duration: 0.4s;
 $transition-default-timing-function: ease-in-out;
 
 /* Alias Tokens */
-$max-width: rem(1440px);
+$max-width: rem($breakpoint-desktop-wide);
 
+// Alias Tokens : Color
 $color-primary: #7c99ac;
 $color-highlight: #ff6363;
-$color-background: linear-gradient($color-navy, #2a3750);
+$color-background: linear-gradient($color-green, #2a3750);
 $color-surface: $color-white;
 
 $color-success: $color-green;
@@ -93,11 +94,15 @@ $color-font-reverse: $color-white;
 $color-font-background: $color-white;
 $color-font-gray: $color-gray;
 
-// Comonent Specific Tokens : Shared Tokens
+/* Component Specific Tokens */
+// Component Specific Tokens : Shared Tokens
 $main-padding-x: rem(64px);
-$main-padding-y: rem(40px);
+$main-padding-y: rem(24px);
 
 $deck-card__width: rem(200px);
+
+// Component Specific Tokens : Card
+$box-shadow-card: 0 rem(6px) rem(8px) rem(4px) #{$color-black}70;
 
 $card-default-ratio: 1 / 1.618;
 $card-default-border-radius-ratio: 0.04;

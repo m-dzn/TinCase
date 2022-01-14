@@ -83,4 +83,15 @@ module.exports = {
 
         res.json({ message: "덱을 좋아요 목록에서 제거했습니다." });
     }, "덱을 좋아요 목록에서 제거할 수 없습니다."),
+
+    favDeckList: handleAsyncException(async (req, res) => {
+        const { id } = req.user;
+        const { pageSize, page } = req.query;
+
+        const decks = await deckService.favDeckList(id, pageSize, page);
+
+        console.log(decks);
+
+        res.json(decks);
+    }, "좋아요 누른 덱 목록 조회 중 오류가 발생했습니다."),
 };

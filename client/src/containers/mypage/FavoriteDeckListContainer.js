@@ -2,12 +2,12 @@ import React from "react";
 import { BouncingArrow, DeckList } from "components";
 import { deckAPI, useDeckList } from "lib";
 
-const getDeckListAPI = async ({ pageSize, page }) => {
-    return deckAPI.getDeckList(pageSize, page);
+const getFavDeckListAPI = ({ pageSize, page }) => {
+    return deckAPI.getFavoriteDeckList(pageSize, page);
 };
 
-function DeckListContainer() {
-    const { deckList, onFetchMoreDecks } = useDeckList(getDeckListAPI);
+function FavoriteDeckListContainer() {
+    const { deckList, onFetchMoreDecks } = useDeckList(getFavDeckListAPI);
 
     return (
         <>
@@ -19,4 +19,4 @@ function DeckListContainer() {
     );
 }
 
-export default DeckListContainer;
+export default FavoriteDeckListContainer;

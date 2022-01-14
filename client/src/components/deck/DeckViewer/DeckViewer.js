@@ -1,18 +1,18 @@
 import React from "react";
 import cx from "classnames";
 import { SimpleArrowButton } from "components";
-import { CardContainer } from "containers";
-import CardList from "./CardList";
+import { CardContainer, CardListContainer } from "containers";
 import "./DeckViewer.scss";
 
 function DeckViewer({
     currentCardId,
     deck,
     cards,
+    isOwned,
+    currentUser,
     onClickPrevCard,
     onClickNextCard,
     onClickCardItem,
-    onToggleLiked,
     className,
     ...rest
 }) {
@@ -35,11 +35,12 @@ function DeckViewer({
                 )}
             </div>
             <div className="card-list-pane">
-                <CardList
+                <CardListContainer
                     deck={deck}
                     cards={cards}
+                    isOwned={isOwned}
+                    currentUser={currentUser}
                     onClickCardItem={onClickCardItem}
-                    onToggleLiked={onToggleLiked}
                 />
             </div>
         </div>
