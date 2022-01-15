@@ -7,6 +7,9 @@
 
     $card-item__flag__width: $unit;
 
+    $card-item__delete-card__color: $color-gray;
+    $card-item__delete-card__color-hover: $color-red;
+
     @include flex(flex-start);
     @include transition(background, 0.25s);
 
@@ -18,12 +21,23 @@
         background: rgba($color-highlight, 0.1);
     }
 
+    &.new {
+        .text {
+            @include flex(center, center);
+            width: 100%;
+        }
+
+        &:hover {
+            background: rgba($color-light-gray, 0.2);
+        }
+    }
+
     .flag {
         background: $color-highlight;
         width: $card-item__flag__width;
     }
 
-    & .icon {
+    .icon {
         @include flex(center, center);
 
         width: $card-item__height;
@@ -48,19 +62,17 @@
         }
     }
 
-    & .text {
+    .text {
         @include flex(flex-start, center);
         flex: 1;
     }
 
-    &.new {
-        .text {
-            @include flex(center, center);
-            width: 100%;
-        }
+    .delete-card {
+        color: $card-item__delete-card__color;
+        padding: rem(12px);
 
         &:hover {
-            background: rgba($color-light-gray, 0.2);
+            color: $card-item__delete-card__color-hover;
         }
     }
 }

@@ -1,5 +1,5 @@
 import { CardList } from "components";
-import { deckAPI, useLoginNavigate } from "lib";
+import { cardAPI, deckAPI, useLoginNavigate } from "lib";
 import React, { useCallback } from "react";
 
 function CardListContainer({
@@ -31,6 +31,13 @@ function CardListContainer({
         }
     }, [deck]);
 
+    const handleClickDeleteCard = useCallback(async (cardId) => {
+        if (window.confirm("카드를 삭제하시겠습니까?")) {
+            const response = await cardAPI.deleteCard(cardId);
+            console.log("cardId: ", cardId, response);
+        }
+    }, []);
+
     return (
         <CardList
             deck={deck}
@@ -39,6 +46,7 @@ function CardListContainer({
             onToggleLiked={handleClickLiked}
             onClickCardItem={onClickCardItem}
             onClickDeleteDeck={handleClickDeleteDeck}
+            onClickDeleteCard={handleClickDeleteCard}
         />
     );
 }

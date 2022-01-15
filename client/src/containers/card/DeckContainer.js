@@ -1,5 +1,5 @@
-import React, { useCallback } from "react";
-import { currentUserState, deckAPI, useDeck, useLoginNavigate } from "lib";
+import React from "react";
+import { currentUserState, useDeck } from "lib";
 import { DeckViewer } from "components";
 import { useRecoilValue } from "recoil";
 
@@ -13,7 +13,6 @@ function DeckContainer({ deckId, cardId }) {
         onClickCardItem,
     } = useDeck(deckId, cardId);
     const me = useRecoilValue(currentUserState);
-    const { checkLoggedIn } = useLoginNavigate();
 
     const isOwned = me && deck && me.id === deck.userId;
 

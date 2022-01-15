@@ -12,6 +12,7 @@ function CardList({
     onToggleLiked,
     onClickCardItem,
     onClickDeleteDeck,
+    onClickDeleteCard,
 }) {
     const classnames = cx("card-list", className);
     const [liked, setLiked] = useState(deck.liked);
@@ -56,7 +57,9 @@ function CardList({
                             <CardListItem
                                 key={card.id}
                                 card={card}
+                                isOwned={isOwned}
                                 onClick={() => onClickCardItem(index)}
+                                onClickDeleteCard={onClickDeleteCard}
                             />
                         ))}
                 </ul>

@@ -1,13 +1,6 @@
 import React from "react";
 import "./CardListItem.scss";
 import cx from "classnames";
-import {
-    FaCheckSquare,
-    FaLayerGroup,
-    FaPen,
-    FaTag,
-    FaYoutube,
-} from "react-icons/fa";
 import { CARD } from "constants";
 import {
     BsFillFileCheckFill,
@@ -15,8 +8,15 @@ import {
     BsFillFileFontFill,
     BsFillFilePlayFill,
 } from "react-icons/bs";
+import { FaTrashAlt } from "react-icons/fa";
 
-function CardListItem({ className, card, ...rest }) {
+function CardListItem({
+    className,
+    card,
+    isOwned,
+    onClickDeleteCard,
+    ...rest
+}) {
     const classnames = cx(className, "card-list-item");
 
     if (card.type === "NEW") {
@@ -47,6 +47,14 @@ function CardListItem({ className, card, ...rest }) {
             <div className="flag"></div>
             <div className="icon">{TypeIcon}</div>
             <div className="text">{card.title}</div>
+            {isOwned && (
+                <button
+                    className="button delete-card"
+                    onClick={() => onClickDeleteCard(card.id)}
+                >
+                    <FaTrashAlt />
+                </button>
+            )}
         </li>
     );
 }
