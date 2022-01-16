@@ -1,52 +1,39 @@
-import {
-  Column,
-  Entity,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-import { DateAudit } from 'modules/common/dateAudit.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { DateAudit } from 'common';
 import { User } from 'modules/user/user.entity';
-
-export const CARD = {
-  TITLE: {
-    MAX_LENGTH: 50,
-  },
-};
-
-export enum CardType {
-  MEMO = 'MEMO',
-  TODO = 'TODO',
-  VIDEO_LINK = 'VIDEO_LINK',
-}
+import { CardType } from './card.constants';
 
 @Entity()
 export class Card extends DateAudit {
   @PrimaryGeneratedColumn()
-  id!: number;
+  id?: number;
 
-  @Column({
-    nullable: false,
-    length: CARD.TITLE.MAX_LENGTH,
-  })
-  title!: string;
+  @Column()
+  label!: string;
 
   @Column({
     type: 'enum',
     enum: CardType,
-    nullable: false,
   })
   type!: CardType;
 
   @Column({
-    nullable: false,
     default: false,
   })
   isPublic!: boolean;
 
-  @ManyToOne((type) => User, { nullable: false })
-  user!: User;
+  // Relations
+  @ManyToOne(() => User, { nullable: false })
+  user?: User;
 
-  // @OneToMany(() => CardInDeck, (cardInDeck) => cardInDeck.card)
-  // cardsInDeck!: CardInDeck[];
+  @Column()
+  userId?: number;
+
+  @Column({
+    nullable: true,
+  })
+  deckId?: number;
+
+  // @ManyToOne(() => Deck, (deck) => deck.cards)
+  // deck!: Deck;
 }

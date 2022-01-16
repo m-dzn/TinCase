@@ -2,12 +2,13 @@ import { Inject, Injectable, LoggerService } from '@nestjs/common';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Todo } from './todo.entity';
-import { TodoDTO } from './dto/todo.dto';
 import { Card } from 'modules/card';
 
+import { Todo } from './todo-card.entity';
+import { TodoDTO } from './dto';
+
 @Injectable()
-export class TodoService {
+export class TodoCardService {
   constructor(
     @Inject(WINSTON_MODULE_NEST_PROVIDER)
     private readonly logger: LoggerService,

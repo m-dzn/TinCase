@@ -1,30 +1,24 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { DateAudit } from 'common';
 import { Card } from 'modules/card';
-import { DateAudit } from 'modules/common';
 
-export const TODO = {
-  TEXT: {
-    MAX_LENGTH: 100,
-  },
-};
+import { TODO } from './todo-card.constants';
 
 @Entity()
 export class Todo extends DateAudit {
   @PrimaryGeneratedColumn()
-  id?: number;
+  card_id?: number;
 
   @Column({
-    nullable: false,
     length: TODO.TEXT.MAX_LENGTH,
   })
   text!: string;
 
   @Column({
-    nullable: false,
     default: false,
   })
   done?: boolean;
 
-  @ManyToOne((type) => Card, { nullable: false })
+  @ManyToOne(() => Card)
   card!: Card;
 }

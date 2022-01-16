@@ -3,14 +3,15 @@ import { utilities, WinstonModule } from 'nest-winston';
 import 'winston-daily-rotate-file';
 import * as dayjs from 'dayjs';
 import * as fs from 'fs';
+import * as path from 'path';
 
-const { errors, combine, ms, printf } = format;
+const { combine, label, ms, printf } = format;
 
 // 로그 출력 포맷 설정
 const timeStamp = () => dayjs().format('YYYY-MM-DD HH:mm:ss');
 
-const logFormat = printf(({ level, message }) => {
-  return `${timeStamp()} ${level} : ${message}`;
+const logFormat = printf(({ level, context, message, stack }) => {
+  return `${timeStamp()}  [${level}] : ${stack ? stack : message} (${context})`;
 });
 
 // 로그 파일 저장
@@ -36,28 +37,28 @@ const dailyRotateFileOptions = {
 };
 
 const infoTransport = new transports.DailyRotateFile({
+  ...dailyRotateFileOptions,
   level: 'info',
   dirname: logDir + '/info',
   filename: 'TinCase-%DATE%.log',
-  ...dailyRotateFileOptions,
 });
 
 const warnTransport = new transports.DailyRotateFile({
+  ...dailyRotateFileOptions,
   level: 'warn',
   dirname: logDir + '/warn',
   filename: 'TinCase-%DATE%.warn.log',
-  ...dailyRotateFileOptions,
 });
 
 const errorTransport = new transports.DailyRotateFile({
+  ...dailyRotateFileOptions,
   level: 'error',
   dirname: logDir + '/error',
   filename: 'TinCase-%DATE%.error.log',
   handleExceptions: true,
-  ...dailyRotateFileOptions,
 });
 
 export const CustomWinstonModule = WinstonModule.forRoot({
-  format: combine(logFormat, errors({ stack: true }), ms()),
+  format: combine(logFormat, ms()),
   transports: [infoTransport, warnTransport, errorTransport, consoleTransport],
 });

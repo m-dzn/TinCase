@@ -1,24 +1,16 @@
 import { HttpStatus } from '@nestjs/common';
-import { JSONPayload } from 'types';
+import { JSONPayload } from 'common';
 
 // Response Payloads
-export const handleSuccess = ({
-  status = HttpStatus.OK,
-  message,
-  data,
-}: JSONPayload) => {
+export const handleSuccess = ({ message, data }: JSONPayload) => {
   return {
-    status,
     message,
     data,
   };
 };
 
-export const handleFailed = ({
-  status = HttpStatus.NOT_FOUND,
-  message,
-}: JSONPayload) => {
-  return { status, message };
+export const handleFailed = ({ message }: JSONPayload) => {
+  return { message };
 };
 
 // URL

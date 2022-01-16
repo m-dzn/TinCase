@@ -1,5 +1,6 @@
 import { UserModule } from './user';
+import { DeckModule } from './deck';
 import { CardModule } from './card';
-import { TodoModule } from './todo';
+import { TodoCardModule } from './todo-card';
 
-export const modules = [UserModule, CardModule, TodoModule];
+export const modules = [UserModule, DeckModule, CardModule, TodoCardModule];

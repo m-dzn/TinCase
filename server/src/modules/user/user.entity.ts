@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-import { DateAudit } from 'modules/common/dateAudit.entity';
+import { DateAudit } from 'common';
 import { USER, SNSProvider } from './user.constants';
 
 @Entity()
@@ -8,26 +8,26 @@ export class User extends DateAudit {
   id!: number;
 
   @Column({
-    nullable: false,
     unique: true,
     length: USER.EMAIL.MAX_LENGTH,
   })
   email!: string;
 
   @Column({
-    nullable: false,
     length: USER.NICKNAME.MAX_LENGTH,
   })
   nickname!: string;
 
   @Column({
     length: USER.PASSWORD.MAX_LENGTH,
+    nullable: true,
     select: false,
   })
   password?: string;
 
   @Column({
     length: USER.AVATAR.MAX_LENGTH,
+    nullable: true,
   })
   avatar?: string;
 
@@ -40,6 +40,7 @@ export class User extends DateAudit {
 
   @Column({
     length: USER.SNS_ID.MAX_LENGTH,
+    nullable: true,
   })
   snsId?: string;
 }

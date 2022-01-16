@@ -24,8 +24,6 @@ export class TypeOrmService implements TypeOrmOptionsFactory {
       charset: 'utf8mb4_unicode_ci',
     };
 
-    this.logger.log(options);
-
     createConnection(options)
       .then(() => {
         this.logger.log(`☁️  Database connected`, 'TypeORM', false);

@@ -1,1 +1,2 @@
-export * from './card.dto';
+export * from './card-request.dto';
+export * from './card-details.dto';
