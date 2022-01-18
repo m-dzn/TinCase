@@ -1,4 +1,4 @@
-export const MEMO = {
+export const MEMO_CARD = {
   MEMO: {
     MAX_LENGTH: 1000,
   },

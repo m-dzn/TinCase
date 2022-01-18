@@ -12,16 +12,16 @@ import { DeckRequest } from './dto';
 import { DeckService } from './deck.service';
 import { COMMON_URL, handleSuccess } from 'common';
 
-@Controller('decks')
+@Controller(COMMON_URL.API.DECK)
 export class DeckController {
   constructor(private readonly deckService: DeckService) {}
 
   @Post()
-  public async create(@Body() deckDTO: DeckRequest) {
+  public async create(@Body() deckDto: DeckRequest) {
     const user = {
       id: 1,
     };
-    await this.deckService.create(deckDTO, user.id);
+    await this.deckService.create(deckDto, user.id);
 
     return handleSuccess({
       message: '덱이 생성되었습니다.',
@@ -41,9 +41,9 @@ export class DeckController {
   @Patch(COMMON_URL.ID_PARAM)
   public async update(
     @Param(COMMON_URL.ID_PARAM) deckId: number,
-    @Body() deckDTO: DeckRequest,
+    @Body() deckDto: DeckRequest,
   ) {
-    await this.deckService.update(deckId, deckDTO);
+    await this.deckService.update(deckId, deckDto);
 
     return handleSuccess({
       message: '덱 정보가 수정되었습니다.',

@@ -3,7 +3,7 @@ import { QueryRunner } from 'typeorm';
 export const useTransaction = async (
   queryRunner: QueryRunner,
   fn: () => Promise<void>,
-  errFn: (err) => Promise<void>,
+  errFn?: (err) => Promise<void>,
 ) => {
   try {
     await queryRunner.startTransaction();

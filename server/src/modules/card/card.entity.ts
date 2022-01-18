@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { DateAudit } from 'common';
-import { User } from 'modules/user/user.entity';
+import { User } from 'modules/user';
 import { CardType } from './card.constants';
 
 @Entity()

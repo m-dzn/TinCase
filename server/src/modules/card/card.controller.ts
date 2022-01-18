@@ -17,27 +17,29 @@ import { CardTypeService } from './interfaces';
 
 import { MemoCardService } from 'modules/memo-card';
 import { TodoCardService } from 'modules/todo-card';
+import { VideoCardService } from 'modules/video-card';
 
-@Controller('cards')
+@Controller(COMMON_URL.API.CARD)
 export class CardController {
   constructor(
     private readonly cardService: CardService,
     private readonly memoCardService: MemoCardService,
     private readonly todoCardService: TodoCardService,
+    private readonly videoCardService: VideoCardService,
   ) {}
 
   // 카드 생성
   @Post()
-  public async create(@Body() cardDTO: CardRequest) {
+  public async create(@Body() cardDto: CardRequest) {
     const user = {
       id: 1,
     };
 
     const cardTypeService: CardTypeService = this.getCardTypeService(
-      cardDTO.type,
+      cardDto.type,
     );
 
-    await cardTypeService.create(cardDTO, user.id);
+    await cardTypeService.create(cardDto, user.id);
 
     return handleSuccess({
       message: '카드가 생성되었습니다.',
@@ -52,6 +54,9 @@ export class CardController {
 
     const card = await this.cardService.read(cardId, user.id);
 
+    // 조인 상속 전략
+    // 1. 카드 타입에 맞는 테이블의 Service를 가져옵니다.
+    // 2. 유형별 추가 정보를 DB에서 가져와 DTO에 담은 후 돌려받습니다.
     const cardTypeService = this.getCardTypeService(card.type);
     const responseData = await cardTypeService.read(card);
 
@@ -64,14 +69,14 @@ export class CardController {
   @Patch(`:${COMMON_URL.ID_PARAM}`)
   public async update(
     @Param(COMMON_URL.ID_PARAM) cardId: number,
-    @Body() cardDTO: CardRequest,
+    @Body() cardDto: CardRequest,
   ) {
     const user = {
       id: 1,
     };
 
-    const cardTypeService = this.getCardTypeService(cardDTO.type);
-    await cardTypeService.update(cardId, cardDTO, user.id);
+    const cardTypeService = this.getCardTypeService(cardDto.type);
+    await cardTypeService.update(cardId, cardDto, user.id);
 
     return handleSuccess({
       message: '카드 정보가 수정되었습니다.',
@@ -101,8 +106,10 @@ export class CardController {
     switch (cardType) {
       case CardType.MEMO:
         return this.memoCardService;
-      // case CardType.TODO:
-      //   return this.todoCardService;
+      case CardType.TODO:
+        return this.todoCardService;
+      case CardType.VIDEO:
+        return this.videoCardService;
       default:
         throw new HttpException(
           '잘못된 유형의 카드입니다.',

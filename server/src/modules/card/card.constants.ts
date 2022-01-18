@@ -7,5 +7,5 @@ export const CARD = {
 export enum CardType {
   MEMO = 'MEMO',
   TODO = 'TODO',
-  VIDEO_LINK = 'VIDEO_LINK',
+  VIDEO = 'VIDEO',
 }

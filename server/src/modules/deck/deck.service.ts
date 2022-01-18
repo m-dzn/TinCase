@@ -5,12 +5,10 @@ import {
   Inject,
   LoggerService,
 } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'modules/user';
+import { UserRepository } from 'modules/user';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
-import { Repository } from 'typeorm';
-import { Deck } from './entities';
 import { DeckRequest, DeckResponse } from './dto';
+import { DeckRepository } from 'modules/deck';
 
 @Injectable()
 export class DeckService {
@@ -18,14 +16,12 @@ export class DeckService {
     @Inject(WINSTON_MODULE_NEST_PROVIDER)
     private readonly logger: LoggerService,
 
-    @InjectRepository(Deck)
-    private readonly deckRepository: Repository<Deck>,
+    private readonly deckRepository: DeckRepository,
 
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
+    private readonly userRepository: UserRepository,
   ) {}
 
-  public async create(deckDTO: DeckRequest, userId: number) {
+  public async create(deckDto: DeckRequest, userId: number) {
     const user = await this.userRepository.findOne(userId);
 
     if (!user) {
@@ -35,7 +31,7 @@ export class DeckService {
       );
     }
 
-    const newDeck = DeckRequest.toDeck(deckDTO, user);
+    const newDeck = DeckRequest.toDeck(deckDto, user);
     await this.deckRepository.save(newDeck);
   }
 
@@ -49,8 +45,8 @@ export class DeckService {
     return DeckResponse.of(deck);
   }
 
-  public async update(deckId: number, deckDTO: DeckRequest) {
-    const result = await this.deckRepository.update(deckId, deckDTO);
+  public async update(deckId: number, deckDto: DeckRequest) {
+    const result = await this.deckRepository.update(deckId, deckDto);
 
     if (!result.affected) {
       throw new HttpException('덱을 찾을 수 없습니다.', HttpStatus.NOT_FOUND);

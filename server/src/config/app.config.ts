@@ -1,3 +1,3 @@
 export const APP = {
-  GLOBAL_PREFIX: '/api/v1',
+  GLOBAL_PREFIX: `/api/v1`,
 };

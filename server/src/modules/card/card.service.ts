@@ -1,7 +1,12 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'modules/user';
 import { Repository } from 'typeorm';
+import {
+  isOwned,
+  validateCardRequest,
+  checkCondition,
+  checkExistance,
+} from 'common';
 import { Card } from './card.entity';
 
 @Injectable()
@@ -9,43 +14,32 @@ export class CardService {
   constructor(
     @InjectRepository(Card)
     private readonly cardRepository: Repository<Card>,
-
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
   ) {}
 
   public async read(cardId: number, userId: number) {
     const card = await this.cardRepository.findOne(cardId);
 
-    if (!card) {
-      throw new HttpException('카드를 찾을 수 없습니다.', HttpStatus.NOT_FOUND);
-    }
-
-    if (card.userId) {
-    }
+    validateCardRequest(card, userId);
 
     return card;
   }
 
   public async delete(cardId: number, userId: number) {
-    const card = await this.cardRepository.findOneOrFail(cardId);
+    const card = await this.cardRepository.findOne(cardId);
 
-    this.checkAuthorization(card.userId, userId);
+    checkExistance(card, '카드를 찾을 수 없습니다.');
+    isOwned(card.userId, userId);
 
     const result = await this.cardRepository.delete(cardId);
 
-    if (!result.affected) {
-      throw new HttpException('카드를 찾을 수 없습니다.', HttpStatus.NOT_FOUND);
-    }
+    checkCondition(
+      result.affected !== 0,
+      '카드 삭제 중 오류가 발생했습니다.',
+      HttpStatus.INTERNAL_SERVER_ERROR,
+    );
   }
 
   public async getList() {
     return this.cardRepository.find();
-  }
-
-  private checkAuthorization(ownerId: number, userId: number) {
-    if (ownerId !== userId) {
-      throw new HttpException('접근 권한이 없습니다.', HttpStatus.UNAUTHORIZED);
-    }
   }
 }

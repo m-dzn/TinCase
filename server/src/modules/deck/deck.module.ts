@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from 'modules/user';
+import { UserRepository } from 'modules/user';
 
-import { Deck } from './entities';
 import { DeckService } from './deck.service';
 import { DeckController } from './deck.controller';
+import { DeckRepository } from './deck.repository';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Deck, User])],
+  imports: [TypeOrmModule.forFeature([DeckRepository, UserRepository])],
   providers: [DeckService],
   controllers: [DeckController],
   exports: [DeckService],

@@ -1,15 +1,23 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Card } from 'modules/card';
+import { CardRepository } from 'modules/card';
 
-import { Todo } from './todo-card.entity';
 import { TodoCardService } from './todo-card.service';
-import { TodoController } from './todo-card.controller';
+import { TodoService } from './todo.service';
+import { TodoController } from './todo.controller';
+import { TodoCardRepository } from './todo-card.repository';
+import { TodoRepository } from './todo.repository';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Todo, Card])],
+  imports: [
+    TypeOrmModule.forFeature([
+      TodoCardRepository,
+      TodoRepository,
+      CardRepository,
+    ]),
+  ],
   controllers: [TodoController],
-  providers: [TodoCardService],
-  exports: [TodoCardService],
+  providers: [TodoCardService, TodoService],
+  exports: [TodoCardService, TodoService],
 })
 export class TodoCardModule {}

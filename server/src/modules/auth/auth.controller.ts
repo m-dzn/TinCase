@@ -45,7 +45,5 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
   ) {
     const user = req.user;
-
-    const { accessToken };
   }
 }

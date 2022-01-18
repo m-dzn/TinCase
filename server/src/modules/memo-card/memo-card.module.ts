@@ -1,14 +1,19 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MemoCardService } from './memo-card.service';
-import { MemoCardController } from './memo-card.controller';
-import { MemoCard } from './memo-card.entity';
-import { User } from 'modules/user';
-import { Card } from 'modules/card';
+import { MemoCardRepository } from './memo-card.repository';
+import { CardRepository } from 'modules/card';
+import { UserRepository } from 'modules/user';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([MemoCard, Card, User])],
-  controllers: [MemoCardController],
+  imports: [
+    TypeOrmModule.forFeature([
+      MemoCardRepository,
+      CardRepository,
+      UserRepository,
+    ]),
+  ],
+  controllers: [],
   providers: [MemoCardService],
   exports: [MemoCardService],
 })
