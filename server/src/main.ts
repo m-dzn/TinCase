@@ -10,7 +10,7 @@ async function bootstrap() {
     bufferLogs: true,
   });
 
-  app.use(cookieParser());
+  app.use(cookieParser(process.env.COOKIE_SECRET));
   app.enableCors({
     origin: process.env.CLIENT_BASE_URL,
     credentials: true,

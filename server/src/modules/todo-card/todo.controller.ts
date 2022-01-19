@@ -7,11 +7,11 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { COMMON_URL, handleSuccess, JSONPayload } from 'common';
+import { handleSuccess, JSONPayload } from 'common';
 import { TodoService } from './todo.service';
 import { TodoRequest, TodoDetails } from './dto';
 
-@Controller(COMMON_URL.API.TODO)
+@Controller('todos')
 export class TodoController {
   constructor(private readonly todoService: TodoService) {}
 
@@ -28,8 +28,8 @@ export class TodoController {
     });
   }
 
-  @Get(`:${COMMON_URL.ID_PARAM}`)
-  public async read(@Param(COMMON_URL.ID_PARAM) todoId: number) {
+  @Get(`:id`)
+  public async read(@Param('id') todoId: number) {
     const user = {
       id: 1,
     };
@@ -42,9 +42,9 @@ export class TodoController {
     });
   }
 
-  @Patch(`:${COMMON_URL.ID_PARAM}`)
+  @Patch(`:id`)
   public async update(
-    @Param(COMMON_URL.ID_PARAM) todoId: number,
+    @Param('id') todoId: number,
     @Body() todoDto: TodoRequest,
   ): Promise<JSONPayload> {
     const user = {
@@ -58,10 +58,8 @@ export class TodoController {
     });
   }
 
-  @Delete(`:${COMMON_URL.ID_PARAM}`)
-  public async delete(
-    @Param(COMMON_URL.ID_PARAM) todoId: number,
-  ): Promise<JSONPayload> {
+  @Delete(`:id`)
+  public async delete(@Param('id') todoId: number): Promise<JSONPayload> {
     const user = {
       id: 1,
     };

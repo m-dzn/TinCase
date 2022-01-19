@@ -1,7 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 import { DateAudit } from 'common';
 import { USER, SNSProvider } from './user.constants';
-import { RefreshToken } from 'modules/auth';
 
 @Entity()
 export class User extends DateAudit {
@@ -45,7 +44,9 @@ export class User extends DateAudit {
   })
   snsId?: string;
 
-  // Relations
-  @OneToOne(() => RefreshToken, (refreshToken) => refreshToken.user)
-  refreshToken: RefreshToken;
+  @Column({
+    nullable: true,
+    select: false,
+  })
+  refreshToken?: string;
 }

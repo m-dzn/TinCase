@@ -7,11 +7,10 @@ export class UserRepository extends Repository<User> {
     return this.findOne({ email }, options);
   }
 
-  validateUser(email: string) {
-    return this.createQueryBuilder()
-      .select('*')
-      .addSelect('password')
+  findUserWithPassword(email: string) {
+    return this.createQueryBuilder('user')
+      .addSelect('user.password', 'user_password')
       .where('email = :email', { email })
-      .getRawOne();
+      .getOne();
   }
 }

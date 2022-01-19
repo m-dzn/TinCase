@@ -6,21 +6,22 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 
 import { DeckRequest } from './dto';
 import { DeckService } from './deck.service';
-import { COMMON_URL, handleSuccess } from 'common';
+import { handleSuccess } from 'common';
+import { GetUser, JwtAuthGuard, JwtAuthOrGuestGuard } from 'modules/auth';
+import { User } from 'modules/user';
 
-@Controller(COMMON_URL.API.DECK)
+@Controller('decks')
 export class DeckController {
   constructor(private readonly deckService: DeckService) {}
 
   @Post()
-  public async create(@Body() deckDto: DeckRequest) {
-    const user = {
-      id: 1,
-    };
+  @UseGuards(JwtAuthGuard)
+  public async create(@Body() deckDto: DeckRequest, @GetUser() user: User) {
     await this.deckService.create(deckDto, user.id);
 
     return handleSuccess({
@@ -28,9 +29,10 @@ export class DeckController {
     });
   }
 
-  @Get(COMMON_URL.ID_PARAM)
-  public async read(@Param(COMMON_URL.ID_PARAM) deckId: number) {
-    const deck = await this.deckService.read(deckId);
+  @Get(':id')
+  @UseGuards(JwtAuthOrGuestGuard)
+  public async read(@Param('id') deckId: number, @GetUser() user: User) {
+    const deck = await this.deckService.read(deckId, user?.id);
 
     return handleSuccess({
       message: '덱 정보를 가져왔습니다.',
@@ -38,21 +40,24 @@ export class DeckController {
     });
   }
 
-  @Patch(COMMON_URL.ID_PARAM)
+  @Patch(':id')
+  @UseGuards(JwtAuthGuard)
   public async update(
-    @Param(COMMON_URL.ID_PARAM) deckId: number,
+    @Param('id') deckId: number,
     @Body() deckDto: DeckRequest,
+    @GetUser() user: User,
   ) {
-    await this.deckService.update(deckId, deckDto);
+    await this.deckService.update(deckId, deckDto, user.id);
 
     return handleSuccess({
       message: '덱 정보가 수정되었습니다.',
     });
   }
 
-  @Delete(COMMON_URL.ID_PARAM)
-  public async delete(@Param(COMMON_URL.ID_PARAM) deckId: number) {
-    await this.deckService.delete(deckId);
+  @Delete(':id')
+  @UseGuards(JwtAuthGuard)
+  public async delete(@Param('id') deckId: number, @GetUser() user: User) {
+    await this.deckService.delete(deckId, user.id);
   }
 
   @Get()
@@ -61,6 +66,27 @@ export class DeckController {
     return handleSuccess({
       message: '덱 목록을 가져왔습니다.',
       data: decks,
+    });
+  }
+
+  @Post(':id/favorite')
+  @UseGuards(JwtAuthGuard)
+  public async addFavDeck(@GetUser() user: User, @Param('id') deckId: number) {
+    await this.deckService.addFavDeck(deckId, user.id);
+    return handleSuccess({
+      message: '좋아하는 덱 목록에 추가되었습니다.',
+    });
+  }
+
+  @Delete(':id/favorite')
+  @UseGuards(JwtAuthGuard)
+  public async removeFavDeck(
+    @GetUser() user: User,
+    @Param('id') deckId: number,
+  ) {
+    await this.deckService.removeFavDeck(deckId, user.id);
+    return handleSuccess({
+      message: '좋아하는 덱 목록에서 제거되었습니다.',
     });
   }
 }

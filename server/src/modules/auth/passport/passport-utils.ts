@@ -1,4 +1,4 @@
 import { APP } from 'config';
 
 export const getOAuthCallbackUrl = (provider) =>
-  `${process.env.HOST}${APP.GLOBAL_PREFIX}/auth/${provider}/callback`;
+  `${APP.BASE_URL}${APP.GLOBAL_PREFIX}/auth/${provider}/callback`;

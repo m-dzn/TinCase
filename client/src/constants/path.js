@@ -1,6 +1,6 @@
 const getAPI = (path) => {
     return (subPath) => {
-        return `/v1${path || ""}${subPath || ""}`;
+        return `/api/v1${path || ""}${subPath || ""}`;
     };
 };
 const getAuthAPI = (path) => getAPI("/auth")(path);

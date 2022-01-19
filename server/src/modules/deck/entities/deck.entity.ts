@@ -38,10 +38,10 @@ export class Deck extends DateAudit {
 
   // Relations
   @ManyToOne(() => User)
-  user!: User;
+  user?: User;
 
   @Column()
-  userId?: number;
+  userId!: number;
 
   // @OneToMany(() => Card, (card) => card.deck)
   // cards?: Card[];

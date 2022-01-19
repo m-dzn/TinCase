@@ -11,7 +11,7 @@ export class KakaoStrategy extends PassportStrategy(Strategy) {
       clientID: process.env.KAKAO_REST_API_KEY,
       clientSecret: process.env.KAKAO_CLIENT_SECRET,
       callbackURL: getOAuthCallbackUrl('kakao'),
-      scope: ['email', 'profile'],
+      scope: ['profile_nickname', 'profile_image', 'account_email'],
     });
   }
 
@@ -21,7 +21,7 @@ export class KakaoStrategy extends PassportStrategy(Strategy) {
     profile: Profile,
     done,
   ): Promise<any> {
-    const { id, username, _json } = profile;
+    const { id, _json } = profile;
 
     if (!profile) {
       return null;

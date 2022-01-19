@@ -8,7 +8,10 @@ import {
 import { UserRepository } from 'modules/user';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import { DeckRequest, DeckResponse } from './dto';
-import { DeckRepository } from 'modules/deck';
+import { FavDeck } from './entities';
+import { DeckRepository } from './deck.repository';
+import { FavDeckRepository } from './fav-deck.repository';
+import { checkCondition, checkExistance, isOwned } from 'common';
 
 @Injectable()
 export class DeckService {
@@ -19,49 +22,66 @@ export class DeckService {
     private readonly deckRepository: DeckRepository,
 
     private readonly userRepository: UserRepository,
+
+    private readonly favDeckRepository: FavDeckRepository,
   ) {}
 
   public async create(deckDto: DeckRequest, userId: number) {
-    const user = await this.userRepository.findOne(userId);
-
-    if (!user) {
-      throw new HttpException(
-        '덱을 생성할 권한이 없습니다.',
-        HttpStatus.UNAUTHORIZED,
-      );
-    }
-
-    const newDeck = DeckRequest.toDeck(deckDto, user);
+    const newDeck = DeckRequest.toDeck(deckDto, userId);
     await this.deckRepository.save(newDeck);
   }
 
-  public async read(deckId: number) {
-    const deck = await this.deckRepository.findOne(deckId);
+  public async read(deckId: number, userId: number) {
+    const deck = await this.deckRepository.findOne(deckId, {
+      where: [{ isPublic: true }, { userId }],
+      relations: ['user'],
+    });
 
-    if (!deck) {
-      throw new HttpException('덱을 찾을 수 없습니다.', HttpStatus.NOT_FOUND);
-    }
+    checkExistance(deck, '덱을 찾을 수 없습니다.');
 
     return DeckResponse.of(deck);
   }
 
-  public async update(deckId: number, deckDto: DeckRequest) {
+  public async update(deckId: number, deckDto: DeckRequest, userId: number) {
+    const exDeck = await this.deckRepository.findOne(deckId);
+
+    checkExistance(exDeck, '덱을 찾을 수 없습니다.');
+    isOwned(userId, exDeck.userId);
+
     const result = await this.deckRepository.update(deckId, deckDto);
 
-    if (!result.affected) {
-      throw new HttpException('덱을 찾을 수 없습니다.', HttpStatus.NOT_FOUND);
-    }
+    checkCondition(result.affected !== 0, '덱 수정 중 오류가 발생했습니다.');
   }
 
-  public async delete(deckId: number) {
+  public async delete(deckId: number, userId: number) {
+    const deck = await this.deckRepository.findOne(deckId);
+
+    checkExistance(deck, '덱을 찾을 수 없습니다.');
+    isOwned(deck.userId, userId);
+
     const result = await this.deckRepository.delete(deckId);
 
-    if (!result.affected) {
-      throw new HttpException('덱을 찾을 수 없습니다.', HttpStatus.NOT_FOUND);
-    }
+    checkCondition(result.affected !== 0, '덱 제거 중 오류가 발생했습니다.');
   }
 
   public async getList() {
-    return this.deckRepository.find();
+    return this.deckRepository.find({
+      isPublic: true,
+    });
+  }
+
+  public async addFavDeck(deckId: number, userId: number) {
+    const newFavDeck: FavDeck = { deckId, userId };
+
+    await this.favDeckRepository.save(newFavDeck);
+  }
+
+  public async removeFavDeck(deckId: number, userId: number) {
+    const result = await this.favDeckRepository.delete({
+      deckId,
+      userId,
+    });
+
+    checkCondition(result.affected !== 0, '목록에서 찾을 수 없습니다.');
   }
 }

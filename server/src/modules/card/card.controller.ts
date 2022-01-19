@@ -9,7 +9,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { COMMON_URL, handleSuccess } from 'common';
+import { handleSuccess } from 'common';
 import { CardType } from './card.constants';
 import { CardService } from './card.service';
 import { CardRequest } from './dto';
@@ -19,7 +19,7 @@ import { MemoCardService } from 'modules/memo-card';
 import { TodoCardService } from 'modules/todo-card';
 import { VideoCardService } from 'modules/video-card';
 
-@Controller(COMMON_URL.API.CARD)
+@Controller('cards')
 export class CardController {
   constructor(
     private readonly cardService: CardService,
@@ -46,8 +46,8 @@ export class CardController {
     });
   }
 
-  @Get(`:${COMMON_URL.ID_PARAM}`)
-  public async read(@Param(COMMON_URL.ID_PARAM) cardId: number) {
+  @Get(`:id`)
+  public async read(@Param('id') cardId: number) {
     const user = {
       id: 1,
     };
@@ -66,9 +66,9 @@ export class CardController {
     });
   }
 
-  @Patch(`:${COMMON_URL.ID_PARAM}`)
+  @Patch(`:id`)
   public async update(
-    @Param(COMMON_URL.ID_PARAM) cardId: number,
+    @Param('id') cardId: number,
     @Body() cardDto: CardRequest,
   ) {
     const user = {
@@ -83,8 +83,8 @@ export class CardController {
     });
   }
 
-  @Delete(`:${COMMON_URL.ID_PARAM}`)
-  public async delete(@Param(COMMON_URL.ID_PARAM) deckId: number) {
+  @Delete(`:id`)
+  public async delete(@Param('id') deckId: number) {
     const user = {
       id: 1,
     };

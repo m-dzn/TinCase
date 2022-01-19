@@ -80,8 +80,6 @@ export class MemoCardService implements CardTypeService {
     // 카드 업데이트
     const card = MemoCardRequest.toCard(dto, userId);
     const memoCard: MemoCard = MemoCardRequest.toMemoCard(dto);
-    console.log(card);
-    console.log(memoCard);
 
     const queryRunner = this.connection.createQueryRunner();
 

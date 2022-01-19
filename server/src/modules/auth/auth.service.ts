@@ -44,10 +44,10 @@ export class AuthService {
 
   public async validateUser(email: string, password: string) {
     try {
-      const user = await this.userRepository.validateUser(email);
+      const user = await this.userRepository.findUserWithPassword(email);
 
       await this.verifyPassword(password, user.password);
-      user.password = null;
+      delete user.password;
 
       return user;
     } catch (err) {
