@@ -40,6 +40,8 @@ export class CardService {
   }
 
   public async getList() {
-    return this.cardRepository.find();
+    return this.cardRepository.find({
+      isPublic: true,
+    });
   }
 }

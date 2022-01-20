@@ -1,6 +1,8 @@
 import { User } from '../user.entity';
 
 export class UserSummary {
+  id: number;
+
   email: string;
 
   nickname: string;
@@ -12,6 +14,7 @@ export class UserSummary {
   updatedAt: Date;
 
   constructor(user: User) {
+    this.id = user.id;
     this.email = user.email;
     this.nickname = user.nickname;
     this.avatar = user.avatar;

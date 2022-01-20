@@ -15,7 +15,7 @@ import { handleSuccess } from 'common';
 import { GetUser, JwtAuthGuard, JwtAuthOrGuestGuard } from 'modules/auth';
 import { User } from 'modules/user';
 
-@Controller('decks')
+@Controller('/decks')
 export class DeckController {
   constructor(private readonly deckService: DeckService) {}
 
@@ -29,7 +29,7 @@ export class DeckController {
     });
   }
 
-  @Get(':id')
+  @Get('/:id')
   @UseGuards(JwtAuthOrGuestGuard)
   public async read(@Param('id') deckId: number, @GetUser() user: User) {
     const deck = await this.deckService.read(deckId, user?.id);
@@ -40,7 +40,7 @@ export class DeckController {
     });
   }
 
-  @Patch(':id')
+  @Patch('/:id')
   @UseGuards(JwtAuthGuard)
   public async update(
     @Param('id') deckId: number,
@@ -54,7 +54,7 @@ export class DeckController {
     });
   }
 
-  @Delete(':id')
+  @Delete('/:id')
   @UseGuards(JwtAuthGuard)
   public async delete(@Param('id') deckId: number, @GetUser() user: User) {
     await this.deckService.delete(deckId, user.id);
@@ -69,16 +69,46 @@ export class DeckController {
     });
   }
 
-  @Post(':id/favorite')
+  // 덱에 포함될 카드 관련
+  @Post('/:deckId/cards/:cardId')
+  @UseGuards(JwtAuthGuard)
+  public async addCardToDeck(
+    @Param('deckId') deckId: number,
+    @Param('cardId') cardId: number,
+    @GetUser() user: User,
+  ) {
+    await this.deckService.addCardToDeck(deckId, cardId, user.id);
+
+    return handleSuccess({
+      message: '카드가 덱에 추가되었습니다.',
+    });
+  }
+
+  @Delete('/:deckId/cards/:cardId')
+  @UseGuards(JwtAuthGuard)
+  public async removeCardFromDeck(
+    @Param('deckId') deckId: number,
+    @Param('cardId') cardId: number,
+    @GetUser() user: User,
+  ) {
+    await this.deckService.removeCardFromDeck(deckId, cardId, user.id);
+
+    return handleSuccess({
+      message: '카드가 덱에서 제거되었습니다.',
+    });
+  }
+
+  // 즐겨찾기 목록 관련
+  @Post('/:id/favorite')
   @UseGuards(JwtAuthGuard)
   public async addFavDeck(@GetUser() user: User, @Param('id') deckId: number) {
     await this.deckService.addFavDeck(deckId, user.id);
     return handleSuccess({
-      message: '좋아하는 덱 목록에 추가되었습니다.',
+      message: '즐겨찾기 목록에 덱이 추가되었습니다.',
     });
   }
 
-  @Delete(':id/favorite')
+  @Delete('/:id/favorite')
   @UseGuards(JwtAuthGuard)
   public async removeFavDeck(
     @GetUser() user: User,
@@ -86,7 +116,7 @@ export class DeckController {
   ) {
     await this.deckService.removeFavDeck(deckId, user.id);
     return handleSuccess({
-      message: '좋아하는 덱 목록에서 제거되었습니다.',
+      message: '즐겨찾기 목록에서 덱이 제거되었습니다.',
     });
   }
 }

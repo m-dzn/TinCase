@@ -21,7 +21,7 @@ function DeckCard({ className, deck, isLastItem, onFetchMoreDecks, ...rest }) {
     return (
         <div className={classnames} ref={isLastItem ? ref : null} {...rest}>
             <div className="info-panel">
-                <h6>{deck.title}</h6>
+                <h6>{deck.label}</h6>
             </div>
         </div>
     );

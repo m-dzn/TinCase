@@ -8,6 +8,7 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { handleSuccess } from 'common';
 import { CardType } from './card.constants';
@@ -18,8 +19,10 @@ import { CardTypeService } from './interfaces';
 import { MemoCardService } from 'modules/memo-card';
 import { TodoCardService } from 'modules/todo-card';
 import { VideoCardService } from 'modules/video-card';
+import { GetUser, JwtAuthGuard, JwtAuthOrGuestGuard } from 'modules/auth';
+import { User } from 'modules/user';
 
-@Controller('cards')
+@Controller('/cards')
 export class CardController {
   constructor(
     private readonly cardService: CardService,
@@ -30,11 +33,8 @@ export class CardController {
 
   // 카드 생성
   @Post()
-  public async create(@Body() cardDto: CardRequest) {
-    const user = {
-      id: 1,
-    };
-
+  @UseGuards(JwtAuthGuard)
+  public async create(@Body() cardDto: CardRequest, @GetUser() user: User) {
     const cardTypeService: CardTypeService = this.getCardTypeService(
       cardDto.type,
     );
@@ -46,12 +46,9 @@ export class CardController {
     });
   }
 
-  @Get(`:id`)
-  public async read(@Param('id') cardId: number) {
-    const user = {
-      id: 1,
-    };
-
+  @Get(`/:id`)
+  @UseGuards(JwtAuthOrGuestGuard)
+  public async read(@Param('id') cardId: number, @GetUser() user: User) {
     const card = await this.cardService.read(cardId, user.id);
 
     // 조인 상속 전략
@@ -66,15 +63,13 @@ export class CardController {
     });
   }
 
-  @Patch(`:id`)
+  @Patch(`/:id`)
+  @UseGuards(JwtAuthGuard)
   public async update(
     @Param('id') cardId: number,
     @Body() cardDto: CardRequest,
+    @GetUser() user: User,
   ) {
-    const user = {
-      id: 1,
-    };
-
     const cardTypeService = this.getCardTypeService(cardDto.type);
     await cardTypeService.update(cardId, cardDto, user.id);
 
@@ -83,13 +78,14 @@ export class CardController {
     });
   }
 
-  @Delete(`:id`)
-  public async delete(@Param('id') deckId: number) {
-    const user = {
-      id: 1,
-    };
-
+  @Delete(`/:id`)
+  @UseGuards(JwtAuthGuard)
+  public async delete(@Param('id') deckId: number, @GetUser() user: User) {
     await this.cardService.delete(deckId, user.id);
+
+    return handleSuccess({
+      message: '카드가 삭제되었습니다.',
+    });
   }
 
   @Get()

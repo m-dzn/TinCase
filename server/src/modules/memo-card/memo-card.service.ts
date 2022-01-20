@@ -15,7 +15,7 @@ import {
   validateCardTypeRequest,
 } from 'common';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
-import { MemoCardRepository } from 'modules/memo-card';
+import { MemoCardRepository } from './memo-card.repository';
 
 @Injectable()
 export class MemoCardService implements CardTypeService {
@@ -34,21 +34,27 @@ export class MemoCardService implements CardTypeService {
     const newCard = MemoCardRequest.toCard(dto, userId);
 
     const queryRunner = this.connection.createQueryRunner();
+    queryRunner.connect();
+
     await useTransaction(
       queryRunner,
       async () => {
-        const savedCard = await this.cardRepository.save(newCard, {
-          transaction: false,
-        });
+        const savedCard = await queryRunner.manager
+          .getCustomRepository(CardRepository)
+          .save(newCard, {
+            transaction: false,
+          });
 
         const memoCard: MemoCard = {
           cardId: savedCard.id,
           ...MemoCardRequest.toMemoCard(dto),
         };
 
-        await this.memoCardRepository.save(memoCard, {
-          transaction: false,
-        });
+        await queryRunner.manager
+          .getCustomRepository(MemoCardRepository)
+          .save(memoCard, {
+            transaction: false,
+          });
       },
       async (err) => {
         this.logger.error(err);
@@ -82,12 +88,17 @@ export class MemoCardService implements CardTypeService {
     const memoCard: MemoCard = MemoCardRequest.toMemoCard(dto);
 
     const queryRunner = this.connection.createQueryRunner();
+    queryRunner.connect();
 
     await useTransaction(
       queryRunner,
       async () => {
-        await this.cardRepository.update(cardId, card);
-        await this.memoCardRepository.update(cardId, memoCard);
+        await queryRunner.manager
+          .getCustomRepository(CardRepository)
+          .update(cardId, card);
+        await queryRunner.manager
+          .getCustomRepository(MemoCardRepository)
+          .update(cardId, memoCard);
       },
       async (err) => {
         this.logger.error(err);

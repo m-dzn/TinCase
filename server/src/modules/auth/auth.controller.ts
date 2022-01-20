@@ -26,7 +26,7 @@ import {
   NaverAuthGuard,
 } from 'modules/auth';
 
-@Controller('auth')
+@Controller('/auth')
 export class AuthController {
   constructor(
     @Inject(WINSTON_MODULE_NEST_PROVIDER)
@@ -35,7 +35,7 @@ export class AuthController {
     private readonly tokenService: TokenService,
   ) {}
 
-  @Post('join')
+  @Post('/join')
   public async join(@Body() joinRequest: JoinRequest) {
     await this.authService.join(joinRequest);
 
@@ -44,7 +44,7 @@ export class AuthController {
     });
   }
 
-  @Post('login')
+  @Post('/login')
   @UseGuards(LocalAuthGuard)
   public async login(
     @Req() req: RequestWithUser,
@@ -55,7 +55,7 @@ export class AuthController {
     return new UserSummary(user);
   }
 
-  @Post('logout')
+  @Post('/logout')
   @UseGuards(JwtAuthGuard)
   async logout(@Req() req, @Res() res) {
     const user: User = req.user;
@@ -68,7 +68,7 @@ export class AuthController {
       .json({ message: '로그아웃 되었습니다.' });
   }
 
-  @Get('refresh')
+  @Get('/refresh')
   @UseGuards(JwtRefreshAuthGuard)
   async refresh(@Req() req, @Res({ passthrough: true }) res) {
     const user: User = req.user;
@@ -81,13 +81,13 @@ export class AuthController {
     });
   }
 
-  @Get('kakao')
+  @Get('/kakao')
   @UseGuards(KakaoAuthGuard)
   async kakao() {
     // Passport : 카카오 아이디 로그인 서비스로 리다이렉트
   }
 
-  @Get('kakao/callback')
+  @Get('/kakao/callback')
   @UseGuards(KakaoAuthGuard)
   async kakaoCallback(
     @Req() req: RequestWithUser,
@@ -96,13 +96,13 @@ export class AuthController {
     return this.getUserWithJwtTokens(req, res);
   }
 
-  @Get('naver')
+  @Get('/naver')
   @UseGuards(NaverAuthGuard)
   async naver() {
     // Passport : 네이버 아이디 로그인 서비스로 리다이렉트
   }
 
-  @Get('naver/callback')
+  @Get('/naver/callback')
   @UseGuards(NaverAuthGuard)
   async naverCallback(
     @Req() req: RequestWithUser,

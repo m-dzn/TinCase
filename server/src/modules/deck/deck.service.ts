@@ -1,17 +1,13 @@
-import {
-  Injectable,
-  HttpException,
-  HttpStatus,
-  Inject,
-  LoggerService,
-} from '@nestjs/common';
-import { UserRepository } from 'modules/user';
+import { Injectable, Inject, LoggerService } from '@nestjs/common';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
+import { checkCondition, checkExistance, isOwned } from 'common';
+
 import { DeckRequest, DeckResponse } from './dto';
 import { FavDeck } from './entities';
 import { DeckRepository } from './deck.repository';
 import { FavDeckRepository } from './fav-deck.repository';
-import { checkCondition, checkExistance, isOwned } from 'common';
+import { CardInDeckRepository } from './card-in-deck.repository';
+import { CardRepository } from 'modules/card';
 
 @Injectable()
 export class DeckService {
@@ -21,7 +17,9 @@ export class DeckService {
 
     private readonly deckRepository: DeckRepository,
 
-    private readonly userRepository: UserRepository,
+    private readonly cardRepository: CardRepository,
+
+    private readonly cardInDeckRepository: CardInDeckRepository,
 
     private readonly favDeckRepository: FavDeckRepository,
   ) {}
@@ -70,10 +68,46 @@ export class DeckService {
     });
   }
 
+  public async addCardToDeck(deckId: number, cardId: number, userId: number) {
+    const deck = await this.deckRepository.findOne(deckId);
+
+    checkExistance(deck, '덱을 찾을 수 없습니다.');
+    isOwned(deck.userId, userId);
+
+    const card = await this.cardRepository.findOne(cardId, {
+      where: [{ isPublic: true }, { userId }],
+    });
+
+    checkExistance(card, '카드를 찾을 수 없습니다.');
+
+    await this.cardInDeckRepository.insert({ deckId, cardId });
+  }
+
+  public async removeCardFromDeck(
+    deckId: number,
+    cardId: number,
+    userId: number,
+  ) {
+    const deck = await this.deckRepository.findOne(deckId);
+
+    checkExistance(deck, '덱을 찾을 수 없습니다.');
+    isOwned(deck.userId, userId);
+
+    const result = await this.cardInDeckRepository.delete({ deckId, cardId });
+
+    checkCondition(result.affected !== 0, '덱에 없는 카드입니다.');
+  }
+
   public async addFavDeck(deckId: number, userId: number) {
+    const deck = await this.deckRepository.findOne(deckId, {
+      where: [{ isPublic: true }, { userId }],
+    });
+
+    checkExistance(deck, '덱을 찾을 수 없습니다.');
+
     const newFavDeck: FavDeck = { deckId, userId };
 
-    await this.favDeckRepository.save(newFavDeck);
+    await this.favDeckRepository.insert(newFavDeck);
   }
 
   public async removeFavDeck(deckId: number, userId: number) {
@@ -82,6 +116,9 @@ export class DeckService {
       userId,
     });
 
-    checkCondition(result.affected !== 0, '목록에서 찾을 수 없습니다.');
+    checkCondition(
+      result.affected !== 0,
+      '즐겨찾기 목록에서 덱을 찾을 수 없습니다.',
+    );
   }
 }

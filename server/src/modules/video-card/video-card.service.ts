@@ -45,22 +45,27 @@ export class VideoCardService implements CardTypeService {
     const newCard = VideoCardRequest.toCard(dto, userId);
 
     const queryRunner = this.connection.createQueryRunner();
+    queryRunner.connect();
 
     await useTransaction(
       queryRunner,
       async () => {
-        const savedCard = await this.cardRepository.save(newCard, {
-          transaction: false,
-        });
+        const savedCard = await queryRunner.manager
+          .getCustomRepository(CardRepository)
+          .save(newCard, {
+            transaction: false,
+          });
 
         const videoCard: VideoCard = {
           cardId: savedCard.id,
           ...VideoCardRequest.toVideoCard(dto),
         };
 
-        await this.videoCardRepository.save(videoCard, {
-          transaction: false,
-        });
+        await queryRunner.manager
+          .getCustomRepository(VideoCardRepository)
+          .save(videoCard, {
+            transaction: false,
+          });
       },
       async (err) => {
         this.logger.error(err);

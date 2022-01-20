@@ -10,6 +10,7 @@ import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import {
   checkCondition,
   checkExistance,
+  isOwned,
   validateCardTypeRequest,
 } from 'common';
 import { CardRepository, CardType } from 'modules/card';
@@ -53,6 +54,12 @@ export class TodoService {
 
     checkExistance(todo, 'Todo 아이템을 찾을 수 없습니다.');
 
+    const card = await this.cardRepository.findOne(todo.cardId);
+
+    if (!card.isPublic) {
+      isOwned(card.userId, userId);
+    }
+
     return new TodoDetails(todo);
   }
 
@@ -61,6 +68,10 @@ export class TodoService {
     dto: TodoRequest,
     userId: number,
   ): Promise<void> {
+    const card = await this.todoRepository.findOne(dto.cardId);
+
+    isOwned(card.id, userId);
+
     const todo = TodoRequest.toTodo(dto);
 
     const result = await this.todoRepository.update(todoId, todo);
@@ -69,6 +80,10 @@ export class TodoService {
   }
 
   public async delete(todoId: number, userId: number): Promise<void> {
+    const todo = await this.todoRepository.findTodoWithUserId(todoId);
+
+    isOwned(todo.userId, userId);
+
     const result = await this.todoRepository.delete(todoId);
 
     checkCondition(result.affected !== 0, 'Todo 아이템을 찾을 수 없습니다.');
