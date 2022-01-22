@@ -1,7 +1,0 @@
-@import "styles/utils";
-
-.login-form {
-    & .form-group {
-        @include flex-column();
-    }
-}
