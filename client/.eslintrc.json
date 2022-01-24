@@ -1,3 +1,9 @@
 {
-  "extends": "next/core-web-vitals"
+    "parser": "@typescript-eslint/parser",
+    "extends": [
+        "next/core-web-vitals",
+        "airbnb",
+        "airbnb-typescript",
+        "airbnb-typescript/react"
+    ]
 }
