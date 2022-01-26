@@ -1,9 +1,10 @@
-import { HTMLAttributes, memo, ReactNode } from 'react';
+import { HTMLAttributes, memo } from 'react';
 import styled from '@emotion/styled';
-import Header from './Header';
-import Footer from './Footer';
+import Header from '../Header';
+import Footer from '../Footer';
 import { style } from '@/styles';
 
+// Styled
 const Container = styled.div`
     min-height: 100vh;
     flex: 1;
@@ -19,8 +20,8 @@ const Container = styled.div`
     }
 `;
 
+// Components
 interface Props extends HTMLAttributes<HTMLDivElement> {}
-
 const Layout = ({ children, ...rest }: Props) => {
     return (
         <Container {...rest}>

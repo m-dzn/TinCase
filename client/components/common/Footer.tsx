@@ -1,12 +1,14 @@
 import { memo } from 'react';
 import styled from '@emotion/styled';
 import { style } from '@/styles';
-import { app } from '@/constants';
+import { strings } from '@/constants';
 
+// Tokens
 const innerStyle = {
     height: 6.4,
 };
 
+// Styled
 const Container = styled.footer`
     height: ${innerStyle.height}rem;
 
@@ -20,10 +22,11 @@ const InnerLayout = styled.div`
     margin: 0 auto;
 `;
 
+// Components
 const Footer = () => {
     return (
         <Container>
-            <InnerLayout>{app.copyright}</InnerLayout>
+            <InnerLayout>{strings.copyright}</InnerLayout>
         </Container>
     );
 };

@@ -1,2 +1,3 @@
 export { default as Layout } from './Layout';
-export { default as Seo } from './Seo';
+export { default as AuthLayout } from './AuthLayout';
+export { default as DeckLayout } from './DeckLayout';

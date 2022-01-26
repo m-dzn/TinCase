@@ -1,3 +1,4 @@
+const unit = 'rem';
 const remToPx = 10;
 
 const BREAKPOINT_NAME = {
@@ -28,8 +29,6 @@ const responsive = {
     } px)`,
 };
 
-const unit = 0.4;
-
 const fontSize = {
     h1: 4,
     h2: 3.2,
@@ -45,7 +44,17 @@ const fontSize = {
     xs: 1.3,
 };
 
-const color = {};
+const border = {
+    level1: 0.1,
+};
+
+const color = {
+    primary: '#02EEC9',
+    white: {
+        100: '#FFFFFF',
+    },
+    black: '#000000',
+};
 
 const shadow = {};
 
@@ -57,23 +66,10 @@ export const style = {
     responsive,
 
     fontSize,
-
     color,
+
+    border,
     shadow,
     space,
     common: {},
 };
-
-const globalTheme = {
-    color,
-    shadow,
-};
-
-export const lightTheme = {
-    ...globalTheme,
-    color: {
-        ...globalTheme.color,
-    },
-};
-
-export type Theme = typeof lightTheme;

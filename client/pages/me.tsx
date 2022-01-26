@@ -1,8 +1,12 @@
+import { Seo } from '@/components';
+import { strings } from '@/constants';
+
 const Me = () => {
     return (
-        <div>
+        <>
+            <Seo title={strings.seo.me.title} />
             <h1>Me</h1>
-        </div>
+        </>
     );
 };
 

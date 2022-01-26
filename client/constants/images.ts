@@ -1,3 +1,3 @@
 export default {
-    logo: 'vercel.svg',
+    logo: '/vercel.svg',
 };

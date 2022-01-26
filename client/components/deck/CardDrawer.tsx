@@ -1,49 +1,45 @@
-import { TransparentButton } from '@/components';
+import { memo } from 'react';
 import styled from '@emotion/styled';
-import { memo, useState } from 'react';
 import { IoIosArrowDropleftCircle } from 'react-icons/io';
+import { TransparentButton } from '@/components/common/button';
 
+// Tokens
 const innerStyle = {
     background: '#ddd',
-    width: `40rem`,
-    transition: 'right 0.45s',
+    width: 40,
+    transition: 'all 0.45s',
     cubicBezier: 'cubic-bezier(.6,.4,.3,.4)',
 };
 
 const transition = `transition: ${innerStyle.transition} ${innerStyle.cubicBezier}`;
 
-const Aside = styled.aside<{ isOpen: boolean }>`
+// Styled
+interface IsOpenProps {
+    isOpen?: boolean;
+}
+const Aside = styled.aside<IsOpenProps>`
     background: ${innerStyle.background};
-    position: fixed;
-    top: 0;
-    right: ${({ isOpen }) => (isOpen ? '-' + innerStyle.width : 0)};
-    width: ${innerStyle.width};
-    height: 100%;
+    width: ${({ isOpen }) => (isOpen ? 0 : innerStyle.width)}rem;
     ${transition}
 `;
 
-interface ToggleButtonProps {
-    isOpen?: boolean;
-}
-
-const ToggleButton = styled(TransparentButton)<ToggleButtonProps>`
-    position: fixed;
+const ToggleButton = styled(TransparentButton)<IsOpenProps>`
+    position: absolute;
     top: 50%;
-    right: ${({ isOpen }) => (isOpen ? 0 : innerStyle.width)};
+    right: ${({ isOpen }) => (isOpen ? 0 : innerStyle.width)}rem;
     transform: translate(0, -50%);
     ${transition}
 `;
 
-const CardDrawer = () => {
-    const [isOpen, setIsOpen] = useState(false);
-
+// Components
+interface Props extends IsOpenProps {
+    onClickToggleOpen: () => void;
+}
+const CardDrawer = ({ isOpen, onClickToggleOpen }: Props) => {
     return (
         <>
             <Aside isOpen={isOpen}></Aside>
-            <ToggleButton
-                isOpen={isOpen}
-                onClick={() => setIsOpen((prev) => !prev)}
-            >
+            <ToggleButton isOpen={isOpen} onClick={onClickToggleOpen}>
                 <IoIosArrowDropleftCircle />
             </ToggleButton>
         </>
